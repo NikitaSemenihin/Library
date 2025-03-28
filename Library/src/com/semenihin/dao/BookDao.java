@@ -1,36 +1,45 @@
 package com.semenihin.dao;
 
 import com.semenihin.entity.Book;
+import com.semenihin.entity.User;
 import com.semenihin.filReader.BookFileReader;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class BookDao{
+public class BookDao {
     List<Book> books;
     private static BookDao instance;
-    private BookFileReader bookFileReader = new BookFileReader();
+    private BookFileReader bookFileReader;
 
-    public static BookDao getInstance(){
-        if (instance == null){
+    public static BookDao getInstance() {
+        if (instance == null) {
             instance = new BookDao();
         }
         return instance;
     }
 
     private BookDao() {
-    }
-
-    public void initialize(){
+        this.bookFileReader = BookFileReader.getInstance();
         this.books = bookFileReader.readEntitiesFromFile();
     }
 
-    public void createBook(int id, String title, String author, int pages, int year) {
-        books.add(new Book(id, title, author, pages, year));
+    public void createBook(int id, String title, String author, int pages, int year, User user) {
+        books.add(new Book(id, title, author, pages, year, user));
     }
 
-    public void updateBooks() {
-        for (Book book : books){
+    public void printBooks() {
+        for (Book book : books) {
             System.out.println("\n\n" + book.toString());
+        }
+    }
+
+    public void updateBook(Book book) {
+        for (Book bookIter : books) {
+            if (bookIter.getId() == book.getId()) {
+                bookIter.update(book);
+                break;
+            }
         }
     }
 
@@ -39,6 +48,34 @@ public class BookDao{
     }
 
     public List<Book> getBooks() {
-        return books;
+        List<Book> bookCopy = new ArrayList<>(books);
+        return bookCopy;
+    }
+
+    public Book getBook(long bookId) {
+        for (Book book : books) {
+            if (book.getId() == bookId) {
+                return book.clone();
+            }
+        }
+        return null;
+    }
+
+    public void rentBook(long bookId, User user) {
+        for (Book book : books) {
+            if (book.getId() == bookId) {
+                book.setCurrentUser(user);
+                break;
+            }
+        }
+    }
+
+    public void returnBook(long bookId) {
+        for (Book book : books) {
+            if (book.getId() == bookId) {
+                book.setCurrentUser(null);
+                break;
+            }
+        }
     }
 }

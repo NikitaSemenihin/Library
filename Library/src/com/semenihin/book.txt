@@ -1,7 +1,7 @@
-1 "The Witcher Last Wish" "Andrzej Sapkowski" 384 1993
-2 "Harry Potter and Philosopher's Stone" "Joanne Rowling" 332 1997 3
-3 "Clean Architecture" "Robert Martin" 350 2017 1
-4 "Blood, Sweat and Pixels" "Jason Schreier" 352 2017 3
-5 "1984" "George Orwell" 328 1949
-6 "Brave New World" "Aldous Huxley" 311 1932
-7 "Dune" "Frank Herbert" 412 1962 2
+0 "The Witcher Last Wish" "Andrzej Sapkowski" 384 1993
+1 "Harry Potter and Philosopher's Stone" "Joanne Rowling" 332 1997 2
+2 "Clean Architecture" "Robert Martin" 350 2017 0
+3 "Blood, Sweat and Pixels" "Jason Schreier" 352 2017 2
+4 "1984" "George Orwell" 328 1949
+5 "Brave New World" "Aldous Huxley" 311 1932
+6 "Dune" "Frank Herbert" 412 1962 1

@@ -1,58 +1,24 @@
 package com.semenihin.services;
 
-import com.semenihin.dao.BookDao;
 import com.semenihin.entity.Book;
-import com.semenihin.validator.BookValidator;
+import com.semenihin.entity.User;
 
-public class BookService{
-    private BookDao bookDao;
-    private BookValidator bookValidator = new BookValidator();
-    private static BookService instance;
+import java.util.List;
 
-    public static BookService getInstance(){
-        if (instance == null) {
-            instance = new BookService();
-        }
-        return instance;
-    }
+public interface BookService {
+    void createBook(int id, String title, String author, int pages, int year, User user);
 
-    private BookService(){
-        this.bookDao = BookDao.getInstance();
-    }
+    void updateBook(Book book);
 
-    public void createBook(int id, String title, String author, int pages, int year){
-        bookDao.createBook(id, title, author, pages, year);
+    List<Book> getBooks();
 
-    }
+    Book getBook(long id);
 
-    public void getBooks(){
-        bookDao.updateBooks();
-    }
+    void deleteBook(int id);
 
-    public Book getBook(int id){
-        for (Book book : bookDao.getBooks()){
-            if (book.getId() == id){
-                return book;
-            }
-        }
-        return null;
-    }
+    void printBooks();
 
-    public void deleteBook(int id){
-        for (Book book : bookDao.getBooks()){
-            if (book.getId() == id){
-                bookDao.delete(book);
-                break;
-            }
-        }
-    }
+    void rentBook(long bookId, User user);
 
-    public void rentBook(int bookId, int userId){
-        for (Book book : bookDao.getBooks()){
-            if (book.getId() == bookId){
-                book.setCurrentUserId(UserService.getInstance().getUser(userId).getId());
-                break;
-            }
-        }
-    }
+    void returnBook(long bookId);
 }
