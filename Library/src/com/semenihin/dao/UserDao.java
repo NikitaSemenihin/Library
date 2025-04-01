@@ -2,7 +2,7 @@ package com.semenihin.dao;
 
 import com.semenihin.entity.Book;
 import com.semenihin.entity.User;
-import com.semenihin.filReader.UserFileReader;
+import com.semenihin.filReader.impl.UserFileReader;
 
 import java.util.List;
 
@@ -36,10 +36,21 @@ public class UserDao {
     }
 
     public void returnBook(User user, Book book) {
-        for (User userIter : users) {
-            if (user.getId() == userIter.getId()) {
-                userIter.getRentedBook().remove(book);
+        for (User selectedUser : users) {
+            if (user.getId() == selectedUser.getId()) {
+                selectedUser.getRentedBook().remove(book);
                 break;
+            }
+        }
+    }
+
+    public void updateUser(User user){
+        for (User selectedUser : users) {
+            if (selectedUser.getId() == user.getId()) {
+                selectedUser.setEmail(user.getEmail());
+                selectedUser.setFullName(user.getFullName());
+                selectedUser.setPhoneNumber(user.getPhoneNumber());
+                selectedUser.setRentedBook(user.getRentedBook());
             }
         }
     }

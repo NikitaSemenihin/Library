@@ -1,6 +1,7 @@
-package com.semenihin.validator;
+package com.semenihin.validator.impl;
 
 import com.semenihin.entity.Book;
+import com.semenihin.validator.Validator;
 
 public class BookValidator implements Validator<Book> {
     @Override

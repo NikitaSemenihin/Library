@@ -1,10 +1,19 @@
-package com.semenihin.validator;
+package com.semenihin.validator.impl;
 
 import com.semenihin.dao.UserDao;
 import com.semenihin.entity.User;
+import com.semenihin.validator.Validator;
 
 public class UserValidator implements Validator<User> {
-    UserDao userDao = UserDao.getInstance();
+    private static UserValidator instance;
+    private final UserDao userDao = UserDao.getInstance();
+
+    public static UserValidator getInstance() {
+        if (instance == null){
+            
+        }
+        return instance;
+    }
 
     @Override
     public boolean validate(User user) {
@@ -33,8 +42,8 @@ public class UserValidator implements Validator<User> {
 
     @Override
     public boolean exist(User user) {
-        for (User userIter : userDao.getUsers()) {
-            if (userIter.equals(user)) {
+        for (User selectedUser : userDao.getUsers()) {
+            if (selectedUser.equals(user)) {
                 return true;
             }
         }
@@ -43,8 +52,8 @@ public class UserValidator implements Validator<User> {
 
     @Override
     public boolean exist(long objectId) {
-        for (User userIter : userDao.getUsers()) {
-            if (userIter.getId() == objectId) {
+        for (User selectedUser : userDao.getUsers()) {
+            if (selectedUser.getId() == objectId) {
                 return true;
             }
         }

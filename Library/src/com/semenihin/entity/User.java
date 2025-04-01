@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User implements Cloneable {
-    public String fullName;
-    public String email;
-    public String phoneNumber;
-    public long id;
-    public List<Book> rentedBook;
+    private String fullName;
+    private String email;
+    private String phoneNumber;
+    private final long id;
+    private List<Book> rentedBook;
 
     public User(long id, String fullName, String email, String phoneNumber) {
         this.fullName = fullName;
@@ -36,6 +36,22 @@ public class User implements Cloneable {
 
     public List<Book> getRentedBook() {
         return rentedBook;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setRentedBook(List<Book> rentedBook) {
+        this.rentedBook = rentedBook;
     }
 
     public void rentBook(Book book) {

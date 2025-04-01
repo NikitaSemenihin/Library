@@ -1,8 +1,8 @@
-package com.semenihin.filReader;
+package com.semenihin.filReader.impl;
 
-import com.semenihin.dao.BookDao;
 import com.semenihin.dao.UserDao;
 import com.semenihin.entity.Book;
+import com.semenihin.filReader.FileReaderInterface;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 public class BookFileReader implements FileReaderInterface<Book> {
     private static BookFileReader instance;
     List<Book> books;
-    private final String filePath = "src/com/semenihin/book.txt";
+    private final String filePath = "resources/book.txt";
     private final Pattern pattern =
             Pattern.compile("(\\d+)\\s+\"([^\"]+)\"\\s+\"([^\"]+)\"\\s+(\\d+)\\s+(\\d+)(?:\\s+(\\d+))?");
 

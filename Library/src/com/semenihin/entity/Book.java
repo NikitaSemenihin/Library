@@ -1,7 +1,7 @@
 package com.semenihin.entity;
 
 public class Book implements Cloneable {
-    private long id;
+    private final long id;
     private String title;
     private String author;
     private int pages;
@@ -37,6 +37,22 @@ public class Book implements Cloneable {
         return id;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setPages(int pages) {
+        this.pages = pages;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
     public User getCurrentUser() {
         if (currentUser != null) {
             return currentUser.clone();
@@ -47,14 +63,6 @@ public class Book implements Cloneable {
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
-    }
-
-    public void update(Book book) {
-        this.title = book.getTitle();
-        this.author = book.getAuthor();
-        this.pages = book.getPages();
-        this.year = book.getYear();
-        this.currentUser = book.getCurrentUser();
     }
 
     @Override
