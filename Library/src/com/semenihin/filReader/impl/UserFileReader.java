@@ -2,6 +2,8 @@ package com.semenihin.filReader.impl;
 
 import com.semenihin.entity.User;
 import com.semenihin.filReader.FileReaderInterface;
+import com.semenihin.mapper.Mapper;
+import com.semenihin.mapper.impl.UserMapper;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -13,10 +15,10 @@ import java.util.regex.Pattern;
 
 public class UserFileReader implements FileReaderInterface<User> {
     private static UserFileReader instance;
-    List<User> users;
+    private List<User> users;
+    private Mapper<User> mapper;
     private final String filePath = "resources/user.txt";
-    private final Pattern userRegEx =
-            Pattern.compile("(\\d+)\\s+\"([^\"]+)\"\\s+([\\w.%-]+@[\\w.-]+\\.[a-zA-Z]{2,})\\s+([+\\d()\\s-]+)");
+
 
     public static UserFileReader getInstance(){
         if (instance == null) {
@@ -27,20 +29,16 @@ public class UserFileReader implements FileReaderInterface<User> {
 
     private UserFileReader(){
         this.users = new ArrayList<>();
+        this.mapper = new UserMapper();
     }
 
     @Override
     public List<User> readEntitiesFromFile() {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                Matcher matcher = userRegEx.matcher(line);
-                if (matcher.matches()) {
-                    users.add(new User(Integer.parseInt(matcher.group(1)), matcher.group(2),
-                            matcher.group(3), matcher.group(4)));
-                } else {
-                    System.out.println("Error on string: " + line);
-                }
+            String line = bufferedReader.readLine();
+            while (line != null) {
+                mapper.map(line, users);
+                line = bufferedReader.readLine();
             }
 
         } catch (IOException e) {

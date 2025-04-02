@@ -10,10 +10,12 @@ public class UserValidator implements Validator<User> {
 
     public static UserValidator getInstance() {
         if (instance == null){
-            
+            return new UserValidator();
         }
         return instance;
     }
+
+    private UserValidator(){}
 
     @Override
     public boolean validate(User user) {
@@ -38,25 +40,5 @@ public class UserValidator implements Validator<User> {
             System.out.println("User Id < 0");
             return false;
         }
-    }
-
-    @Override
-    public boolean exist(User user) {
-        for (User selectedUser : userDao.getUsers()) {
-            if (selectedUser.equals(user)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean exist(long objectId) {
-        for (User selectedUser : userDao.getUsers()) {
-            if (selectedUser.getId() == objectId) {
-                return true;
-            }
-        }
-        return false;
     }
 }

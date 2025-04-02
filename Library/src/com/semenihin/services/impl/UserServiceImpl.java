@@ -13,7 +13,6 @@ public class UserServiceImpl implements UserService {
     private static UserServiceImpl instance;
     private final BookServiceImpl bookService;
     private final Validator<User> userValidator;
-    private final Validator<Book> bookValidator;
 
 
     public static UserServiceImpl getInstance() {
@@ -24,46 +23,42 @@ public class UserServiceImpl implements UserService {
     }
 
     private UserServiceImpl() {
-        this.userValidator = new UserValidator();
+        this.userValidator = UserValidator.getInstance();
         this.userDao = UserDao.getInstance();
         this.bookService = BookServiceImpl.getInstance();
-        this.bookValidator = new BookValidator();
     }
 
     @Override
-    public void createUser(long id, String fullName, String email, String phoneNumber) {
-        if (userValidator.validate(new User(id, fullName, email, phoneNumber))) {
-            if (userValidator.exist(new User(id, fullName, email, phoneNumber))) {
-                userDao.createUser(id, fullName, email, phoneNumber);
+    public void createUser(User user) {
+        if (userValidator.validate(user)) {
+            if (exist(user)) {
+                userDao.createUser(user);
             }
         }
     }
 
     @Override
-    public User getUser(long userid) {
-        for (User user : userDao.getUsers()) {
-            if (user.getId() == userid) {
-                return user;
-            }
-        }
-        return null;
+    public User getUser(long userId) {
+        return userDao.getUser(userId);
     }
 
     @Override
     public void printUsers() {
-        userDao.printUsers();
+        for (User user : userDao.getUsers()) {
+            System.out.println("\n\n" + user.toString());
+        }
     }
 
     @Override
     public void deleteUser(long userId) {
-        if (userValidator.exist(userId)) {
+        if (exist(userId)) {
             userDao.delete(userId);
         }
     }
 
     @Override
     public void rentBook(User user, Book book) {
-        if (userValidator.exist(user) && bookValidator.exist(book)) {
+        if (exist(user) && bookService.exist(book)) {
             bookService.rentBook(book.getId(), user);
             userDao.rentBook(user.getId(), book);
         }
@@ -71,9 +66,27 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void returnBook(User user, Book book) {
-        if (userValidator.exist(user) && bookValidator.exist(book)) {
+        if (exist(user) && bookService.exist(book)) {
             bookService.returnBook(book.getId());
             userDao.returnBook(user, book);
         }
+    }
+
+    public boolean exist(User user) {
+        for (User selectedUser : userDao.getUsers()) {
+            if (selectedUser.equals(user)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean exist(long objectId) {
+        for (User selectedUser : userDao.getUsers()) {
+            if (selectedUser.getId() == objectId) {
+                return true;
+            }
+        }
+        return false;
     }
 }

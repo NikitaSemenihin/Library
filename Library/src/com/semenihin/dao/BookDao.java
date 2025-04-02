@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookDao {
-    List<Book> books;
+    private List<Book> books;
     private static BookDao instance;
     private BookFileReader bookFileReader;
 
@@ -26,12 +26,6 @@ public class BookDao {
 
     public void createBook(int id, String title, String author, int pages, int year, User user) {
         books.add(new Book(id, title, author, pages, year, user));
-    }
-
-    public void printBooks() {
-        for (Book book : books) {
-            System.out.println("\n\n" + book.toString());
-        }
     }
 
     public void updateBook(Book book) {

@@ -2,6 +2,7 @@ package com.semenihin.dao;
 
 import com.semenihin.entity.Book;
 import com.semenihin.entity.User;
+import com.semenihin.filReader.FileReaderInterface;
 import com.semenihin.filReader.impl.UserFileReader;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
 public class UserDao {
     private List<User> users;
     private static UserDao instance;
-    UserFileReader userFileReader;
+    private final FileReaderInterface<User> userFileReader;
 
     public static UserDao getInstance() {
         if (instance == null) {
@@ -64,14 +65,8 @@ public class UserDao {
         return null;
     }
 
-    public void createUser(long id, String fullName, String email, String phoneNumber) {
-        this.users.add(new User(id, fullName, email, phoneNumber));
-    }
-
-    public void printUsers() {
-        for (User user : users) {
-            System.out.println("\n\n" + user.toString());
-        }
+    public void createUser(User user) {
+        this.users.add(user);
     }
 
     public void delete(long userId) {

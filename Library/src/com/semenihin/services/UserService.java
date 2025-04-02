@@ -4,7 +4,7 @@ import com.semenihin.entity.Book;
 import com.semenihin.entity.User;
 
 public interface UserService {
-    void createUser(long id, String fullName, String email, String phoneNumber);
+    void createUser(User user);
 
     User getUser(long userid);
 

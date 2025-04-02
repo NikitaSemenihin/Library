@@ -21,7 +21,7 @@ public class BookServiceImpl implements BookService {
     }
 
     private BookServiceImpl() {
-        this.bookValidator = new BookValidator();
+        this.bookValidator = BookValidator.getInstance();
         this.bookDao = BookDao.getInstance();
     }
 
@@ -71,15 +71,33 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void rentBook(long bookId, User user) {
-        if (bookValidator.exist(bookId)) {
+        if (exist(bookId)) {
             bookDao.rentBook(bookId, user);
         }
     }
 
     @Override
     public void returnBook(long bookId) {
-        if (bookValidator.exist(bookId)) {
+        if (exist(bookId)) {
             bookDao.returnBook(bookId);
         }
+    }
+
+    public boolean exist(Book book) {
+        for (Book selectedBook : bookDao.getBooks()) {
+            if (selectedBook.equals(book)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean exist(long bookId) {
+        for (Book selectedBook : bookDao.getBooks()) {
+            if (selectedBook.getId() == bookId) {
+                return true;
+            }
+        }
+        return false;
     }
 }
