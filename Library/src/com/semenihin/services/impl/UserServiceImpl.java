@@ -3,6 +3,9 @@ package com.semenihin.services.impl;
 import com.semenihin.dao.UserDao;
 import com.semenihin.entity.Book;
 import com.semenihin.entity.User;
+import com.semenihin.exceptions.DaoCrashException;
+import com.semenihin.exceptions.InvalidEntityException;
+import com.semenihin.exceptions.ServiceCrashExeption;
 import com.semenihin.services.UserService;
 import com.semenihin.validator.impl.BookValidator;
 import com.semenihin.validator.impl.UserValidator;
@@ -24,17 +27,23 @@ public class UserServiceImpl implements UserService {
 
     private UserServiceImpl() {
         this.userValidator = UserValidator.getInstance();
-        this.userDao = UserDao.getInstance();
+        try {
+            this.userDao = UserDao.getInstance();
+        } catch (DaoCrashException e) {
+            throw new ServiceCrashExeption(e);
+        }
         this.bookService = BookServiceImpl.getInstance();
     }
 
     @Override
-    public void createUser(User user) {
-        if (userValidator.validate(user)) {
-            if (exist(user)) {
-                userDao.createUser(user);
-            }
+    public void createUser(User user) throws InvalidEntityException {
+        if (!userValidator.validate(user)) {
+            throw new InvalidEntityException("Incorrect fields");
         }
+        if (!exist(user)) {
+            throw new InvalidEntityException("User already exist");
+        }
+        userDao.createUser(user);
     }
 
     @Override
@@ -51,25 +60,34 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(long userId) {
-        if (exist(userId)) {
-            userDao.delete(userId);
+        if (!exist(userId)) {
+            throw new InvalidEntityException("User not exist");
         }
+        userDao.delete(userId);
     }
 
     @Override
     public void rentBook(User user, Book book) {
-        if (exist(user) && bookService.exist(book)) {
-            bookService.rentBook(book.getId(), user);
-            userDao.rentBook(user.getId(), book);
+        if (!exist(user)) {
+            throw new InvalidEntityException("User not exist");
         }
+        if (!bookService.exist(book)){
+            throw new InvalidEntityException("Book not exist");
+        }
+        bookService.rentBook(book.getId(), user);
+        userDao.rentBook(user.getId(), book);
     }
 
     @Override
     public void returnBook(User user, Book book) {
-        if (exist(user) && bookService.exist(book)) {
-            bookService.returnBook(book.getId());
-            userDao.returnBook(user, book);
+        if (exist(user)) {
+            throw new InvalidEntityException("User not exist");
         }
+        if (bookService.exist(book)) {
+            throw new InvalidEntityException("Book not exist");
+        }
+        bookService.returnBook(book.getId());
+        userDao.returnBook(user, book);
     }
 
     public boolean exist(User user) {

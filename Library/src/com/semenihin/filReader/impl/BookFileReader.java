@@ -29,7 +29,7 @@ public class BookFileReader implements FileReaderInterface<Book> {
     }
 
     @Override
-    public List<Book> readEntitiesFromFile() {
+    public List<Book> readEntitiesFromFile() throws FileNotFoundException {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath))) {
             String line = bufferedReader.readLine();
             while (line != null) {

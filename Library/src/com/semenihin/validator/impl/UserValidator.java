@@ -6,7 +6,7 @@ import com.semenihin.validator.Validator;
 
 public class UserValidator implements Validator<User> {
     private static UserValidator instance;
-    private final UserDao userDao = UserDao.getInstance();
+    private final UserDao userDao;
 
     public static UserValidator getInstance() {
         if (instance == null){
@@ -15,30 +15,29 @@ public class UserValidator implements Validator<User> {
         return instance;
     }
 
-    private UserValidator(){}
+    private UserValidator(){
+        userDao = UserDao.getInstance();
+    }
 
     @Override
     public boolean validate(User user) {
-        if (user.getId() >= 0) {
-            if (user.getFullName() != null) {
-                if (user.getEmail() != null) {
-                    if (user.getPhoneNumber() != null) {
-                        return true;
-                    } else {
-                        System.out.println("User phone number doesn't exist");
-                        return false;
-                    }
-                } else {
-                    System.out.println("User email doesn't exist");
-                    return false;
-                }
-            } else {
-                System.out.println("User full name doesn't exist");
-                return false;
-            }
-        } else {
-            System.out.println("User Id < 0");
-            return false;
-        }
+        return validateUserId(user) && validateUserEmail(user) &&
+                validateUserFullName(user) && validateUserPhoneNumber(user);
+    }
+
+    private boolean validateUserId(User user){
+        return user.getId() >= 0;
+    }
+
+    private boolean validateUserFullName(User user){
+        return user.getFullName() != null;
+    }
+
+    private boolean validateUserEmail(User user) {
+        return user.getEmail() != null;
+    }
+
+    private boolean validateUserPhoneNumber(User user){
+        return user.getPhoneNumber() != null;
     }
 }

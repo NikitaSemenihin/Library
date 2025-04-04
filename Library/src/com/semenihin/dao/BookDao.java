@@ -2,8 +2,10 @@ package com.semenihin.dao;
 
 import com.semenihin.entity.Book;
 import com.semenihin.entity.User;
+import com.semenihin.exceptions.DaoCrashException;
 import com.semenihin.filReader.impl.BookFileReader;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,16 +14,20 @@ public class BookDao {
     private static BookDao instance;
     private BookFileReader bookFileReader;
 
-    public static BookDao getInstance() {
+    public static BookDao getInstance() throws DaoCrashException {
         if (instance == null) {
             instance = new BookDao();
         }
         return instance;
     }
 
-    private BookDao() {
+    private BookDao() throws DaoCrashException {
         this.bookFileReader = BookFileReader.getInstance();
-        this.books = bookFileReader.readEntitiesFromFile();
+        try {
+            this.books = bookFileReader.readEntitiesFromFile();
+        } catch (FileNotFoundException e) {
+            throw new DaoCrashException(e);
+        }
     }
 
     public void createBook(int id, String title, String author, int pages, int year, User user) {

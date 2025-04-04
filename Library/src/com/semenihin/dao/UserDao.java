@@ -2,9 +2,11 @@ package com.semenihin.dao;
 
 import com.semenihin.entity.Book;
 import com.semenihin.entity.User;
+import com.semenihin.exceptions.DaoCrashException;
 import com.semenihin.filReader.FileReaderInterface;
 import com.semenihin.filReader.impl.UserFileReader;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 public class UserDao {
@@ -21,7 +23,11 @@ public class UserDao {
 
     private UserDao() {
         this.userFileReader = UserFileReader.getInstance();
-        this.users = userFileReader.readEntitiesFromFile();
+        try {
+            this.users = userFileReader.readEntitiesFromFile();
+        } catch (FileNotFoundException e) {
+            throw new DaoCrashException(e);
+        }
     }
 
     public List<User> getUsers() {

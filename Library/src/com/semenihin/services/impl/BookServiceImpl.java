@@ -3,6 +3,8 @@ package com.semenihin.services.impl;
 import com.semenihin.dao.BookDao;
 import com.semenihin.entity.Book;
 import com.semenihin.entity.User;
+import com.semenihin.exceptions.DaoCrashException;
+import com.semenihin.exceptions.ServiceCrashExeption;
 import com.semenihin.services.BookService;
 import com.semenihin.validator.impl.BookValidator;
 
@@ -22,7 +24,12 @@ public class BookServiceImpl implements BookService {
 
     private BookServiceImpl() {
         this.bookValidator = BookValidator.getInstance();
-        this.bookDao = BookDao.getInstance();
+        try {
+            this.bookDao = BookDao.getInstance();
+        } catch (DaoCrashException e) {
+            throw new ServiceCrashExeption(e);
+        }
+
     }
 
     @Override
