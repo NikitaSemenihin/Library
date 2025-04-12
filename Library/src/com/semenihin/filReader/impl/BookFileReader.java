@@ -1,6 +1,5 @@
 package com.semenihin.filReader.impl;
 
-import com.semenihin.dao.UserDao;
 import com.semenihin.entity.Book;
 import com.semenihin.filReader.FileReaderInterface;
 import com.semenihin.mapper.Mapper;

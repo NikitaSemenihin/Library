@@ -1,18 +1,15 @@
 package com.semenihin.services.impl;
 
-import com.semenihin.dao.UserDao;
+import com.semenihin.dao.impl.UserDaoImpl;
 import com.semenihin.entity.Book;
 import com.semenihin.entity.User;
-import com.semenihin.exceptions.DaoCrashException;
 import com.semenihin.exceptions.InvalidEntityException;
-import com.semenihin.exceptions.ServiceCrashExeption;
 import com.semenihin.services.UserService;
-import com.semenihin.validator.impl.BookValidator;
 import com.semenihin.validator.impl.UserValidator;
 import com.semenihin.validator.Validator;
 
 public class UserServiceImpl implements UserService {
-    private final UserDao userDao;
+    private final UserDaoImpl userDao;
     private static UserServiceImpl instance;
     private final BookServiceImpl bookService;
     private final Validator<User> userValidator;
@@ -27,11 +24,7 @@ public class UserServiceImpl implements UserService {
 
     private UserServiceImpl() {
         this.userValidator = UserValidator.getInstance();
-        try {
-            this.userDao = UserDao.getInstance();
-        } catch (DaoCrashException e) {
-            throw new ServiceCrashExeption(e);
-        }
+        this.userDao = UserDaoImpl.getInstance();
         this.bookService = BookServiceImpl.getInstance();
     }
 
@@ -63,7 +56,7 @@ public class UserServiceImpl implements UserService {
         if (!exist(userId)) {
             throw new InvalidEntityException("User not exist");
         }
-        userDao.delete(userId);
+        userDao.deleteUser(userId);
     }
 
     @Override
@@ -99,9 +92,9 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
-    public boolean exist(long objectId) {
+    public boolean exist(long userId) {
         for (User selectedUser : userDao.getUsers()) {
-            if (selectedUser.getId() == objectId) {
+            if (selectedUser.getId() == userId) {
                 return true;
             }
         }

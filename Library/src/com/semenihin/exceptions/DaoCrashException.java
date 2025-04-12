@@ -2,7 +2,7 @@ package com.semenihin.exceptions;
 
 import java.io.FileNotFoundException;
 
-public class DaoCrashException extends Error {
+public class DaoCrashException extends RuntimeException {
     public DaoCrashException(String message) {
         super(message);
     }

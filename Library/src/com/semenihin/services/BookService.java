@@ -6,7 +6,7 @@ import com.semenihin.entity.User;
 import java.util.List;
 
 public interface BookService {
-    void createBook(int id, String title, String author, int pages, int year, User user);
+    void createBook(Book book);
 
     void updateBook(Book book);
 
@@ -21,4 +21,8 @@ public interface BookService {
     void rentBook(long bookId, User user);
 
     void returnBook(long bookId);
+
+    boolean exist(long bookId);
+
+    boolean exist(Book book);
 }

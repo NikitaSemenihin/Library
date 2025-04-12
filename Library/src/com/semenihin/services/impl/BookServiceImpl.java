@@ -1,17 +1,16 @@
 package com.semenihin.services.impl;
 
-import com.semenihin.dao.BookDao;
+import com.semenihin.dao.impl.BookDaoImpl;
 import com.semenihin.entity.Book;
 import com.semenihin.entity.User;
-import com.semenihin.exceptions.DaoCrashException;
-import com.semenihin.exceptions.ServiceCrashExeption;
+import com.semenihin.exceptions.InvalidEntityException;
 import com.semenihin.services.BookService;
 import com.semenihin.validator.impl.BookValidator;
 
 import java.util.List;
 
 public class BookServiceImpl implements BookService {
-    private final BookDao bookDao;
+    private final BookDaoImpl bookDao;
     private final BookValidator bookValidator;
     private static BookServiceImpl instance;
 
@@ -24,17 +23,12 @@ public class BookServiceImpl implements BookService {
 
     private BookServiceImpl() {
         this.bookValidator = BookValidator.getInstance();
-        try {
-            this.bookDao = BookDao.getInstance();
-        } catch (DaoCrashException e) {
-            throw new ServiceCrashExeption(e);
-        }
-
+        this.bookDao = BookDaoImpl.getInstance();
     }
 
     @Override
-    public void createBook(int id, String title, String author, int pages, int year, User user) {
-        bookDao.createBook(id, title, author, pages, year, user);
+    public void createBook(Book book) {
+        bookDao.createBook(book);
     }
 
     @Override
@@ -64,7 +58,6 @@ public class BookServiceImpl implements BookService {
         for (Book book : bookDao.getBooks()) {
             if (book.getId() == id) {
                 bookDao.delete(book);
-                break;
             }
         }
     }
@@ -81,12 +74,18 @@ public class BookServiceImpl implements BookService {
         if (exist(bookId)) {
             bookDao.rentBook(bookId, user);
         }
+        else {
+            throw new InvalidEntityException("Book not found");
+        }
     }
 
     @Override
     public void returnBook(long bookId) {
         if (exist(bookId)) {
             bookDao.returnBook(bookId);
+        }
+        else {
+            throw new InvalidEntityException("Book not found");
         }
     }
 

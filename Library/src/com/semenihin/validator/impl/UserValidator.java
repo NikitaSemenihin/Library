@@ -1,12 +1,12 @@
 package com.semenihin.validator.impl;
 
-import com.semenihin.dao.UserDao;
+import com.semenihin.dao.impl.UserDaoImpl;
 import com.semenihin.entity.User;
 import com.semenihin.validator.Validator;
 
 public class UserValidator implements Validator<User> {
     private static UserValidator instance;
-    private final UserDao userDao;
+    private final UserDaoImpl userDao;
 
     public static UserValidator getInstance() {
         if (instance == null){
@@ -16,7 +16,7 @@ public class UserValidator implements Validator<User> {
     }
 
     private UserValidator(){
-        userDao = UserDao.getInstance();
+        userDao = UserDaoImpl.getInstance();
     }
 
     @Override
