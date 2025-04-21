@@ -1,18 +1,22 @@
 package com.semenihin.services.impl;
 
+import com.semenihin.dao.UserDao;
 import com.semenihin.dao.impl.UserDaoImpl;
 import com.semenihin.entity.Book;
 import com.semenihin.entity.User;
 import com.semenihin.exceptions.InvalidEntityException;
+import com.semenihin.printer.Printer;
+import com.semenihin.printer.impl.UserPrinter;
 import com.semenihin.services.UserService;
 import com.semenihin.validator.impl.UserValidator;
 import com.semenihin.validator.Validator;
 
 public class UserServiceImpl implements UserService {
-    private final UserDaoImpl userDao;
+    private final UserDao userDao;
     private static UserServiceImpl instance;
     private final BookServiceImpl bookService;
     private final Validator<User> userValidator;
+    private final Printer<User> userPrinter;
 
 
     public static UserServiceImpl getInstance() {
@@ -26,6 +30,7 @@ public class UserServiceImpl implements UserService {
         this.userValidator = UserValidator.getInstance();
         this.userDao = UserDaoImpl.getInstance();
         this.bookService = BookServiceImpl.getInstance();
+        this.userPrinter = new UserPrinter();
     }
 
     @Override
@@ -47,7 +52,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void printUsers() {
         for (User user : userDao.getUsers()) {
-            System.out.println("\n\n" + user.toString());
+            userPrinter.print(user);
         }
     }
 

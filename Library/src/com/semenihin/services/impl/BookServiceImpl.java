@@ -1,17 +1,21 @@
 package com.semenihin.services.impl;
 
+import com.semenihin.dao.BookDao;
 import com.semenihin.dao.impl.BookDaoImpl;
 import com.semenihin.entity.Book;
 import com.semenihin.entity.User;
 import com.semenihin.exceptions.InvalidEntityException;
+import com.semenihin.printer.Printer;
+import com.semenihin.printer.impl.BookPrinter;
 import com.semenihin.services.BookService;
 import com.semenihin.validator.impl.BookValidator;
 
 import java.util.List;
 
 public class BookServiceImpl implements BookService {
-    private final BookDaoImpl bookDao;
+    private final BookDao bookDao;
     private final BookValidator bookValidator;
+    private final Printer<Book> bookPrinter;
     private static BookServiceImpl instance;
 
     public static BookServiceImpl getInstance() {
@@ -24,6 +28,7 @@ public class BookServiceImpl implements BookService {
     private BookServiceImpl() {
         this.bookValidator = BookValidator.getInstance();
         this.bookDao = BookDaoImpl.getInstance();
+        this.bookPrinter = new BookPrinter();
     }
 
     @Override
@@ -65,12 +70,12 @@ public class BookServiceImpl implements BookService {
     @Override
     public void printBooks() {
         for (Book book : bookDao.getBooks()) {
-            System.out.println("\n\n\n" + book);
+            bookPrinter.print(book);
         }
     }
 
     @Override
-    public void rentBook(long bookId, User user) {
+    public void rentBook(long bookId, User user) throws InvalidEntityException {
         if (exist(bookId)) {
             bookDao.rentBook(bookId, user);
         }
@@ -80,7 +85,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void returnBook(long bookId) {
+    public void returnBook(long bookId) throws InvalidEntityException {
         if (exist(bookId)) {
             bookDao.returnBook(bookId);
         }

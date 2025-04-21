@@ -1,13 +1,14 @@
 package com.semenihin.validator.impl;
 
 import com.semenihin.dao.impl.BookDaoImpl;
+import com.semenihin.dao.BookDao;
 import com.semenihin.entity.Book;
 import com.semenihin.entity.User;
 import com.semenihin.validator.Validator;
 
 public class BookValidator implements Validator<Book> {
     private static BookValidator instance;
-    private final BookDaoImpl bookDao;
+    private final BookDao bookDao;
 
     public static BookValidator getInstance() {
         if (instance == null) {
