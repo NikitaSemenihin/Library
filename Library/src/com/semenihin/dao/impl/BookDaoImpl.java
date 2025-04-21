@@ -52,8 +52,7 @@ public class BookDaoImpl implements BookDao {
     }
 
     public List<Book> getBooks() {
-        List<Book> bookCopy = new ArrayList<>(books);
-        return bookCopy;
+        return new ArrayList<>(books);
     }
 
     public Book getBook(long bookId) {

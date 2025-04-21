@@ -8,6 +8,7 @@ import com.semenihin.mapper.impl.BookMapper;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class BookFileReader implements FileReaderInterface<Book> {
     private static BookFileReader instance;
@@ -31,7 +32,7 @@ public class BookFileReader implements FileReaderInterface<Book> {
     public List<Book> readEntitiesFromFile() throws FileNotFoundException {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath))) {
             String line = bufferedReader.readLine();
-            while (line != null) {
+            while (line != null & !Objects.equals(line, "\n")) {
                 mapper.map(line, books);
                 line = bufferedReader.readLine();
             }

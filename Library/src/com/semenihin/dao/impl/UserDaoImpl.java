@@ -8,6 +8,7 @@ import com.semenihin.filReader.FileReaderInterface;
 import com.semenihin.filReader.impl.UserFileReader;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoImpl implements UserDao {
@@ -32,7 +33,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     public List<User> getUsers() {
-        return users;
+        return new ArrayList<>(users);
     }
 
     public void rentBook(long userId, Book book) {

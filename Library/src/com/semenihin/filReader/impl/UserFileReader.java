@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,7 +37,7 @@ public class UserFileReader implements FileReaderInterface<User> {
     public List<User> readEntitiesFromFile() {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath))) {
             String line = bufferedReader.readLine();
-            while (line != null) {
+            while (line != null & !Objects.equals(line, "\n")) {
                 mapper.map(line, users);
                 line = bufferedReader.readLine();
             }

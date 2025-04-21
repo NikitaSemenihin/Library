@@ -5,11 +5,14 @@ import com.semenihin.dao.impl.UserDaoImpl;
 import com.semenihin.entity.Book;
 import com.semenihin.entity.User;
 import com.semenihin.exceptions.InvalidEntityException;
+import com.semenihin.fileWriter.impl.UserFileWriter;
 import com.semenihin.printer.Printer;
 import com.semenihin.printer.impl.UserPrinter;
 import com.semenihin.services.UserService;
 import com.semenihin.validator.impl.UserValidator;
 import com.semenihin.validator.Validator;
+
+import java.io.FileNotFoundException;
 
 public class UserServiceImpl implements UserService {
     private final UserDao userDao;
@@ -17,6 +20,7 @@ public class UserServiceImpl implements UserService {
     private final BookServiceImpl bookService;
     private final Validator<User> userValidator;
     private final Printer<User> userPrinter;
+    private final UserFileWriter userFileWriter;
 
 
     public static UserServiceImpl getInstance() {
@@ -30,7 +34,8 @@ public class UserServiceImpl implements UserService {
         this.userValidator = UserValidator.getInstance();
         this.userDao = UserDaoImpl.getInstance();
         this.bookService = BookServiceImpl.getInstance();
-        this.userPrinter = new UserPrinter();
+        this.userPrinter = UserPrinter.getInstance();
+        this.userFileWriter = UserFileWriter.getInstance();
     }
 
     @Override
@@ -38,10 +43,15 @@ public class UserServiceImpl implements UserService {
         if (!userValidator.validate(user)) {
             throw new InvalidEntityException("Incorrect fields");
         }
-        if (!exist(user)) {
+        if (exist(user)) {
             throw new InvalidEntityException("User already exist");
         }
         userDao.createUser(user);
+        try {
+            userFileWriter.update(userDao.getUsers());
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -62,6 +72,11 @@ public class UserServiceImpl implements UserService {
             throw new InvalidEntityException("User not exist");
         }
         userDao.deleteUser(userId);
+        try {
+            userFileWriter.update(userDao.getUsers());
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -74,6 +89,11 @@ public class UserServiceImpl implements UserService {
         }
         bookService.rentBook(book.getId(), user);
         userDao.rentBook(user.getId(), book);
+        try {
+            userFileWriter.update(userDao.getUsers());
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -86,6 +106,11 @@ public class UserServiceImpl implements UserService {
         }
         bookService.returnBook(book.getId());
         userDao.returnBook(user, book);
+        try {
+            userFileWriter.update(userDao.getUsers());
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public boolean exist(User user) {
