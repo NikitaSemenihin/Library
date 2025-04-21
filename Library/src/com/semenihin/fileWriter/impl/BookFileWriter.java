@@ -27,18 +27,18 @@ public class BookFileWriter implements FileWriterInterface<Book> {
 
     @Override
     public void update(List<Book> books) throws FileNotFoundException {
-        for (Book book : books){
             try(FileWriter fileWriter = new FileWriter("resources/book.txt", false)){
-                String string = bookConverter.convert(book);
+                for (Book book : books) {
+                    String string = bookConverter.convert(book);
 
-                fileWriter.write(string);
-                fileWriter.append('\n');
+                    fileWriter.write(string);
+                    fileWriter.append('\n');
 
-                fileWriter.flush();
+                    fileWriter.flush();
+                }
             }
             catch (IOException e) {
                 throw new FileNotFoundException("File not found");
             }
-        }
     }
 }
