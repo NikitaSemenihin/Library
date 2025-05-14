@@ -8,7 +8,6 @@ import com.semenihin.validator.Validator;
 
 public class BookValidator implements Validator<Book> {
     private static BookValidator instance;
-    private final BookDao bookDao;
 
     public static BookValidator getInstance() {
         if (instance == null) {
@@ -18,7 +17,7 @@ public class BookValidator implements Validator<Book> {
     }
 
     private BookValidator(){
-        bookDao = BookDaoImpl.getInstance();
+        BookDao bookDao = BookDaoImpl.getInstance();
     }
 
     @Override

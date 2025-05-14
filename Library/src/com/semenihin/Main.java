@@ -1,7 +1,5 @@
 package com.semenihin;
 
-import com.semenihin.entity.Book;
-import com.semenihin.entity.User;
 import com.semenihin.services.BookService;
 import com.semenihin.services.impl.BookServiceImpl;
 import com.semenihin.services.UserService;

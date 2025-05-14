@@ -16,8 +16,8 @@ import java.util.regex.Pattern;
 
 public class UserFileReader implements FileReaderInterface<User> {
     private static UserFileReader instance;
-    private List<User> users;
-    private Mapper<User> mapper;
+    private final List<User> users;
+    private final Mapper<User> mapper;
     private final String filePath = "resources/user.txt";
 
 

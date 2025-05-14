@@ -2,6 +2,7 @@ package com.semenihin.mapper.impl;
 
 import com.semenihin.dao.impl.UserDaoImpl;
 import com.semenihin.entity.Book;
+import com.semenihin.exceptions.FileAccessException;
 import com.semenihin.mapper.Mapper;
 
 import java.util.List;
@@ -31,9 +32,13 @@ public class BookMapper implements Mapper<Book> {
             int year = Integer.parseInt(matcher.group(BOOK_YEAR));
             if (matcher.group(USER_ID) != null) {
                 long userId = Long.parseLong(matcher.group(USER_ID));
-                Book book = new Book(id, title, author, pages, year, userDao.getUser(userId));
+                Book book = new Book(id, title, author, pages, year, userDao.findUser(userId));
                 books.add(book);
-                userDao.rentBook(Long.parseLong(matcher.group(USER_ID)), book);
+                try {
+                    userDao.rentBook(Long.parseLong(matcher.group(USER_ID)), book);
+                } catch (FileAccessException e) {
+                    throw new RuntimeException(e);
+                }
             } else {
                 Book book = new Book(id, title, author, pages, year, null);
                 books.add(book.clone());

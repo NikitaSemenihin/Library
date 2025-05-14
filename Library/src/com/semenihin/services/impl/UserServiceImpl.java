@@ -4,15 +4,13 @@ import com.semenihin.dao.UserDao;
 import com.semenihin.dao.impl.UserDaoImpl;
 import com.semenihin.entity.Book;
 import com.semenihin.entity.User;
+import com.semenihin.exceptions.FileAccessException;
 import com.semenihin.exceptions.InvalidEntityException;
-import com.semenihin.fileWriter.impl.UserFileWriter;
 import com.semenihin.printer.Printer;
 import com.semenihin.printer.impl.UserPrinter;
 import com.semenihin.services.UserService;
 import com.semenihin.validator.impl.UserValidator;
 import com.semenihin.validator.Validator;
-
-import java.io.FileNotFoundException;
 
 public class UserServiceImpl implements UserService {
     private final UserDao userDao;
@@ -20,7 +18,6 @@ public class UserServiceImpl implements UserService {
     private final BookServiceImpl bookService;
     private final Validator<User> userValidator;
     private final Printer<User> userPrinter;
-    private final UserFileWriter userFileWriter;
 
 
     public static UserServiceImpl getInstance() {
@@ -35,11 +32,10 @@ public class UserServiceImpl implements UserService {
         this.userDao = UserDaoImpl.getInstance();
         this.bookService = BookServiceImpl.getInstance();
         this.userPrinter = UserPrinter.getInstance();
-        this.userFileWriter = UserFileWriter.getInstance();
     }
 
     @Override
-    public void createUser(User user) throws InvalidEntityException {
+    public void createUser(User user) throws InvalidEntityException, FileAccessException {
         if (!userValidator.validate(user)) {
             throw new InvalidEntityException("Incorrect fields");
         }
@@ -47,16 +43,11 @@ public class UserServiceImpl implements UserService {
             throw new InvalidEntityException("User already exist");
         }
         userDao.createUser(user);
-        try {
-            userFileWriter.update(userDao.getUsers());
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @Override
-    public User getUser(long userId) {
-        return userDao.getUser(userId);
+    public User findUser(long userId) {
+        return userDao.findUser(userId);
     }
 
     @Override
@@ -67,50 +58,43 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(long userId) {
+    public void deleteUser(long userId) throws FileAccessException {
         if (!exist(userId)) {
             throw new InvalidEntityException("User not exist");
         }
         userDao.deleteUser(userId);
-        try {
-            userFileWriter.update(userDao.getUsers());
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @Override
-    public void rentBook(User user, Book book) {
+    public void rentBook(User user, Book book) throws FileAccessException {
         if (!exist(user)) {
             throw new InvalidEntityException("User not exist");
         }
         if (!bookService.exist(book)){
             throw new InvalidEntityException("Book not exist");
         }
-        bookService.rentBook(book.getId(), user);
-        userDao.rentBook(user.getId(), book);
         try {
-            userFileWriter.update(userDao.getUsers());
-        } catch (FileNotFoundException e) {
+            bookService.rentBook(book.getId(), user);
+        } catch (FileAccessException e) {
             throw new RuntimeException(e);
         }
+        userDao.rentBook(user.getId(), book);
     }
 
     @Override
-    public void returnBook(User user, Book book) {
+    public void returnBook(User user, Book book) throws FileAccessException {
         if (exist(user)) {
             throw new InvalidEntityException("User not exist");
         }
         if (bookService.exist(book)) {
             throw new InvalidEntityException("Book not exist");
         }
-        bookService.returnBook(book.getId());
-        userDao.returnBook(user, book);
         try {
-            userFileWriter.update(userDao.getUsers());
-        } catch (FileNotFoundException e) {
+            bookService.returnBook(book.getId());
+        } catch (FileAccessException e) {
             throw new RuntimeException(e);
         }
+        userDao.returnBook(user, book);
     }
 
     public boolean exist(User user) {

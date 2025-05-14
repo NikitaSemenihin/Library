@@ -60,8 +60,8 @@ public class User implements Cloneable {
 
     @Override
     public String toString() {
-        return "\nUser: " + fullName + "\nE-mai: " + email + "\nPhone number: " + phoneNumber + "\nRented books: "
-                + rentedBook;
+        return String.format("\nUser: %S\nE-mai: %S\nPhone number: %S\nRented books: %S",
+                fullName, email, phoneNumber, rentedBook);
     }
 
     @Override

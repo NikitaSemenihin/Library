@@ -12,7 +12,7 @@ import java.util.Objects;
 
 public class BookFileReader implements FileReaderInterface<Book> {
     private static BookFileReader instance;
-    private List<Book> books;
+    private final List<Book> books;
     private final String filePath = "resources/book.txt";
     private final Mapper mapper;
 

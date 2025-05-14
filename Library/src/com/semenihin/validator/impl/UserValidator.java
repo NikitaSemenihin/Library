@@ -6,7 +6,6 @@ import com.semenihin.validator.Validator;
 
 public class UserValidator implements Validator<User> {
     private static UserValidator instance;
-    private final UserDaoImpl userDao;
 
     public static UserValidator getInstance() {
         if (instance == null){
@@ -16,7 +15,7 @@ public class UserValidator implements Validator<User> {
     }
 
     private UserValidator(){
-        userDao = UserDaoImpl.getInstance();
+        UserDaoImpl userDao = UserDaoImpl.getInstance();
     }
 
     @Override

@@ -4,17 +4,20 @@ import com.semenihin.dao.UserDao;
 import com.semenihin.entity.Book;
 import com.semenihin.entity.User;
 import com.semenihin.exceptions.DaoCrashException;
+import com.semenihin.exceptions.FileAccessException;
 import com.semenihin.filReader.FileReaderInterface;
 import com.semenihin.filReader.impl.UserFileReader;
+import com.semenihin.fileWriter.impl.UserFileWriter;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoImpl implements UserDao {
-    private List<User> users;
+    private final List<User> users;
+    private final UserFileWriter userFileWriter;
+
     private static UserDaoImpl instance;
-    private final FileReaderInterface<User> userFileReader;
 
     public static UserDaoImpl getInstance() {
         if (instance == null) {
@@ -24,7 +27,8 @@ public class UserDaoImpl implements UserDao {
     }
 
     private UserDaoImpl() {
-        this.userFileReader = UserFileReader.getInstance();
+        FileReaderInterface<User> userFileReader = UserFileReader.getInstance();
+        this.userFileWriter = UserFileWriter.getInstance();
         try {
             this.users = userFileReader.readEntitiesFromFile();
         } catch (FileNotFoundException e) {
@@ -36,19 +40,29 @@ public class UserDaoImpl implements UserDao {
         return new ArrayList<>(users);
     }
 
-    public void rentBook(long userId, Book book) {
+    public void rentBook(long userId, Book book) throws FileAccessException {
         for (User user : users) {
             if (user.getId() == userId) {
                 user.rentBook(book);
             }
         }
+        try {
+            userFileWriter.update(users);
+        } catch (FileNotFoundException e) {
+            throw new FileAccessException(e);
+        }
     }
 
-    public void returnBook(User user, Book book) {
+    public void returnBook(User user, Book book) throws FileAccessException {
         for (User selectedUser : users) {
             if (user.getId() == selectedUser.getId()) {
                 selectedUser.getRentedBook().remove(book);
             }
+        }
+        try {
+            userFileWriter.update(users);
+        } catch (FileNotFoundException e) {
+            throw new FileAccessException(e);
         }
     }
 
@@ -63,7 +77,7 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-    public User getUser(long userId) {
+    public User findUser(long userId) {
         for (User user : users) {
             if (user.getId() == userId) {
                 return user.clone();
@@ -72,11 +86,21 @@ public class UserDaoImpl implements UserDao {
         return null;
     }
 
-    public void createUser(User user) {
+    public void createUser(User user) throws FileAccessException {
         this.users.add(user);
+        try {
+            userFileWriter.update(users);
+        } catch (FileNotFoundException e) {
+            throw new FileAccessException(e);
+        }
     }
 
-    public void deleteUser(long userId) {
+    public void deleteUser(long userId) throws FileAccessException {
         users.remove(userId);
+        try {
+            userFileWriter.update(users);
+        } catch (FileNotFoundException e) {
+            throw new FileAccessException(e);
+        }
     }
 }

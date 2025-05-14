@@ -68,11 +68,11 @@ public class Book implements Cloneable {
     @Override
     public String toString() {
         if (currentUser == null) {
-            return "\nBook Title: " + title + "\nBook author: " + author + "\nPages count: " + pages +
-                    "\nYear: " + year + "\nUser: Absent";
+            return String.format("\nBook Title: %s\nBook author: %s\nPages count: %d\nYear: %d\nUser: Absent",
+                    title, author, pages, year);
         } else {
-            return "\nBook Title: " + title + "\nBook author: " + author + "\nPages count: " + pages +
-                    "\nYear: " + year + "\nUser: " + currentUser.getFullName();
+            return String.format("\nBook Title: %s\nBook author: %s\nPages count: %d\nYear: %d\nUser: %s",
+                    title, author, pages, year, currentUser.getFullName());
         }
     }
 
