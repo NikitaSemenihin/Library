@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void rentBook(User user, Book book) throws FileAccessException {
+    public void rentBook(User user, Book book) {
         if (!exist(user)) {
             throw new InvalidEntityException("User not exist");
         }
@@ -82,11 +82,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void returnBook(User user, Book book) throws FileAccessException {
-        if (exist(user)) {
+    public void returnBook(User user, Book book){
+        if (!exist(user)) {
             throw new InvalidEntityException("User not exist");
         }
-        if (bookService.exist(book)) {
+        if (!bookService.exist(book)) {
             throw new InvalidEntityException("Book not exist");
         }
         try {

@@ -32,13 +32,10 @@ public class BookMapper implements Mapper<Book> {
             int year = Integer.parseInt(matcher.group(BOOK_YEAR));
             if (matcher.group(USER_ID) != null) {
                 long userId = Long.parseLong(matcher.group(USER_ID));
-                Book book = new Book(id, title, author, pages, year, userDao.findUser(userId));
+                Book book = new Book(id, title, author, pages, year, null);
                 books.add(book);
-                try {
-                    userDao.rentBook(Long.parseLong(matcher.group(USER_ID)), book);
-                } catch (FileAccessException e) {
-                    throw new RuntimeException(e);
-                }
+                userDao.rentBook(Long.parseLong(matcher.group(USER_ID)), book);
+                book.setCurrentUser(userDao.findUser(userId) );
             } else {
                 Book book = new Book(id, title, author, pages, year, null);
                 books.add(book.clone());

@@ -10,11 +10,11 @@ public interface UserDao {
 
     List<User> getUsers();
 
-    void rentBook(long userId, Book book) throws FileAccessException;
+    void rentBook(long userId, Book book);
 
-    void returnBook(User user, Book book) throws FileAccessException;
+    void returnBook(User user, Book book);
 
-    void updateUser(User user);
+    void updateUser(User user) throws FileAccessException;
 
     User findUser(long userId);
 

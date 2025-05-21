@@ -9,37 +9,45 @@ import com.semenihin.exceptions.InvalidEntityException;
 import com.semenihin.printer.Printer;
 import com.semenihin.printer.impl.BookPrinter;
 import com.semenihin.services.BookService;
+import com.semenihin.services.UserService;
 import com.semenihin.validator.impl.BookValidator;
 
 import java.util.List;
 
 public class BookServiceImpl implements BookService {
-    private final BookDao bookDao;
-    private final BookValidator bookValidator;
-    private final Printer<Book> bookPrinter;
+    private UserService userService;
+    private BookDao bookDao;
+    private BookValidator bookValidator;
+    private Printer<Book> bookPrinter;
     private static BookServiceImpl instance;
 
     public static BookServiceImpl getInstance() {
         if (instance == null) {
             instance = new BookServiceImpl();
+            injectDependencies(instance);
         }
         return instance;
     }
 
-    private BookServiceImpl() {
-        this.bookValidator = BookValidator.getInstance();
-        this.bookDao = BookDaoImpl.getInstance();
-        this.bookPrinter = BookPrinter.getInstance();
+    private BookServiceImpl() {}
+
+    private static void injectDependencies(BookServiceImpl bookService){
+        bookService.bookValidator = BookValidator.getInstance();
+        bookService.bookDao = BookDaoImpl.getInstance();
+        bookService.bookPrinter = BookPrinter.getInstance();
+        bookService.userService = UserServiceImpl.getInstance();
     }
 
     @Override
     public void createBook(Book book) throws FileAccessException {
-        if (book.getCurrentUser() == null) {
-            bookDao.createBook(book);
+        if (!exist(book.getId())){
+            if (book.getCurrentUser() == null) {
+                bookDao.createBook(book);
+            } else {
+                throw new InvalidEntityException("Can't create book that are rented");
+            }
         }
-        else {
-            throw new InvalidEntityException("Can't create book that are rented");
-        }
+        else throw new InvalidEntityException("Book already exist");
     }
 
     @Override
@@ -66,11 +74,18 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void deleteBook(int id) throws FileAccessException {
+        boolean isDeleted = false;
         for (Book book : bookDao.getBooks()) {
             if (book.getId() == id) {
+                if (book.getCurrentUser() != null){
+                    userService.returnBook(book.getCurrentUser(), book);
+                }
                 bookDao.delete(book);
+                isDeleted = true;
             }
-            else throw new InvalidEntityException("Book isn't exist and cannot be deleted");
+        }
+        if (!isDeleted){
+            throw new InvalidEntityException("Book isn't exist and cannot be deleted");
         }
     }
 

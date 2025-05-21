@@ -40,33 +40,24 @@ public class UserDaoImpl implements UserDao {
         return new ArrayList<>(users);
     }
 
-    public void rentBook(long userId, Book book) throws FileAccessException {
+    public void rentBook(long userId, Book book){
         for (User user : users) {
             if (user.getId() == userId) {
                 user.rentBook(book);
             }
         }
-        try {
-            userFileWriter.update(users);
-        } catch (FileNotFoundException e) {
-            throw new FileAccessException(e);
-        }
     }
 
-    public void returnBook(User user, Book book) throws FileAccessException {
+    public void returnBook(User user, Book book){
         for (User selectedUser : users) {
             if (user.getId() == selectedUser.getId()) {
+                //Не убирает книгу, так как book не тот же объёкт, что и книга в rentedBooks
                 selectedUser.getRentedBook().remove(book);
             }
         }
-        try {
-            userFileWriter.update(users);
-        } catch (FileNotFoundException e) {
-            throw new FileAccessException(e);
-        }
     }
 
-    public void updateUser(User user){
+    public void updateUser(User user) throws FileAccessException {
         for (User selectedUser : users) {
             if (selectedUser.getId() == user.getId()) {
                 selectedUser.setEmail(user.getEmail());
@@ -74,6 +65,11 @@ public class UserDaoImpl implements UserDao {
                 selectedUser.setPhoneNumber(user.getPhoneNumber());
                 selectedUser.setRentedBook(user.getRentedBook());
             }
+        }
+        try {
+            userFileWriter.update(users);
+        } catch (FileNotFoundException e) {
+            throw new FileAccessException(e);
         }
     }
 

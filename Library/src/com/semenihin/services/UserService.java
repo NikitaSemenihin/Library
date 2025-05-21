@@ -13,9 +13,9 @@ public interface UserService {
 
     void deleteUser(long userId) throws FileAccessException;
 
-    void rentBook(User user, Book book) throws FileAccessException;
+    void rentBook(User user, Book book);
 
-    void returnBook(User user, Book book) throws FileAccessException;
+    void returnBook(User user, Book book);
 
     boolean exist(User user);
 

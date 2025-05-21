@@ -2,6 +2,7 @@ package com.semenihin.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class User implements Cloneable {
     private String fullName;
@@ -71,20 +72,16 @@ public class User implements Cloneable {
         return userClone;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id && Objects.equals(fullName, user.fullName) && Objects.equals(email, user.email)
+                && Objects.equals(phoneNumber, user.phoneNumber);
+    }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-
-        User user = (User) obj;
-        return this.getId() == user.getId() && this.getFullName().equals(user.getFullName()) &&
-                this.getEmail().equals(user.getEmail()) && this.getPhoneNumber().equals(user.getPhoneNumber()) &&
-                this.getRentedBook().equals(user.getRentedBook());
+    public int hashCode() {
+        return Objects.hash(fullName, email, phoneNumber, id);
     }
 }

@@ -1,5 +1,7 @@
 package com.semenihin.entity;
 
+import java.util.Objects;
+
 public class Book implements Cloneable {
     private final long id;
     private String title;
@@ -80,5 +82,17 @@ public class Book implements Cloneable {
     public Book clone() {
         return new Book(this.getId(), this.getTitle(), this.getAuthor(), this.getPages(), this.getYear(),
                 this.currentUser);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return id == book.id && pages == book.pages && year == book.year && Objects.equals(title, book.title) && Objects.equals(author, book.author) && Objects.equals(currentUser, book.currentUser);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, author, pages, currentUser, year);
     }
 }
