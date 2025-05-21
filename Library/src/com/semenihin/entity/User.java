@@ -59,6 +59,18 @@ public class User implements Cloneable {
         this.rentedBook.add(book);
     }
 
+    public void returnBook(Book book) {
+        Book bookToDelete = null;
+        for (Book selectedBook : rentedBook) {
+            if (selectedBook.getId() == book.getId()) {
+                bookToDelete = selectedBook;
+            }
+        }
+        if (bookToDelete != null) {
+            rentedBook.remove(bookToDelete);
+        }
+    }
+
     @Override
     public String toString() {
         return String.format("\nUser: %S\nE-mai: %S\nPhone number: %S\nRented books: %S",

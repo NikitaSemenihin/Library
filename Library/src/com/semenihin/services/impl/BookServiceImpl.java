@@ -78,9 +78,9 @@ public class BookServiceImpl implements BookService {
         for (Book book : bookDao.getBooks()) {
             if (book.getId() == id) {
                 if (book.getCurrentUser() != null){
-                    userService.returnBook(book.getCurrentUser(), book);
+                    userService.returnBook(book.getCurrentUser(), findBook(book.getId()));
                 }
-                bookDao.delete(book);
+                bookDao.delete(findBook(book.getId()));
                 isDeleted = true;
             }
         }

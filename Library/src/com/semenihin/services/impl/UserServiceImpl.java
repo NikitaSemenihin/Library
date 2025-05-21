@@ -73,6 +73,9 @@ public class UserServiceImpl implements UserService {
         if (!bookService.exist(book)){
             throw new InvalidEntityException("Book not exist");
         }
+        if (book.getCurrentUser() != null) {
+            throw new InvalidEntityException("Book already rented");
+        }
         try {
             bookService.rentBook(book.getId(), user);
         } catch (FileAccessException e) {

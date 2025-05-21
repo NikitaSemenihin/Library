@@ -22,11 +22,7 @@ public class Main {
             throw new RuntimeException(e);
         }
 
-        try {
-            userService.rentBook(userService.findUser(1), newBook);
-        } catch (FileAccessException e) {
-            throw new RuntimeException(e);
-        }
+        userService.rentBook(userService.findUser(1), newBook);
 
         System.out.println("\n\n---------------------------------------------------------------\n\n");
         bookService.printBooks();

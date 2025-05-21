@@ -61,7 +61,7 @@ public class BookDaoImpl implements BookDao {
     }
 
     public void delete(Book book) throws FileAccessException {
-        books.remove(book);
+        books.remove(findBook(book.getId()));
         try {
             bookFileWriter.update(books);
         } catch (FileNotFoundException e) {

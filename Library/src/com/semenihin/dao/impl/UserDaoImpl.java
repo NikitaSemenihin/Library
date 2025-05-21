@@ -51,8 +51,7 @@ public class UserDaoImpl implements UserDao {
     public void returnBook(User user, Book book){
         for (User selectedUser : users) {
             if (user.getId() == selectedUser.getId()) {
-                //Не убирает книгу, так как book не тот же объёкт, что и книга в rentedBooks
-                selectedUser.getRentedBook().remove(book);
+                selectedUser.returnBook(book);
             }
         }
     }
