@@ -55,6 +55,7 @@ public class BookServiceImpl implements BookService {
         if (bookValidator.validate(book)) {
             bookDao.updateBook(book);
         }
+        else throw new InvalidEntityException("Book didn't pass validation");
     }
 
     @Override

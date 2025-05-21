@@ -13,25 +13,44 @@ import com.semenihin.validator.impl.UserValidator;
 import com.semenihin.validator.Validator;
 
 public class UserServiceImpl implements UserService {
-    private final UserDao userDao;
+    private UserDao userDao;
     private static UserServiceImpl instance;
-    private final BookServiceImpl bookService;
-    private final Validator<User> userValidator;
-    private final Printer<User> userPrinter;
+    private BookServiceImpl bookService;
+    private Validator<User> userValidator;
+    private Printer<User> userPrinter;
 
 
     public static UserServiceImpl getInstance() {
         if (instance == null) {
             instance = new UserServiceImpl();
+            injectDependencies(instance);
         }
         return instance;
     }
 
-    private UserServiceImpl() {
-        this.userValidator = UserValidator.getInstance();
-        this.userDao = UserDaoImpl.getInstance();
-        this.bookService = BookServiceImpl.getInstance();
-        this.userPrinter = UserPrinter.getInstance();
+    private UserServiceImpl() {}
+
+    private void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }
+
+    private void setBookService(BookServiceImpl bookService) {
+        this.bookService = bookService;
+    }
+
+    private void setUserValidator(Validator<User> userValidator) {
+        this.userValidator = userValidator;
+    }
+
+    private void setUserPrinter(Printer<User> userPrinter) {
+        this.userPrinter = userPrinter;
+    }
+
+    private static void injectDependencies(UserServiceImpl userService) {
+        userService.setUserValidator(UserValidator.getInstance());
+        userService.setUserDao(UserDaoImpl.getInstance());
+        userService.setBookService(BookServiceImpl.getInstance());
+        userService.setUserPrinter(UserPrinter.getInstance());
     }
 
     @Override
