@@ -15,7 +15,7 @@ public interface BookService {
 
     Book findBook(long id);
 
-    void deleteBook(int id) throws LBFileAccessException;
+    void deleteBook(long id) throws LBFileAccessException;
 
     void printBooks();
 

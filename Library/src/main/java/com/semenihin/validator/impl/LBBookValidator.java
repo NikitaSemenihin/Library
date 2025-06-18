@@ -47,7 +47,7 @@ public class LBBookValidator implements Validator<Book> {
     }
 
     private boolean validateBookUser(Book book) {
-        return (book.getCurrentUser() == null) |
-                (book.getCurrentUser().getClass() == User.class);
+        if (book.getCurrentUser() == null) return true;
+        else return (book.getCurrentUser().getClass() == User.class);
     }
 }

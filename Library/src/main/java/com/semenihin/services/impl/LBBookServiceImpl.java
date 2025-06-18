@@ -41,7 +41,7 @@ public class LBBookServiceImpl implements BookService {
 
     @Override
     public void createBook(Book book) throws LBFileAccessException {
-        if (!exist(book.getId())){
+        if (!exist(book.getId())) {
             if (book.getCurrentUser() == null) {
                 bookDao.createBook(book);
             } else {
@@ -55,7 +55,10 @@ public class LBBookServiceImpl implements BookService {
     public void updateBook(Book book) throws LBFileAccessException {
         if (bookValidator.validate(book)) {
             bookDao.updateBook(book);
-            userService.updateBookInUser(book.getCurrentUser().getId(), book.getId());
+
+            if (book.getCurrentUser() != null) {
+                userService.updateBookInUser(book.getCurrentUser().getId(), book.getId());
+            }
         }
         else throw new LBInvalidEntityException("Book didn't pass validation");
     }
@@ -76,7 +79,7 @@ public class LBBookServiceImpl implements BookService {
     }
 
     @Override
-    public void deleteBook(int id) throws LBFileAccessException {
+    public void deleteBook(long id) throws LBFileAccessException {
         boolean isDeleted = false;
 
         for (Book book : bookDao.getBooks()) {
