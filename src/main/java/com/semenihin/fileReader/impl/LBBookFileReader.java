@@ -14,7 +14,7 @@ import java.util.Objects;
 public class LBBookFileReader implements FileReaderInterface<Book> {
     private static LBBookFileReader instance;
     private final Mapper<Book> mapper;
-    private static final String FILE_PATH = "resources/book.txt";
+    private static final String FILE_PATH = "src/main/resources/book.txt";
 
     public static LBBookFileReader getInstance() {
         if (instance == null) {

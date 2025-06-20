@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="52acca91-9dc6-4d7d-9493-44ceae8eb237" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/semenihin/converter/impl/LBBookConverterTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/semenihin/converter/impl/LBUserConverterTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/semenihin/dao/impl/LBBookDaoImplTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/semenihin/entity/BookTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/semenihin/entity/UserTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Library.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Library/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/book.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/user.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/fileReader/impl/LBBookFileReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/fileReader/impl/LBBookFileReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/fileReader/impl/LBUserFileReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/fileReader/impl/LBUserFileReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/fileWriter/impl/LBBookFileWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/fileWriter/impl/LBBookFileWriter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/fileWriter/impl/LBUserFileWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/fileWriter/impl/LBUserFileWriter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/semenihin/services/impl/LBBookServiceImplTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/converter/Converter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/converter/impl/LBBookConverter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/converter/impl/LBUserConverter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/dao/BookDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/dao/UserDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/dao/impl/LBBookDaoImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/dao/impl/LBUserDaoImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/entity/Book.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/entity/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/exceptions/LBDaoCrashException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/exceptions/LBFileAccessException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/exceptions/LBInvalidEntityException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/exceptions/LBNotExistException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/exceptions/LBServiceCrashException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/fileReader/FileReaderInterface.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/fileReader/impl/LBBookFileReader.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/fileReader/impl/LBUserFileReader.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/fileWriter/FileWriterInterface.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/fileWriter/impl/LBBookFileWriter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/fileWriter/impl/LBUserFileWriter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/mapper/Mapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/mapper/impl/LBBookMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/mapper/impl/LBUserMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/printer/Printer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/printer/impl/LBBookPrinter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/printer/impl/LBUserPrinter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/services/BookService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/services/UserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/services/impl/LBBookServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/services/impl/LBUserServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/validator/Validator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/validator/impl/LBBookValidator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/validator/impl/LBUserValidator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/semenihin/services/impl/LBBookServiceImplTest.class" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JUnit5 Test Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2ygEvPYHcTO2tU2NLj3Ojg2TCQL" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "JUnit.BookTest.executor": "Run",
+    "JUnit.LBBookConverterTest.executor": "Run",
+    "JUnit.LBBookDaoImplTest.executor": "Run",
+    "JUnit.LBBookServiceImplTest.executor": "Run",
+    "JUnit.LBUserConverterTest.executor": "Run",
+    "Maven.library [clean,install].executor": "Run",
+    "Maven.library [clean].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "feature/library",
+    "kotlin-language-version-configured": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.semenihin.entity" />
+      <recent name="com.semenihin.dao.impl" />
+      <recent name="com.semenihin.converter.impl" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn clean" />
+      <command value="mvn clean install" />
+    </option>
+  </component>
+  <component name="RunManager" selected="JUnit.LBBookDaoImplTest">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.semenihin.Main" />
+      <module name="library" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.semenihin.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BookTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="library" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.semenihin.entity.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.semenihin.entity" />
+      <option name="MAIN_CLASS_NAME" value="com.semenihin.entity.BookTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LBBookConverterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="library" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.semenihin.converter.impl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.semenihin.converter.impl" />
+      <option name="MAIN_CLASS_NAME" value="com.semenihin.converter.impl.LBBookConverterTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LBBookDaoImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="library" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.semenihin.dao.impl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.semenihin.dao.impl" />
+      <option name="MAIN_CLASS_NAME" value="com.semenihin.dao.impl.LBBookDaoImplTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LBUserConverterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="library" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.semenihin.converter.impl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.semenihin.converter.impl" />
+      <option name="MAIN_CLASS_NAME" value="com.semenihin.converter.impl.LBUserConverterTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.LBBookDaoImplTest" />
+        <item itemvalue="JUnit.BookTest" />
+        <item itemvalue="JUnit.LBUserConverterTest" />
+        <item itemvalue="JUnit.LBBookConverterTest" />
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="52acca91-9dc6-4d7d-9493-44ceae8eb237" name="Changes" comment="" />
+      <created>1750248047025</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1750248047025</updated>
+    </task>
+    <servers />
+  </component>
+</project>

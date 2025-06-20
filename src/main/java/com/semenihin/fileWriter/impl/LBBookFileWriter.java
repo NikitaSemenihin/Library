@@ -27,7 +27,7 @@ public class LBBookFileWriter implements FileWriterInterface<Book> {
 
     @Override
     public void update(List<Book> books) throws LBFileAccessException {
-            try(FileWriter fileWriter = new FileWriter("resources/book.txt", false)){
+            try(FileWriter fileWriter = new FileWriter("src/main/resources/book.txt", false)){
                 for (Book book : books) {
                     String string = bookConverter.convert(book);
                     fileWriter.write(string);

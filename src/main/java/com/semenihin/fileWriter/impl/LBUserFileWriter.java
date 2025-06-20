@@ -28,7 +28,7 @@ public class LBUserFileWriter implements FileWriterInterface<User> {
 
     @Override
     public void update(List<User> users) throws LBFileAccessException {
-            try(FileWriter fileWriter = new FileWriter("resources/user.txt", false)){
+            try(FileWriter fileWriter = new FileWriter("src/main/resources/user.txt", false)){
                 for (User user : users) {
                     String string = userConverter.convert(user);
                     fileWriter.write(string);
