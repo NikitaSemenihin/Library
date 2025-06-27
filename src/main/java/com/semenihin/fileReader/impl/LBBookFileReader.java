@@ -13,8 +13,10 @@ import java.util.Objects;
 
 public class LBBookFileReader implements FileReaderInterface<Book> {
     private static LBBookFileReader instance;
-    private final Mapper<Book> mapper;
-    private static final String FILE_PATH = "src/main/resources/book.txt";
+    private Mapper<Book> mapper;
+    private static String FILE_PATH = "src/main/resources/book.txt";
+    List<Book> books;
+    String line;
 
     public static LBBookFileReader getInstance() {
         if (instance == null) {
@@ -23,15 +25,15 @@ public class LBBookFileReader implements FileReaderInterface<Book> {
         return instance;
     }
 
-    private LBBookFileReader(){
+    private LBBookFileReader() {
         this.mapper = new LBBookMapper();
     }
 
     @Override
     public List<Book> readEntitiesFromFile() throws LBFileAccessException {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(FILE_PATH))) {
-            List<Book> books = new ArrayList<>();
-            String line = bufferedReader.readLine();
+            books = new ArrayList<>();
+            line = bufferedReader.readLine();
 
             while (line != null & !Objects.equals(line, "\n")) {
                 mapper.map(line, books);

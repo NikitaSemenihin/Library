@@ -13,7 +13,7 @@ public class LBBookPrinter implements Printer<Book> {
         return instance;
     }
 
-    private LBBookPrinter(){}
+    public LBBookPrinter(){}
 
 
     @Override

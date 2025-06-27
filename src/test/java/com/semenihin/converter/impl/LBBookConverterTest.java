@@ -2,17 +2,17 @@ package com.semenihin.converter.impl;
 
 import com.semenihin.entity.Book;
 import com.semenihin.entity.User;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
 
 public class LBBookConverterTest {
     public LBBookConverter bookConverter = new LBBookConverter();
 
     Book book = new Book(9999L, "test", "test test", 123, 321, null);
 
-    @BeforeEach
+    @Before
     public void setUp() {
         book.setCurrentUser(null);
     }

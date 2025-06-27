@@ -16,9 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LBUserDaoImpl implements UserDao {
-    private final List<User> users;
-    private final LBUserFileWriter userFileWriter;
-    private final BookService bookService;
+        private List<User> users;
+    private LBUserFileWriter userFileWriter;
+    private BookService bookService;
     private static LBUserDaoImpl instance;
 
     public static LBUserDaoImpl getInstance() {

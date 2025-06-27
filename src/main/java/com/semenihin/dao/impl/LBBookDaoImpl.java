@@ -16,12 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LBBookDaoImpl implements BookDao {
-    private final List<Book> books;
-    private final FileWriterInterface<Book> bookFileWriter;
+    private List<Book> books;
+    private FileWriterInterface<Book> bookFileWriter;
     private static LBBookDaoImpl instance;
-    private final UserService userService;
+    private UserService userService;
 
-    public static LBBookDaoImpl getInstance(){
+    public static LBBookDaoImpl getInstance() {
         if (instance == null) {
             instance = new LBBookDaoImpl();
         }
@@ -79,9 +79,8 @@ public class LBBookDaoImpl implements BookDao {
     @Override
     public List<Book> getBooks() {
         ArrayList<Book> booksCopy = new ArrayList<>();
-        for (Book book : books)
-        {
-           booksCopy.add(book.clone());
+        for (Book book : books) {
+            booksCopy.add(book.clone());
         }
         return booksCopy;
     }

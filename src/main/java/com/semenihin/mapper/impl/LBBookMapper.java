@@ -35,7 +35,7 @@ public class LBBookMapper implements Mapper<Book> {
                 Book book = new Book(id, title, author, pages, year, null);
                 books.add(book);
                 userDao.rentBook(Long.parseLong(matcher.group(USER_ID)), book);
-                book.setCurrentUser(userDao.findUser(userId) );
+                book.setCurrentUser(userDao.findUser(userId));
             } else {
                 Book book = new Book(id, title, author, pages, year, null);
                 books.add(book.clone());
