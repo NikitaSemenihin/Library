@@ -20,6 +20,7 @@ public class LBBookDaoImpl implements BookDao {
     private FileWriterInterface<Book> bookFileWriter;
     private static LBBookDaoImpl instance;
     private UserService userService;
+    private LBBookFileReader bookFileReader;
 
     public static LBBookDaoImpl getInstance() {
         if (instance == null) {
@@ -31,7 +32,7 @@ public class LBBookDaoImpl implements BookDao {
     private LBBookDaoImpl() {
         try {
             this.bookFileWriter = LBBookFileWriter.getInstance();
-            LBBookFileReader bookFileReader = LBBookFileReader.getInstance();
+            this.bookFileReader = LBBookFileReader.getInstance();
             this.books = bookFileReader.readEntitiesFromFile();
             this.userService = LBUserServiceImpl.getInstance();
         } catch (LBFileAccessException e) {

@@ -14,9 +14,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class LBUserFileReader implements FileReaderInterface<User> {
+    private static final String FILE_PATH = "src/main/resources/user.txt";
     private static LBUserFileReader instance;
     private final Mapper<User> mapper;
-    private static final String FILE_PATH = "src/main/resources/user.txt";
 
 
     public static LBUserFileReader getInstance(){
