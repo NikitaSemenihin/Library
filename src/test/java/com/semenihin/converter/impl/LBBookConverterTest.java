@@ -8,28 +8,40 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class LBBookConverterTest {
-    public LBBookConverter bookConverter = new LBBookConverter();
+    private static final String EXPECTED_CONVERTED_RESULT_WITHOUT_USER = "9999 \"test\" \"test test\" 123 321";
+    private static final String EXPECTED_CONVERTED_RESULT_WITH_USER = "9999 \"test\" \"test test\" 123 321 101";
+    private static final Long TEST_BOOK_ID = 9999L;
+    private static final String TEST_BOOK_TITLE = "test";
+    private static final String TEST_BOOK_AUTHOR = "test test";
+    private static final int TEST_BOOK_PAGES = 123;
+    private static final int TEST_BOOK_YEAR = 321;
+    private static final Long TEST_USER_ID = 101L;
+    private static final String TEST_USER_FULL_NAME = "user";
+    private static final String TEST_USER_EMAIL = "test@email.com";
+    private static final String TEST_USER_PHONE_NUMBER = "+3242543224";
 
-    Book book = new Book(9999L, "test", "test test", 123, 321, null);
+    private LBBookConverter bookConverter;
+    private Book book;
 
     @Before
     public void setUp() {
-        book.setCurrentUser(null);
+        bookConverter = new LBBookConverter();
+        book = new Book(TEST_BOOK_ID, TEST_BOOK_TITLE, TEST_BOOK_AUTHOR, TEST_BOOK_PAGES, TEST_BOOK_YEAR, null);
     }
 
     @Test
     public void convertNullUserTest() {
-        assertEquals(String.format("%d \"%s\" \"%s\" %d %d",
-                        book.getId(), book.getTitle(), book.getAuthor(), book.getPages(), book.getYear()),
-                bookConverter.convert(book));
+        String result = bookConverter.convert(book);
+
+        assertEquals(EXPECTED_CONVERTED_RESULT_WITHOUT_USER, result);
     }
 
     @Test
     public void convertNotNullUserTest() {
-        book.setCurrentUser(new User(101L, "user", "test@email.com", "+3242543224"));
+        book.setCurrentUser(new User(TEST_USER_ID, TEST_USER_FULL_NAME, TEST_USER_EMAIL, TEST_USER_PHONE_NUMBER));
 
-        assertEquals(String.format("%d \"%s\" \"%s\" %d %d %d",
-                book.getId(), book.getTitle(), book.getAuthor(), book.getPages(), book.getYear(),
-                book.getCurrentUser().getId()), bookConverter.convert(book));
+        String result = bookConverter.convert(book);
+
+        assertEquals(EXPECTED_CONVERTED_RESULT_WITH_USER, result);
     }
 }

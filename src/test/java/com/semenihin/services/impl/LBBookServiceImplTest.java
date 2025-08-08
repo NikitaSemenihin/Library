@@ -3,6 +3,8 @@ package com.semenihin.services.impl;
 import com.semenihin.dao.BookDao;
 import com.semenihin.entity.Book;
 import com.semenihin.entity.User;
+import com.semenihin.exceptions.LBFileAccessException;
+import com.semenihin.exceptions.LBInvalidEntityException;
 import com.semenihin.printer.Printer;
 import com.semenihin.services.UserService;
 import com.semenihin.validator.impl.LBBookValidator;
@@ -39,32 +41,54 @@ public class LBBookServiceImplTest {
     @InjectMocks
     private LBBookServiceImpl bookService;
 
+    private static final Long TEST_BOOK_ID = 9999L;
+    private static final String TEST_BOOK_TITLE = "test";
+    private static final String TEST_BOOK_AUTHOR = "test test";
+    private static final int TEST_BOOK_PAGES = 123;
+    private static final int TEST_BOOK_YEAR = 321;
+    private static final Long TEST_USER_ID = 101L;
+    private static final String TEST_USER_FULL_NAME = "user";
+    private static final String TEST_USER_EMAIL = "test@email.com";
+    private static final String TEST_USER_PHONE_NUMBER = "+3242543224";
+
     private List<Book> testBooks = new ArrayList<>();
-
-    private Book testBook = new Book(101L, "testik", "testok testovich", 1232, 3210, null);
-
-    private User testUser = new User(404L, "test testovich", "test@test.test", "+3434532");
+    private Book testBook;
+    private User testUser;
 
     @Before
-    public void startUp() {
-        if (!testBooks.contains(testBook)) {
-            testBooks.add(testBook);
-        }
-        testBook.setCurrentUser(null);
+    public void setUp() {
+        testBooks = new ArrayList<>();
+        testBook = new Book(TEST_BOOK_ID, TEST_BOOK_TITLE, TEST_BOOK_AUTHOR, TEST_BOOK_PAGES, TEST_BOOK_YEAR, null);
+        testUser = new User(TEST_USER_ID, TEST_USER_FULL_NAME, TEST_USER_EMAIL, TEST_USER_PHONE_NUMBER);
+        testBooks.add(testBook);
+
         when(bookDao.getBooks()).thenReturn(testBooks);
         when(bookValidator.validate(testBook)).thenReturn(true);
     }
 
     @Test
-    public void createBook_test() throws Exception {
-//        when(bookService.exist(book.getId())).thenReturn(false);
-        testBooks.remove(testBook);
+    public void createBookTest() throws Exception {
+        when(bookDao.getBooks()).thenReturn(List.of());
+
         bookService.createBook(testBook);
         verify(bookDao).createBook(testBook);
     }
 
+    @Test(expected = LBInvalidEntityException.class)
+    public void createBook_WhenBookAreRented() throws Exception {
+        when(bookDao.getBooks()).thenReturn(List.of());
+        testBook.setCurrentUser(testUser);
+
+        bookService.createBook(testBook);
+    }
+
+    @Test(expected = LBInvalidEntityException.class)
+    public void createBook_WhenBookAlreadyExist() throws Exception {
+        bookService.createBook(testBook);
+    }
+
     @Test
-    public void updateBook_test() throws Exception {
+    public void updateBookTest() throws Exception {
         testBook.setCurrentUser(testUser);
         bookService.updateBook(testBook);
         verify(bookDao).updateBook(testBook);
@@ -72,19 +96,19 @@ public class LBBookServiceImplTest {
     }
 
     @Test
-    public void getBooks_test() {
+    public void getBooksTest() {
         bookService.getBooks();
         verify(bookDao).getBooks();
     }
 
     @Test
-    public void findBook_test() {
+    public void findBookTest() {
         Book bookCopy = bookService.findBook(testBook.getId());
         assertEquals(bookCopy, testBook);
     }
 
     @Test
-    public void deleteBook_test() throws Exception {
+    public void deleteBookTest() throws Exception {
         testBook.setCurrentUser(testUser);
         bookService.deleteBook(testBook.getId());
         verify(userService).returnBook(testUser.getId(), testBook.getId());
@@ -92,31 +116,31 @@ public class LBBookServiceImplTest {
     }
 
     @Test
-    public void printBooks_test() {
+    public void printBooksTest() {
         bookService.printBooks();
         verify(bookPrinter, times(testBooks.size())).print(any(Book.class));
     }
 
     @Test
-    public void rentBook_test() throws Exception {
+    public void rentBookTest() throws Exception {
         bookService.rentBook(testBook.getId(), testUser);
         verify(bookDao).rentBook(testBook.getId(), testUser);
     }
 
     @Test
-    public void returnBook_test() throws Exception {
+    public void returnBookTest() throws Exception {
         bookService.returnBook(testBook.getId());
         verify(bookDao).returnBook(testBook.getId());
     }
 
     @Test
-    public void updateUserInBook_test() throws Exception {
+    public void updateUserInBookTest() throws Exception {
         bookService.updateUserInBook(testBook.getId(), testUser.getId());
         verify(bookDao).updateUserInBook(testBook.getId(), testUser.getId());
     }
 
     @Test
-    public void exist_test() {
+    public void existTest() {
         assertTrue(bookService.exist(testBook.getId()));
         assertFalse(bookService.exist(-1L));
     }

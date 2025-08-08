@@ -47,8 +47,9 @@ public class LBBookServiceImpl implements BookService {
             } else {
                 throw new LBInvalidEntityException("Can't create book that are rented");
             }
+        } else {
+            throw new LBInvalidEntityException("Book already exist");
         }
-        else throw new LBInvalidEntityException("Book already exist");
     }
 
     @Override
@@ -59,14 +60,15 @@ public class LBBookServiceImpl implements BookService {
             if (book.getCurrentUser() != null) {
                 userService.updateBookInUser(book.getCurrentUser().getId(), book.getId());
             }
+        } else {
+            throw new LBInvalidEntityException("Book didn't pass validation");
         }
-        else throw new LBInvalidEntityException("Book didn't pass validation");
     }
 
     @Override
     public List<Book> getBooks() {
         return bookDao.getBooks();
-    }
+    }   
 
     @Override
     public Book findBook(long id) {

@@ -2,8 +2,8 @@ package com.semenihin.dao.impl;
 
 import com.semenihin.entity.Book;
 import com.semenihin.entity.User;
+import com.semenihin.exceptions.LBFileAccessException;
 import com.semenihin.fileWriter.FileWriterInterface;
-import com.semenihin.services.UserService;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -14,6 +14,7 @@ import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,69 +25,97 @@ public class LBBookDaoImplTest {
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
-    @Mock
-    private FileWriterInterface<Book> bookFileWriter;
-
-    @Mock
-    private UserService userService;
-
-    @Spy
-    private List<Book> books = new ArrayList<>();
-
-    private Book book = new Book(1, "testik", "testok testovich", 1232, 3210, null);
+    private static final Long TEST_BOOK_ID = 9999L;
+    private static final String TEST_BOOK_TITLE = "test";
+    private static final String TEST_BOOK_AUTHOR = "test test";
+    private static final int TEST_BOOK_PAGES = 123;
+    private static final int TEST_BOOK_YEAR = 321;
 
     @InjectMocks
     private LBBookDaoImpl bookDao;
 
     @Mock
+    private FileWriterInterface<Book> bookFileWriter;
+
+    @Mock
     private User testUser;
 
+    private List<Book> spyBooks;
+
+    private Book spyBook;
+
     @Before
-    public void startUp() {
-        if (!books.contains(book)) {
-            books.add(book);
-        }
-        book.setCurrentUser(null);
+    public void setUp() {
+        List<Book> books = new ArrayList<>();
+        Book book = new Book(TEST_BOOK_ID, TEST_BOOK_TITLE, TEST_BOOK_AUTHOR, TEST_BOOK_PAGES, TEST_BOOK_YEAR, null);
+
+        spyBooks = spy(books);
+        spyBook = spy(book);
     }
 
     @Test
-    public void createBook_test() throws Exception {
-        bookDao.createBook(book);
-        verify(bookFileWriter).update(books);
+    public void createBookTest() throws Exception {
+        bookDao.createBook(spyBook);
+        verify(spyBook).clone();
+        verify(bookFileWriter).update(spyBooks);
+    }
+
+    @Test(expected = LBFileAccessException.class)
+    public void createBookExceptionTest() throws LBFileAccessException, FileNotFoundException {
+        doThrow(new LBFileAccessException("File not found")).when(bookFileWriter).update(anyList());
+        bookDao.createBook(spyBook);
     }
 
     @Test
-    public void updateBook_test() throws Exception {
-        bookDao.updateBook(book);
-        verify(bookFileWriter).update(books);
+    public void updateBookTest() throws Exception {
+        bookDao.updateBook(spyBook);
+        verify(bookFileWriter).update(spyBooks);
+    }
+
+    @Test(expected = LBFileAccessException.class)
+    public void updateBookExceptionTest() throws LBFileAccessException, FileNotFoundException {
+        doThrow(new LBFileAccessException("File not found")).when(bookFileWriter).update(anyList());
+        bookDao.updateBook(spyBook);
     }
 
     @Test
-    public void deleteBook_test() throws Exception {
-        bookDao.delete(book);
-        verify(bookFileWriter).update(books);
+    public void deleteBookTest() throws Exception {
+        bookDao.delete(spyBook);
+        verify(bookFileWriter).update(spyBooks);
+    }
+
+    @Test(expected = LBFileAccessException.class)
+    public void deleteBookExceptionTest() throws LBFileAccessException, FileNotFoundException {
+        doThrow(new LBFileAccessException("File not found")).when(bookFileWriter).update(anyList());
+        bookDao.delete(spyBook);
     }
 
     @Test
-    public void rentBook_test() throws Exception {
-        bookDao.rentBook(book.getId(), testUser);
-        verify(bookFileWriter).update(books);
+    public void getBooksTest() {
+        bookDao.getBooks();
+        verify(spyBook.clone());
     }
 
     @Test
-    public void returnBook_test() throws Exception {
-        bookDao.returnBook(book.getId());
-        verify(bookFileWriter).update(books);
+    public void rentBookTest() throws Exception {
+        bookDao.rentBook(spyBook.getId(), testUser);
+        verify(bookFileWriter).update(spyBooks);
     }
 
     @Test
-    public void findBook_test() {
-        assertEquals(book, bookDao.findBook(book.getId()));
+    public void returnBookTest() throws Exception {
+        bookDao.returnBook(spyBook.getId());
+        verify(bookFileWriter).update(spyBooks);
     }
 
     @Test
-    public void updateUserInBook_test() throws Exception {
-        bookDao.updateUserInBook(book.getId(), testUser.getId());
-        verify(bookFileWriter).update(books);
+    public void findBookTest() {
+        assertEquals(spyBook, bookDao.findBook(spyBook.getId()));
+    }
+
+    @Test
+    public void updateUserInBookTest() throws Exception {
+        bookDao.updateUserInBook(spyBook.getId(), testUser.getId());
+        verify(bookFileWriter).update(spyBooks);
     }
 }
