@@ -2,6 +2,9 @@ package com.semenihin.dao.impl;
 
 import com.semenihin.entity.Book;
 import com.semenihin.entity.User;
+import com.semenihin.exceptions.LBFileAccessException;
+import com.semenihin.exceptions.LBNotExistException;
+import com.semenihin.fileReader.impl.LBUserFileReader;
 import com.semenihin.fileWriter.impl.LBUserFileWriter;
 import com.semenihin.services.BookService;
 import org.junit.Before;
@@ -13,6 +16,7 @@ import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,68 +39,76 @@ public class LBUserDaoImplTest {
     private static final String TEST_USER_PHONE_NUMBER = "+3242543224";
 
     @Mock
+    private LBUserFileReader userFileReader;
+
+    @Mock
     private LBUserFileWriter userFileWriter;
 
     @Mock
     private BookService bookService;
 
     @Spy
-    private List<User> users;
+    private List<User> spyUsers = new ArrayList<>();
 
     @Spy
-    private User testUser;
-
-    private User testUSer_notSpy;
+    private User spyUser = new User(TEST_USER_ID, TEST_USER_FULL_NAME, TEST_USER_EMAIL, TEST_USER_PHONE_NUMBER);
 
     @Spy
-    private Book testBook;
+    private Book spyBook = new Book(TEST_BOOK_ID, TEST_BOOK_TITLE, TEST_BOOK_AUTHOR,
+            TEST_BOOK_PAGES, TEST_BOOK_YEAR, null);
 
     @InjectMocks
     private LBUserDaoImpl userDao;
 
+    private final User testUSer_notSpy = new User(NOT_SPY_TEST_USER_ID,
+            TEST_USER_FULL_NAME,TEST_USER_EMAIL, TEST_USER_PHONE_NUMBER);
+
 
     @Before
-    public void setUp() {
-        users = new ArrayList<>();
-        testUser = new User(TEST_USER_ID, TEST_USER_FULL_NAME, TEST_USER_EMAIL, TEST_USER_PHONE_NUMBER);
-        testUSer_notSpy = new User(NOT_SPY_TEST_USER_ID, TEST_USER_FULL_NAME,TEST_USER_EMAIL, TEST_USER_PHONE_NUMBER);
-        testBook = new Book(TEST_BOOK_ID, TEST_BOOK_TITLE, TEST_BOOK_AUTHOR, TEST_BOOK_PAGES, TEST_BOOK_YEAR, null);
-        users.add(testUser);
-        users.add(testUSer_notSpy);
+    public void setUp() throws LBFileAccessException {
+        when(userFileReader.readEntitiesFromFile()).thenReturn(spyUsers);
 
-        testUser.getRentedBooks().remove(testBook);
+        spyUsers.add(spyUser);
+        spyUsers.add(testUSer_notSpy);
+
+        spyUser.getRentedBooks().remove(spyBook);
     }
 
     @Test
     public void getUsersTest() {
-        if (users.size() == userDao.getUsers().size()) {
-            for (int i = 0; i < users.size(); i++) {
-                assertEquals(users.get(i), userDao.getUsers().get(i));
+        if (spyUsers.size() == userDao.getUsers().size()) {
+            for (int i = 0; i < spyUsers.size(); i++) {
+                assertEquals(spyUsers.get(i), userDao.getUsers().get(i));
             }
         } else {
-            assertEquals(users.size(), userDao.getUsers().size());
+            assertEquals(spyUsers.size(), userDao.getUsers().size());
         }
 
     }
 
     @Test
     public void rentBookTest() {
-        userDao.rentBook(testUser.getId(), testBook);
-        verify(testUser, times(2)).getRentedBooks();
+        userDao.rentBook(spyUser.getId(), spyBook);
+        verify(spyUser, times(2)).getRentedBooks();
     }
 
     @Test
-    public void returnBookTest() {
-        userDao.returnBook(testUser.getId(), testBook.getId());
-        verify(testUser, times(2)).getRentedBooks();
+    public void returnBookAllPassTest() {
+        userDao.returnBook(spyUser.getId(), spyBook.getId());
+        verify(spyUser, times(2)).getRentedBooks();
+    }
+
+    @Test(expected = LBNotExistException.class)
+    public void returnBookExceptionTest() {
+        userDao.returnBook(11111, spyBook.getId());
     }
 
     @Test
     public void updateUserTest() throws Exception {
-        testUser.getRentedBooks().add(testBook);
-        userDao.updateUser(testUser);
-        verify(userFileWriter).update(users);
-        verify(bookService).updateUserInBook(testBook.getId(), testUser.getId());
+        spyUser.getRentedBooks().add(spyBook);
+        userDao.updateUser(spyUser);
+        verify(userFileWriter).update(spyUsers);
+        verify(bookService).updateUserInBook(spyBook.getId(), spyUser.getId());
     }
 
     @Test
@@ -106,22 +118,22 @@ public class LBUserDaoImplTest {
 
     @Test
     public void createUserTest() throws Exception {
-        if (users.contains(testUser)) {
-            users.remove(testUser);
+        if (spyUsers.contains(spyUser)) {
+            spyUsers.remove(spyUser);
         }
-        userDao.createUser(testUser);
-        verify(userFileWriter).update(users);
+        userDao.createUser(spyUser);
+        verify(userFileWriter).update(spyUsers);
     }
 
     @Test
     public void deleteUserTest() throws Exception {
-        userDao.deleteUser(testUser.getId());
-        verify(userFileWriter).update(users);
+        userDao.deleteUser(spyUser.getId());
+        verify(userFileWriter).update(spyUsers);
     }
 
     @Test
     public void updateBookInUserTest() throws Exception {
-        userDao.updateBookInUser(testUser.getId(), testBook.getId());
-        verify(userFileWriter).update(users);
+        userDao.updateBookInUser(spyUser.getId(), spyBook.getId());
+        verify(userFileWriter).update(spyUsers);
     }
 }

@@ -6,6 +6,7 @@ import com.semenihin.exceptions.LBFileAccessException;
 import com.semenihin.fileReader.impl.LBBookFileReader;
 import com.semenihin.fileWriter.FileWriterInterface;
 
+import com.semenihin.services.UserService;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.*;
 
 public class LBBookDaoImplTest {
@@ -39,6 +41,9 @@ public class LBBookDaoImplTest {
     private LBBookFileReader bookFileReader;
 
     @Mock
+    private UserService userService;
+
+    @Mock
     private User testUser;
 
     @Spy
@@ -53,12 +58,7 @@ public class LBBookDaoImplTest {
 
     @Before
     public void setUp() throws LBFileAccessException {
-//        List<Book> books = new ArrayList<>();
-
         when(bookFileReader.readEntitiesFromFile()).thenReturn(spyBooks);
-
-//        spyBooks = spy(books);
-//        spyBook = spy(book);
     }
 
     @Test
@@ -95,7 +95,7 @@ public class LBBookDaoImplTest {
 
     @Test(expected = LBFileAccessException.class)
     public void deleteBookExceptionTest() throws LBFileAccessException, FileNotFoundException {
-        doThrow(new LBFileAccessException("File not found")).when(bookFileWriter).update(anyList());
+        doThrow(new LBFileAccessException("File not found")).when(bookFileWriter).update(spyBooks);
         bookDao.delete(spyBook);
     }
 
@@ -111,21 +111,48 @@ public class LBBookDaoImplTest {
         verify(bookFileWriter).update(spyBooks);
     }
 
+    @Test(expected = LBFileAccessException.class)
+    public void rentBookExceptionTest() throws LBFileAccessException, FileNotFoundException {
+        doThrow(new LBFileAccessException("File not found")).when(bookFileWriter).update(spyBooks);
+        bookDao.rentBook(spyBook.getId(), testUser);
+    }
+
     @Test
     public void returnBookTest() throws Exception {
         bookDao.returnBook(spyBook.getId());
         verify(bookFileWriter).update(spyBooks);
     }
 
+    @Test(expected = LBFileAccessException.class)
+    public void returnBookExceptionTest() throws LBFileAccessException, FileNotFoundException {
+        doThrow(new LBFileAccessException("File not found")).when(bookFileWriter).update(spyBooks);
+        bookDao.returnBook(spyBook.getId());
+    }
+
     @Test
     public void findBookTest() {
-        doReturn(spyBook).when(bookDao).findBook(spyBook.getId());
-        assertEquals(spyBook, bookDao.findBook(spyBook.getId()));
+        spyBooks.add(spyBook);
+        when(spyBook.clone()).thenReturn(spyBook);
+        Book anotherBook = bookDao.findBook(spyBook.getId());
+        assertEquals(spyBook, anotherBook);
+    }
+
+    @Test
+    public void findBookNullTest() {
+        when(spyBook.clone()).thenReturn(spyBook);
+        Book anotherBook = bookDao.findBook(spyBook.getId());
+        assertNull(anotherBook);
     }
 
     @Test
     public void updateUserInBookTest() throws Exception {
         bookDao.updateUserInBook(spyBook.getId(), testUser.getId());
         verify(bookFileWriter).update(spyBooks);
+    }
+
+    @Test(expected = LBFileAccessException.class)
+    public void updateUserInBookExceptionTest() throws LBFileAccessException, FileNotFoundException {
+        doThrow(new LBFileAccessException("File not found")).when(bookFileWriter).update(spyBooks);
+        bookDao.updateUserInBook(spyBook.getId(), testUser.getId());
     }
 }

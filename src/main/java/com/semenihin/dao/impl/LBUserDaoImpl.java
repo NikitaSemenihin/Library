@@ -16,8 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LBUserDaoImpl implements UserDao {
-        private List<User> users;
+    private List<User> users;
     private LBUserFileWriter userFileWriter;
+    private LBUserFileReader userFileReader;
     private BookService bookService;
     private static LBUserDaoImpl instance;
 
@@ -31,7 +32,7 @@ public class LBUserDaoImpl implements UserDao {
     private LBUserDaoImpl() {
         try {
             this.bookService = LBBookServiceImpl.getInstance();
-            FileReaderInterface<User> userFileReader = LBUserFileReader.getInstance();
+            this.userFileReader = LBUserFileReader.getInstance();
             this.userFileWriter = LBUserFileWriter.getInstance();
             this.users = userFileReader.readEntitiesFromFile();
         } catch (LBFileAccessException e) {
