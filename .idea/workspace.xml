@@ -62,13 +62,18 @@
     "JUnit.LBBookServiceImplTest.executor": "Run",
     "JUnit.LBUserConverterTest.convertTest.executor": "Run",
     "JUnit.LBUserConverterTest.executor": "Run",
-    "JUnit.LBUserDaoImplTest.executor": "Run",
+    "JUnit.LBUserDaoImplTest.createUserExceptionTest.executor": "Run",
+    "JUnit.LBUserDaoImplTest.createUserTest.executor": "Run",
+    "JUnit.LBUserDaoImplTest.executor": "Debug",
     "JUnit.LBUserDaoImplTest.getUsersTest.executor": "Run",
     "JUnit.LBUserDaoImplTest.getUsers_test.executor": "Run",
     "JUnit.LBUserDaoImplTest.rentBookTest.executor": "Run",
     "JUnit.LBUserDaoImplTest.returnBookAllPassTest.executor": "Run",
+    "JUnit.LBUserDaoImplTest.returnBookBookNotExistTest.executor": "Run",
     "JUnit.LBUserDaoImplTest.returnBookExceptionTest.executor": "Run",
     "JUnit.LBUserDaoImplTest.returnBookTest.executor": "Run",
+    "JUnit.LBUserDaoImplTest.updateUserExceptionTest.executor": "Run",
+    "JUnit.LBUserDaoImplTest.updateUserTest.executor": "Run",
     "JUnit.LBUserServiceImplTest.executor": "Run",
     "Maven.library [clean,install].executor": "Run",
     "Maven.library [clean].executor": "Run",
@@ -77,8 +82,9 @@
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit3",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3": "junit.framework.TestCase",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "feature/library",
+    "git-widget-placeholder": "<unknown>",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Work/Library-feature-library/Library",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.0",
@@ -104,8 +110,8 @@
       <command value="mvn clean install" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.LBUserDaoImplTest.returnBookAllPassTest">
-    <configuration name="LBUserDaoImplTest.getUsersTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.LBUserDaoImplTest.createUserExceptionTest">
+    <configuration name="LBUserDaoImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="library" />
       <extension name="coverage">
         <pattern>
@@ -115,13 +121,28 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.semenihin.dao.impl" />
       <option name="MAIN_CLASS_NAME" value="com.semenihin.dao.impl.LBUserDaoImplTest" />
-      <option name="METHOD_NAME" value="getUsersTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LBUserDaoImplTest.createUserExceptionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="library" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.semenihin.dao.impl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.semenihin.dao.impl" />
+      <option name="MAIN_CLASS_NAME" value="com.semenihin.dao.impl.LBUserDaoImplTest" />
+      <option name="METHOD_NAME" value="createUserExceptionTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LBUserDaoImplTest.rentBookTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LBUserDaoImplTest.createUserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="library" />
       <extension name="coverage">
         <pattern>
@@ -131,7 +152,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.semenihin.dao.impl" />
       <option name="MAIN_CLASS_NAME" value="com.semenihin.dao.impl.LBUserDaoImplTest" />
-      <option name="METHOD_NAME" value="rentBookTest" />
+      <option name="METHOD_NAME" value="createUserTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -153,7 +174,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LBUserDaoImplTest.returnBookExceptionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LBUserDaoImplTest.updateUserExceptionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="library" />
       <extension name="coverage">
         <pattern>
@@ -163,42 +184,26 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.semenihin.dao.impl" />
       <option name="MAIN_CLASS_NAME" value="com.semenihin.dao.impl.LBUserDaoImplTest" />
-      <option name="METHOD_NAME" value="returnBookExceptionTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="LBUserDaoImplTest.returnBookTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="library" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.semenihin.dao.impl.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.semenihin.dao.impl" />
-      <option name="MAIN_CLASS_NAME" value="com.semenihin.dao.impl.LBUserDaoImplTest" />
-      <option name="METHOD_NAME" value="returnBookTest" />
+      <option name="METHOD_NAME" value="updateUserExceptionTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.LBUserDaoImplTest.getUsersTest" />
-      <item itemvalue="JUnit.LBUserDaoImplTest.rentBookTest" />
+      <item itemvalue="JUnit.LBUserDaoImplTest" />
+      <item itemvalue="JUnit.LBUserDaoImplTest.createUserExceptionTest" />
+      <item itemvalue="JUnit.LBUserDaoImplTest.createUserTest" />
+      <item itemvalue="JUnit.LBUserDaoImplTest.updateUserExceptionTest" />
       <item itemvalue="JUnit.LBUserDaoImplTest.returnBookAllPassTest" />
-      <item itemvalue="JUnit.LBUserDaoImplTest.returnBookExceptionTest" />
-      <item itemvalue="JUnit.LBUserDaoImplTest.returnBookTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.LBUserDaoImplTest.createUserExceptionTest" />
+        <item itemvalue="JUnit.LBUserDaoImplTest.updateUserExceptionTest" />
+        <item itemvalue="JUnit.LBUserDaoImplTest.createUserTest" />
         <item itemvalue="JUnit.LBUserDaoImplTest.returnBookAllPassTest" />
-        <item itemvalue="JUnit.LBUserDaoImplTest.returnBookExceptionTest" />
-        <item itemvalue="JUnit.LBUserDaoImplTest.returnBookTest" />
-        <item itemvalue="JUnit.LBUserDaoImplTest.rentBookTest" />
-        <item itemvalue="JUnit.LBUserDaoImplTest.getUsersTest" />
+        <item itemvalue="JUnit.LBUserDaoImplTest" />
       </list>
     </recent_temporary>
   </component>

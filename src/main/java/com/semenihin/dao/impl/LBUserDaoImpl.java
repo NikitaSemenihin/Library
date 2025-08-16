@@ -46,7 +46,7 @@ public class LBUserDaoImpl implements UserDao {
     }
 
     @Override
-    public void rentBook(long userId, Book book){
+    public void rentBook(long userId, Book book) {
         for (User user : users) {
             if (user.getId() == userId) {
                 user.getRentedBooks().add(book);
@@ -64,21 +64,22 @@ public class LBUserDaoImpl implements UserDao {
         }
 
         if (userToReturn != null) {
-            for (User selectedUser : users) {
-                if (userID == selectedUser.getId()) {
-                    ArrayList<Book> booksToDelete = new ArrayList<>();
+            ArrayList<Book> booksToDelete = new ArrayList<>();
+            boolean isBookExist = false;
 
-                    for (Book selectedBook : userToReturn.getRentedBooks()) {
-                        if (selectedBook.getId() == bookID) {
-                            booksToDelete.add(selectedBook);
-                        }
-                    }
+            for (Book selectedBook : userToReturn.getRentedBooks()) {
+                if (selectedBook.getId() == bookID) {
+                    isBookExist = true;
+                    booksToDelete.add(selectedBook);
+                }
+            }
+            if (!isBookExist){
+                throw new LBNotExistException("Book not exists");
+            }
 
-                    if (!booksToDelete.isEmpty()) {
-                        for (Book selectedBook : booksToDelete) {
-                            userToReturn.getRentedBooks().remove(selectedBook);
-                        }
-                    }
+            if (!booksToDelete.isEmpty()) {
+                for (Book selectedBook : booksToDelete) {
+                    userToReturn.getRentedBooks().remove(selectedBook);
                 }
             }
         } else throw new LBNotExistException("User not exists");
@@ -138,7 +139,7 @@ public class LBUserDaoImpl implements UserDao {
     @Override
     public void updateBookInUser(long userID, long bookID) throws LBFileAccessException {
         try {
-            for (Book book : findUser(userID).getRentedBooks()){
+            for (Book book : findUser(userID).getRentedBooks()) {
                 if (book.getId() == bookID) {
                     book.setTitle(bookService.findBook(bookID).getTitle());
                     book.setAuthor(bookService.findBook(bookID).getAuthor());
