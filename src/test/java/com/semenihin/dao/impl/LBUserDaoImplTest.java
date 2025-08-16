@@ -119,7 +119,7 @@ public class LBUserDaoImplTest {
         verify(bookService).updateUserInBook(spyBook.getId(), spyUser.getId());
     }
 
-    @Test(expected = LBNotExistException.class)
+    @Test(expected = LBFileAccessException.class)
     public void updateUserExceptionTest() throws LBFileAccessException {
         doThrow(new LBFileAccessException ("")).when(userFileWriter).update(anyList());
         userDao.updateUser(spyUser);
@@ -136,7 +136,7 @@ public class LBUserDaoImplTest {
         verify(userFileWriter).update(spyUsers);
     }
 
-    @Test(expected = LBNotExistException.class)
+    @Test(expected = LBFileAccessException.class)
     public void createUserExceptionTest() throws LBFileAccessException {
         doThrow(new LBFileAccessException ("")).when(userFileWriter).update(anyList());
         userDao.createUser(spyUser);
@@ -153,4 +153,11 @@ public class LBUserDaoImplTest {
         userDao.updateBookInUser(spyUser.getId(), spyBook.getId());
         verify(userFileWriter).update(spyUsers);
     }
+
+    @Test(expected = LBFileAccessException.class)
+    public void updateBookInUserExceptionTest() throws LBFileAccessException {
+        doThrow(new LBFileAccessException ("")).when(userFileWriter).update(anyList());
+        userDao.updateBookInUser(spyUser.getId(), spyBook.getId());
+    }
+
 }

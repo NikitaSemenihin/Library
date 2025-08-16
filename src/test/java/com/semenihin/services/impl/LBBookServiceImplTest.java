@@ -5,6 +5,7 @@ import com.semenihin.entity.Book;
 import com.semenihin.entity.User;
 import com.semenihin.exceptions.LBFileAccessException;
 import com.semenihin.exceptions.LBInvalidEntityException;
+import com.semenihin.exceptions.LBNotExistException;
 import com.semenihin.printer.Printer;
 import com.semenihin.services.UserService;
 import com.semenihin.validator.impl.LBBookValidator;
@@ -23,6 +24,16 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class LBBookServiceImplTest {
+    private static final Long TEST_BOOK_ID = 9999L;
+    private static final String TEST_BOOK_TITLE = "test";
+    private static final String TEST_BOOK_AUTHOR = "test test";
+    private static final int TEST_BOOK_PAGES = 123;
+    private static final int TEST_BOOK_YEAR = 321;
+    private static final Long TEST_USER_ID = 101L;
+    private static final String TEST_USER_FULL_NAME = "user";
+    private static final String TEST_USER_EMAIL = "test@email.com";
+    private static final String TEST_USER_PHONE_NUMBER = "+3242543224";
+
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
@@ -40,16 +51,6 @@ public class LBBookServiceImplTest {
 
     @InjectMocks
     private LBBookServiceImpl bookService;
-
-    private static final Long TEST_BOOK_ID = 9999L;
-    private static final String TEST_BOOK_TITLE = "test";
-    private static final String TEST_BOOK_AUTHOR = "test test";
-    private static final int TEST_BOOK_PAGES = 123;
-    private static final int TEST_BOOK_YEAR = 321;
-    private static final Long TEST_USER_ID = 101L;
-    private static final String TEST_USER_FULL_NAME = "user";
-    private static final String TEST_USER_EMAIL = "test@email.com";
-    private static final String TEST_USER_PHONE_NUMBER = "+3242543224";
 
     private List<Book> testBooks = new ArrayList<>();
     private Book testBook;
@@ -75,7 +76,7 @@ public class LBBookServiceImplTest {
     }
 
     @Test(expected = LBInvalidEntityException.class)
-    public void createBook_WhenBookAreRented() throws Exception {
+    public void createBookTest_WhenBookAreRented() throws Exception {
         when(bookDao.getBooks()).thenReturn(List.of());
         testBook.setCurrentUser(testUser);
 
@@ -83,7 +84,7 @@ public class LBBookServiceImplTest {
     }
 
     @Test(expected = LBInvalidEntityException.class)
-    public void createBook_WhenBookAlreadyExist() throws Exception {
+    public void createBookTest_WhenBookAlreadyExist() throws Exception {
         bookService.createBook(testBook);
     }
 
@@ -93,6 +94,12 @@ public class LBBookServiceImplTest {
         bookService.updateBook(testBook);
         verify(bookDao).updateBook(testBook);
         userService.updateBookInUser(testUser.getId(), testBook.getId());
+    }
+
+    @Test(expected = LBInvalidEntityException.class)
+    public void updateBookExceptionTest() throws Exception {
+        when(bookValidator.validate(testBook)).thenReturn(false);
+        bookService.updateBook(testBook);
     }
 
     @Test
@@ -115,6 +122,11 @@ public class LBBookServiceImplTest {
         verify(bookDao).delete(testBook);
     }
 
+    @Test(expected = LBNotExistException.class)
+    public void deleteBookExceptionTest() throws Exception {
+        bookService.deleteBook(929292);
+    }
+
     @Test
     public void printBooksTest() {
         bookService.printBooks();
@@ -127,10 +139,20 @@ public class LBBookServiceImplTest {
         verify(bookDao).rentBook(testBook.getId(), testUser);
     }
 
+    @Test(expected = LBNotExistException.class)
+    public void rentBookExceptionTest() throws Exception {
+        bookService.rentBook(929292, testUser);
+    }
+
     @Test
     public void returnBookTest() throws Exception {
         bookService.returnBook(testBook.getId());
         verify(bookDao).returnBook(testBook.getId());
+    }
+
+    @Test(expected = LBNotExistException.class)
+    public void returnBookExceptionTest() throws Exception {
+        bookService.returnBook(929292);
     }
 
     @Test
@@ -140,8 +162,12 @@ public class LBBookServiceImplTest {
     }
 
     @Test
-    public void existTest() {
+    public void existTrueTest() {
         assertTrue(bookService.exist(testBook.getId()));
-        assertFalse(bookService.exist(-1L));
+    }
+
+    @Test
+    public void existFalseTest() {
+        assertFalse(bookService.exist(929292));
     }
 }
