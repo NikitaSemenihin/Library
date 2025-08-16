@@ -3,6 +3,9 @@ package com.semenihin.services.impl;
 import com.semenihin.dao.UserDao;
 import com.semenihin.entity.Book;
 import com.semenihin.entity.User;
+import com.semenihin.exceptions.LBFileAccessException;
+import com.semenihin.exceptions.LBInvalidEntityException;
+import com.semenihin.exceptions.LBNotExistException;
 import com.semenihin.printer.Printer;
 import com.semenihin.validator.Validator;
 import org.junit.Before;
@@ -70,10 +73,21 @@ public class LBUserServiceImplTest {
     }
 
     @Test
-    public void createUserTest() throws Exception {
+    public void createUserAllPassTest() throws Exception {
         testUsers.remove(testUser);
         userService.createUser(testUser);
         verify(userDao).createUser(testUser);
+    }
+
+    @Test(expected = LBInvalidEntityException.class)
+    public void createUserValidateExceptionTest() throws LBFileAccessException {
+        when(userValidator.validate(testUser)).thenReturn(false);
+        userService.createUser(testUser);
+    }
+
+    @Test(expected = LBInvalidEntityException.class)
+    public void createUserExistExceptionTest() throws LBFileAccessException {
+        userService.createUser(testUser);
     }
 
     @Test
@@ -94,11 +108,41 @@ public class LBUserServiceImplTest {
         verify(userDao).deleteUser(testUser.getId());
     }
 
+    @Test(expected = LBNotExistException.class)
+    public void deleteUserExistExceptionTest() throws LBFileAccessException {
+        testUsers.remove(testUser);
+        userService.deleteUser(testUser.getId());
+    }
+
     @Test
-    public void rentBookTest() throws Exception {
+    public void rentBookAllPassTest() throws Exception {
         userService.rentBook(testUser.getId(), testBook.getId());
         verify(bookService).rentBook(testBook.getId(), testUser);
         verify(userDao).rentBook(testUser.getId(), testBook);
+    }
+
+    @Test(expected = LBNotExistException.class)
+    public void rentBookUser_ExistExceptionTest() throws LBFileAccessException {
+        testUsers.remove(testUser);
+        userService.rentBook(testUser.getId(), testBook.getId());
+    }
+
+    @Test(expected = LBNotExistException.class)
+    public void rentBookBook_ExistExceptionTest() throws LBFileAccessException {
+        when(bookService.exist(testBook.getId())).thenReturn(false);
+        userService.rentBook(testUser.getId(), testBook.getId());
+    }
+
+    @Test(expected = LBInvalidEntityException.class)
+    public void rentBook_AlreadyRentedExceptionTest() throws LBFileAccessException {
+        testBook.setCurrentUser(testUser);
+        userService.rentBook(testUser.getId(), testBook.getId());
+    }
+
+    @Test(expected = LBFileAccessException.class)
+    public void rentBook_FileAccessExceptionTest() throws LBFileAccessException {
+        doThrow(new LBFileAccessException()).when(bookService).rentBook(testBook.getId(), testUser);
+        userService.rentBook(testUser.getId(), testBook.getId());
     }
 
     @Test
@@ -106,6 +150,24 @@ public class LBUserServiceImplTest {
         userService.returnBook(testUser.getId(), testBook.getId());
         verify(bookService).returnBook(testBook.getId());
         verify(userDao).returnBook(testUser.getId(), testBook.getId());
+    }
+
+    @Test(expected = LBNotExistException.class)
+    public void returnBook_UserExistExceptionTest() throws LBFileAccessException {
+        testUsers.remove(testUser);
+        userService.returnBook(testUser.getId(), testBook.getId());
+    }
+
+    @Test(expected = LBNotExistException.class)
+    public void returnBook_BookExistExceptionTest() throws LBFileAccessException {
+        when(bookService.exist(testBook.getId())).thenReturn(false);
+        userService.returnBook(testUser.getId(), testBook.getId());
+    }
+
+    @Test(expected = LBFileAccessException.class)
+    public void returnBook_FileAccessExceptionTest() throws LBFileAccessException {
+        doThrow(new LBFileAccessException()).when(bookService).returnBook(testBook.getId());
+        userService.returnBook(testUser.getId(), testBook.getId());
     }
 
     @Test

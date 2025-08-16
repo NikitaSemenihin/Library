@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="52acca91-9dc6-4d7d-9493-44ceae8eb237" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/semenihin/dao/impl/LBUserDaoImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/semenihin/dao/impl/LBUserDaoImplTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/semenihin/services/impl/LBBookServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/semenihin/services/impl/LBBookServiceImplTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/semenihin/services/impl/LBUserServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/semenihin/services/impl/LBUserServiceImplTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +80,22 @@
     "JUnit.LBUserDaoImplTest.updateBookInUserExceptionTest.executor": "Run",
     "JUnit.LBUserDaoImplTest.updateUserExceptionTest.executor": "Run",
     "JUnit.LBUserDaoImplTest.updateUserTest.executor": "Run",
+    "JUnit.LBUserServiceImplTest.createUserAllPassTest.executor": "Run",
+    "JUnit.LBUserServiceImplTest.createUserExistExceptionTest.executor": "Run",
+    "JUnit.LBUserServiceImplTest.deleteUserExistExceptionTest.executor": "Run",
     "JUnit.LBUserServiceImplTest.executor": "Run",
+    "JUnit.LBUserServiceImplTest.rentBookAllPassTest.executor": "Run",
+    "JUnit.LBUserServiceImplTest.rentBookBookExistExceptionTest.executor": "Run",
+    "JUnit.LBUserServiceImplTest.rentBookBook_ExistExceptionTest.executor": "Run",
+    "JUnit.LBUserServiceImplTest.rentBookExistExceptionTest.executor": "Run",
+    "JUnit.LBUserServiceImplTest.rentBookUserExistExceptionTest.executor": "Run",
+    "JUnit.LBUserServiceImplTest.rentBookUser_ExistExceptionTest.executor": "Run",
+    "JUnit.LBUserServiceImplTest.rentBook_AlreadyRentedExceptionTest.executor": "Run",
+    "JUnit.LBUserServiceImplTest.rentBook_FileAccessExceptionTest.executor": "Run",
+    "JUnit.LBUserServiceImplTest.returnBookExistExceptionTest.executor": "Run",
+    "JUnit.LBUserServiceImplTest.returnBook_BookExistExceptionTest.executor": "Run",
+    "JUnit.LBUserServiceImplTest.returnBook_FileAccessExceptionTest.executor": "Run",
+    "JUnit.LBUserServiceImplTest.returnBook_UserExistExceptionTest.executor": "Run",
     "Maven.library [clean,install].executor": "Run",
     "Maven.library [clean].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -117,8 +131,8 @@
       <command value="mvn clean install" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.LBBookServiceImplTest.existFalseTest">
-    <configuration name="LBBookServiceImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.LBUserServiceImplTest.returnBook_FileAccessExceptionTest">
+    <configuration name="LBUserServiceImplTest.rentBook_FileAccessExceptionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="library" />
       <extension name="coverage">
         <pattern>
@@ -127,29 +141,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.semenihin.services.impl" />
-      <option name="MAIN_CLASS_NAME" value="com.semenihin.services.impl.LBBookServiceImplTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="LBBookServiceImplTest.existFalseTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="library" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.semenihin.services.impl.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.semenihin.services.impl" />
-      <option name="MAIN_CLASS_NAME" value="com.semenihin.services.impl.LBBookServiceImplTest" />
-      <option name="METHOD_NAME" value="existFalseTest" />
+      <option name="MAIN_CLASS_NAME" value="com.semenihin.services.impl.LBUserServiceImplTest" />
+      <option name="METHOD_NAME" value="rentBook_FileAccessExceptionTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LBBookServiceImplTest.existTrueTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LBUserServiceImplTest.returnBookExistExceptionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="library" />
       <extension name="coverage">
         <pattern>
@@ -158,14 +157,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.semenihin.services.impl" />
-      <option name="MAIN_CLASS_NAME" value="com.semenihin.services.impl.LBBookServiceImplTest" />
-      <option name="METHOD_NAME" value="existTrueTest" />
+      <option name="MAIN_CLASS_NAME" value="com.semenihin.services.impl.LBUserServiceImplTest" />
+      <option name="METHOD_NAME" value="returnBookExistExceptionTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LBBookServiceImplTest.rentBookExceptionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LBUserServiceImplTest.returnBook_BookExistExceptionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="library" />
       <extension name="coverage">
         <pattern>
@@ -174,14 +173,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.semenihin.services.impl" />
-      <option name="MAIN_CLASS_NAME" value="com.semenihin.services.impl.LBBookServiceImplTest" />
-      <option name="METHOD_NAME" value="rentBookExceptionTest" />
+      <option name="MAIN_CLASS_NAME" value="com.semenihin.services.impl.LBUserServiceImplTest" />
+      <option name="METHOD_NAME" value="returnBook_BookExistExceptionTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LBBookServiceImplTest.returnBookExceptionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LBUserServiceImplTest.returnBook_FileAccessExceptionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="library" />
       <extension name="coverage">
         <pattern>
@@ -190,27 +189,43 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.semenihin.services.impl" />
-      <option name="MAIN_CLASS_NAME" value="com.semenihin.services.impl.LBBookServiceImplTest" />
-      <option name="METHOD_NAME" value="returnBookExceptionTest" />
+      <option name="MAIN_CLASS_NAME" value="com.semenihin.services.impl.LBUserServiceImplTest" />
+      <option name="METHOD_NAME" value="returnBook_FileAccessExceptionTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LBUserServiceImplTest.returnBook_UserExistExceptionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="library" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.semenihin.services.impl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.semenihin.services.impl" />
+      <option name="MAIN_CLASS_NAME" value="com.semenihin.services.impl.LBUserServiceImplTest" />
+      <option name="METHOD_NAME" value="returnBook_UserExistExceptionTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.LBBookServiceImplTest" />
-      <item itemvalue="JUnit.LBBookServiceImplTest.existFalseTest" />
-      <item itemvalue="JUnit.LBBookServiceImplTest.existTrueTest" />
-      <item itemvalue="JUnit.LBBookServiceImplTest.rentBookExceptionTest" />
-      <item itemvalue="JUnit.LBBookServiceImplTest.returnBookExceptionTest" />
+      <item itemvalue="JUnit.LBUserServiceImplTest.rentBook_FileAccessExceptionTest" />
+      <item itemvalue="JUnit.LBUserServiceImplTest.returnBookExistExceptionTest" />
+      <item itemvalue="JUnit.LBUserServiceImplTest.returnBook_BookExistExceptionTest" />
+      <item itemvalue="JUnit.LBUserServiceImplTest.returnBook_FileAccessExceptionTest" />
+      <item itemvalue="JUnit.LBUserServiceImplTest.returnBook_UserExistExceptionTest" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.LBBookServiceImplTest.existFalseTest" />
-        <item itemvalue="JUnit.LBBookServiceImplTest.existTrueTest" />
-        <item itemvalue="JUnit.LBBookServiceImplTest" />
-        <item itemvalue="JUnit.LBBookServiceImplTest.returnBookExceptionTest" />
-        <item itemvalue="JUnit.LBBookServiceImplTest.rentBookExceptionTest" />
+        <item itemvalue="JUnit.LBUserServiceImplTest.returnBook_FileAccessExceptionTest" />
+        <item itemvalue="JUnit.LBUserServiceImplTest.returnBook_BookExistExceptionTest" />
+        <item itemvalue="JUnit.LBUserServiceImplTest.returnBook_UserExistExceptionTest" />
+        <item itemvalue="JUnit.LBUserServiceImplTest.returnBookExistExceptionTest" />
+        <item itemvalue="JUnit.LBUserServiceImplTest.rentBook_FileAccessExceptionTest" />
       </list>
     </recent_temporary>
   </component>
