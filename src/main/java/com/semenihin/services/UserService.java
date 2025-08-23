@@ -18,6 +18,4 @@ public interface UserService {
     void returnBook(long userID, long bookID) throws LBFileAccessException;
 
     boolean exist(long userId);
-
-    void updateBookInUser(long userID, long bookID) throws LBFileAccessException;
 }

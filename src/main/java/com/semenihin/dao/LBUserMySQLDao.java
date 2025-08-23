@@ -10,10 +10,6 @@ public interface LBUserMySQLDao {
 
     List<User> getUsers();
 
-    void rentBook(long userID, Book book);
-
-    void returnBook(long userID, long bookID);
-
     void updateUser(User user) throws LBFileAccessException;
 
     User findUser(long userID);
@@ -21,6 +17,4 @@ public interface LBUserMySQLDao {
     void createUser(User user) throws LBFileAccessException;
 
     void deleteUser(long userID) throws LBFileAccessException;
-
-    void updateBookInUser(long userID, long bookID) throws LBFileAccessException;
 }

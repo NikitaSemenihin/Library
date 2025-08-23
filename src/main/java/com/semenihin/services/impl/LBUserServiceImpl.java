@@ -101,7 +101,6 @@ public class LBUserServiceImpl implements UserService {
         } catch (LBFileAccessException e) {
             throw new LBFileAccessException(e);
         }
-        userDao.rentBook(userID, bookService.findBook(bookID));
     }
 
     @Override
@@ -113,7 +112,6 @@ public class LBUserServiceImpl implements UserService {
             if (!bookService.exist(bookID)) {
                 throw new LBNotExistException("Book not exist");
             }
-            userDao.returnBook(userID, bookID);
             bookService.returnBook(bookID);
         } catch (LBFileAccessException e) {
             throw new LBFileAccessException(e);
@@ -127,10 +125,5 @@ public class LBUserServiceImpl implements UserService {
             }
         }
         return false;
-    }
-
-    @Override
-    public void updateBookInUser(long userID, long bookID) throws LBFileAccessException {
-        userDao.updateBookInUser(userID, bookID);
     }
 }

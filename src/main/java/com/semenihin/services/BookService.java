@@ -24,6 +24,4 @@ public interface BookService {
     void returnBook(long bookId) throws LBFileAccessException;
 
     boolean exist(long bookId);
-
-    void updateUserInBook(long bookID, long userID) throws LBFileAccessException;
 }

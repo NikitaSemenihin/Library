@@ -118,7 +118,6 @@ public class LBUserServiceImplTest {
     public void rentBookAllPassTest() throws Exception {
         userService.rentBook(testUser.getId(), testBook.getId());
         verify(bookService).rentBook(testBook.getId(), testUser);
-        verify(userDao).rentBook(testUser.getId(), testBook);
     }
 
     @Test(expected = LBNotExistException.class)
@@ -149,7 +148,6 @@ public class LBUserServiceImplTest {
     public void returnBookTest() throws Exception {
         userService.returnBook(testUser.getId(), testBook.getId());
         verify(bookService).returnBook(testBook.getId());
-        verify(userDao).returnBook(testUser.getId(), testBook.getId());
     }
 
     @Test(expected = LBNotExistException.class)
@@ -179,6 +177,5 @@ public class LBUserServiceImplTest {
     @Test
     public void updateBookInUserTest() throws Exception {
         userService.updateBookInUser(testUser.getId(), testBook.getId());
-        verify(userDao).updateBookInUser(testUser.getId(), testBook.getId());
     }
 }

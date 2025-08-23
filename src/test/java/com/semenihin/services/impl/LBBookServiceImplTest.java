@@ -156,12 +156,6 @@ public class LBBookServiceImplTest {
     }
 
     @Test
-    public void updateUserInBookTest() throws Exception {
-        bookService.updateUserInBook(testBook.getId(), testUser.getId());
-        verify(bookDao).updateUserInBook(testBook.getId(), testUser.getId());
-    }
-
-    @Test
     public void existTrueTest() {
         assertTrue(bookService.exist(testBook.getId()));
     }

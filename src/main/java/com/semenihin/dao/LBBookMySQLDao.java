@@ -21,5 +21,4 @@ public interface LBBookMySQLDao {
 
     void returnBook(long bookId) throws LBFileAccessException;
 
-    void updateUserInBook(long bookID, long userID) throws LBFileAccessException;
 }
