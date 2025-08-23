@@ -1,8 +1,8 @@
 package com.semenihin.services.impl;
 
-import com.semenihin.dao.UserDao;
-import com.semenihin.dao.impl.LBUserDaoImpl;
-import com.semenihin.entity.Book;
+import com.semenihin.dao.LBUserMySQLDao;
+
+import com.semenihin.dao.impl.LBUserMySQLDaoImpl;
 import com.semenihin.entity.User;
 import com.semenihin.exceptions.LBFileAccessException;
 import com.semenihin.exceptions.LBInvalidEntityException;
@@ -14,7 +14,7 @@ import com.semenihin.validator.impl.LBUserValidator;
 import com.semenihin.validator.Validator;
 
 public class LBUserServiceImpl implements UserService {
-    private UserDao userDao;
+    private LBUserMySQLDao userDao;
     private static LBUserServiceImpl instance;
     private LBBookServiceImpl bookService;
     private Validator<User> userValidator;
@@ -31,7 +31,7 @@ public class LBUserServiceImpl implements UserService {
 
     private LBUserServiceImpl() {}
 
-    private void setUserDao(UserDao userDao) {
+    private void setUserDao(LBUserMySQLDao userDao) {
         this.userDao = userDao;
     }
 
@@ -49,7 +49,7 @@ public class LBUserServiceImpl implements UserService {
 
     private static void injectDependencies(LBUserServiceImpl userService) {
         userService.setUserValidator(LBUserValidator.getInstance());
-        userService.setUserDao(LBUserDaoImpl.getInstance());
+        userService.setUserDao(LBUserMySQLDaoImpl.getInstance());
         userService.setBookService(LBBookServiceImpl.getInstance());
         userService.setUserPrinter(LBUserPrinter.getInstance());
     }

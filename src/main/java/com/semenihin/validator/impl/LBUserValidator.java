@@ -1,6 +1,7 @@
 package com.semenihin.validator.impl;
 
-import com.semenihin.dao.impl.LBUserDaoImpl;
+import com.semenihin.dao.LBUserMySQLDao;
+import com.semenihin.dao.impl.LBUserMySQLDaoImpl;
 import com.semenihin.entity.User;
 import com.semenihin.validator.Validator;
 
@@ -15,7 +16,7 @@ public class LBUserValidator implements Validator<User> {
     }
 
     private LBUserValidator(){
-        LBUserDaoImpl userDao = LBUserDaoImpl.getInstance();
+        LBUserMySQLDao userDao = LBUserMySQLDaoImpl.getInstance();
     }
 
     @Override

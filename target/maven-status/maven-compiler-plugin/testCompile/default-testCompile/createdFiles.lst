@@ -1,3 +1,2 @@
-com\semenihin\converter\impl\LBBookConverterTest.class
-com\semenihin\converter\impl\LBUserConverterTest.class
-com\semenihin\dao\impl\LBBookDaoImplTest.class
+com\semenihin\services\impl\LBUserServiceImplTest.class
+com\semenihin\services\impl\LBBookServiceImplTest.class

@@ -1,6 +1,6 @@
 package com.semenihin.services.impl;
 
-import com.semenihin.dao.UserDao;
+import com.semenihin.dao.LBUserMySQLDao;
 import com.semenihin.entity.Book;
 import com.semenihin.entity.User;
 import com.semenihin.exceptions.LBFileAccessException;
@@ -38,7 +38,7 @@ public class LBUserServiceImplTest {
     private static final String TEST_USER_PHONE_NUMBER = "+3242543224";
 
     @Mock
-    private UserDao userDao;
+    private LBUserMySQLDao userDao;
 
     @Mock
     private LBBookServiceImpl bookService;

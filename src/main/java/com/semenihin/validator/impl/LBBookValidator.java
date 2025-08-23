@@ -1,7 +1,7 @@
 package com.semenihin.validator.impl;
 
-import com.semenihin.dao.impl.LBBookDaoImpl;
-import com.semenihin.dao.BookDao;
+import com.semenihin.dao.LBBookMySQLDao;
+import com.semenihin.dao.impl.LBBookMySQLDaoImpl;
 import com.semenihin.entity.Book;
 import com.semenihin.entity.User;
 import com.semenihin.validator.Validator;
@@ -17,7 +17,7 @@ public class LBBookValidator implements Validator<Book> {
     }
 
     private LBBookValidator(){
-        BookDao bookDao = LBBookDaoImpl.getInstance();
+        LBBookMySQLDao bookDao = LBBookMySQLDaoImpl.getInstance();
     }
 
     @Override

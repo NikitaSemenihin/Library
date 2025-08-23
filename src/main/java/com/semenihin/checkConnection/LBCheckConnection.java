@@ -1,12 +1,11 @@
 package com.semenihin.checkConnection;
 
-import com.semenihin.connector.LBDatabaseConnector;
-
 import java.sql.Connection;
+import com.semenihin.connector.LBDatabaseConnector;
 
 public class LBCheckConnection {
     public static void main(String[] args) {
-        try (Connection conn = LBDatabaseConnector.getConnection()) {
+        try (Connection connection = LBDatabaseConnector.getConnection()) {
             System.out.println("✅ Подключение к MySQL успешно!");
         } catch (Exception e) {
             e.printStackTrace();

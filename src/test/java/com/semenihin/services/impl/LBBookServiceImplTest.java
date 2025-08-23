@@ -1,6 +1,6 @@
 package com.semenihin.services.impl;
 
-import com.semenihin.dao.BookDao;
+import com.semenihin.dao.LBBookMySQLDao;
 import com.semenihin.entity.Book;
 import com.semenihin.entity.User;
 import com.semenihin.exceptions.LBFileAccessException;
@@ -41,7 +41,7 @@ public class LBBookServiceImplTest {
     private UserService userService;
 
     @Mock
-    private BookDao bookDao;
+    private LBBookMySQLDao bookDao;
 
     @Mock
     private LBBookValidator bookValidator;

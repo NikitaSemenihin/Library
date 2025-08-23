@@ -7,10 +7,13 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class LBDatabaseConnector {
+public final class LBDatabaseConnector {
     private static final String url;
     private static final String user;
     private static final String password;
+
+    private LBDatabaseConnector() {
+    }
 
     static {
         try (InputStream input = LBDatabaseConnector.class.getClassLoader().getResourceAsStream("db.properties")) {

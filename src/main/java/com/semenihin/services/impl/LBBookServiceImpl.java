@@ -1,7 +1,7 @@
 package com.semenihin.services.impl;
 
-import com.semenihin.dao.BookDao;
-import com.semenihin.dao.impl.LBBookDaoImpl;
+import com.semenihin.dao.LBBookMySQLDao;
+import com.semenihin.dao.impl.LBBookMySQLDaoImpl;
 import com.semenihin.entity.Book;
 import com.semenihin.entity.User;
 import com.semenihin.exceptions.LBFileAccessException;
@@ -17,7 +17,7 @@ import java.util.List;
 
 public class LBBookServiceImpl implements BookService {
     private UserService userService;
-    private BookDao bookDao;
+    private LBBookMySQLDao bookDao;
     private LBBookValidator bookValidator;
     private Printer<Book> bookPrinter;
     private static LBBookServiceImpl instance;
@@ -34,7 +34,7 @@ public class LBBookServiceImpl implements BookService {
 
     private static void injectDependencies(LBBookServiceImpl bookService){
         bookService.bookValidator = LBBookValidator.getInstance();
-        bookService.bookDao = LBBookDaoImpl.getInstance();
+        bookService.bookDao = LBBookMySQLDaoImpl.getInstance();
         bookService.bookPrinter = LBBookPrinter.getInstance();
         bookService.userService = LBUserServiceImpl.getInstance();
     }
