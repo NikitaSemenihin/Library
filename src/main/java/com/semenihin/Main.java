@@ -11,41 +11,42 @@ public class Main {
     public static void main(String[] args) {
         UserService userService = LBUserServiceImpl.getInstance();
         BookService bookService = LBBookServiceImpl.getInstance();
+//        System.out.println(userService.findUser(3));
 //        bookService.printBooks();
 //        System.out.println("\n\n---------------------------------------------------------------\n\n");
-//        userService.printUsers();
+        userService.printUsers();
 
 //        System.out.println(userService.findUser(1));
 //
-        Book newBook = new Book(10, "testik", "testok testovich", 1232, 3210, null);
-        try {
-            bookService.createBook(newBook);
-        } catch (LBFileAccessException e) {
-            throw new RuntimeException(e);
-        }
-
-        try {
-            userService.rentBook(1, newBook.getId());
-        } catch (LBFileAccessException e) {
-            throw new RuntimeException(e);
-        }
-
-        System.out.println("\n\n---------------------------------------------------------------\n\n");
-        bookService.printBooks();
-        System.out.println("\n\n---------------------------------------------------------------\n\n");
-        userService.printUsers();
-
-
-        try {
-            bookService.deleteBook(10);
-        } catch (LBFileAccessException e) {
-            throw new RuntimeException(e);
-        }
-
-        System.out.println("\n\n---------------------------------------------------------------\n\n");
-        bookService.printBooks();
-        System.out.println("\n\n---------------------------------------------------------------\n\n");
-        userService.printUsers();
+//        Book newBook = new Book(10, "testik", "testok testovich", 1232, 3210, null);
+//        try {
+//            bookService.createBook(newBook);
+//        } catch (LBFileAccessException e) {
+//            throw new RuntimeException(e);s
+//        }
+//
+//        try {
+//            userService.rentBook(1, newBook.getId());
+//        } catch (LBFileAccessException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//        System.out.println("\n\n---------------------------------------------------------------\n\n");
+//        bookService.printBooks();
+//        System.out.println("\n\n---------------------------------------------------------------\n\n");
+//        userService.printUsers();
+//
+//
+//        try {
+//            bookService.deleteBook(10);
+//        } catch (LBFileAccessException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//        System.out.println("\n\n---------------------------------------------------------------\n\n");
+//        bookService.printBooks();
+//        System.out.println("\n\n---------------------------------------------------------------\n\n");
+//        userService.printUsers();
 
 
 //        User newUser = new User(4, "test testovich", "test@test.test", "+3434532");

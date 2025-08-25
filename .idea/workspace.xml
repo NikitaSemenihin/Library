@@ -7,16 +7,9 @@
     <list default="true" id="52acca91-9dc6-4d7d-9493-44ceae8eb237" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/dao/LBBookMySQLDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/dao/LBBookMySQLDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/dao/LBUserMySQLDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/dao/LBUserMySQLDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/dao/impl/LBBookMySQLDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/dao/impl/LBBookMySQLDaoImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/dao/impl/LBUserMySQLDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/dao/impl/LBUserMySQLDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/services/BookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/services/BookService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/services/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/services/impl/LBBookServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/services/impl/LBBookServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/services/impl/LBUserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/services/impl/LBUserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/semenihin/services/impl/LBBookServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/semenihin/services/impl/LBBookServiceImplTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/semenihin/services/impl/LBUserServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/semenihin/services/impl/LBUserServiceImplTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/semenihin/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/dao/impl/LBUserMySQLDaoImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/semenihin/dao/impl/LBUserMySQLDaoImpl.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

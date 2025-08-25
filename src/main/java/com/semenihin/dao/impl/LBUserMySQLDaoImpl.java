@@ -11,11 +11,22 @@ import com.semenihin.services.impl.LBBookServiceImpl;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class LBUserMySQLDaoImpl implements LBUserMySQLDao {
     private static LBUserMySQLDaoImpl instance;
-    private final BookService bookService;
+    private final String ID = "id";
+    private final String USER_ID = "user_id";
+    private final String BOOK_ID = "book_id";
+    private final String TITLE = "title";
+    private final String AUTHOR = "author";
+    private final String PAGES = "pages";
+    private final String YEAR = "year";
+    private final String FULL_NAME = "fullName";
+    private final String EMAIL = "email";
+    private final String PHONE_NUMBER = "phoneNumber";
 
     public static LBUserMySQLDaoImpl getInstance() {
         if (instance == null) {
@@ -25,35 +36,74 @@ public class LBUserMySQLDaoImpl implements LBUserMySQLDao {
     }
 
     private LBUserMySQLDaoImpl() {
-        this.bookService = LBBookServiceImpl.getInstance();
     }
 
+    //    @Override
+//    public List<User> getUsers() {
+//        List<User> users = new ArrayList<>();
+//        String userSelect = "SELECT id, fullName, email, phoneNumber FROM users";
+//        try (Connection connection = LBDatabaseConnector.getConnection();
+//             PreparedStatement statement = connection.prepareStatement(userSelect);
+//             ResultSet rs = statement.executeQuery()) {
+//            while (rs.next()) {
+//                User user = new User(
+//                        rs.getLong(ID),
+//                        rs.getString(FULL_NAME),
+//                        rs.getString(EMAIL),
+//                        rs.getString(PHONE_NUMBER));
+//                for (Book book : bookService.getBooks()) {
+//                    if (book.getCurrentUser() != null) {
+//                        if (book.getCurrentUser().getId() == user.getId()) {
+//                            user.getRentedBooks().add(book);
+//                        }
+//                    }
+//                }
+//                users.add(user);
+//            }
+//        } catch (SQLException e) {
+//            throw new RuntimeException("Error while reading users", e);
+//        }
+//        return users;
+//    }
     @Override
     public List<User> getUsers() {
-        List<User> users = new ArrayList<>();
-        String userSelect = "SELECT id, fullName, email, phoneNumber FROM users";
+        Map<Long, User> usersMap = new HashMap<>();
+        String userSelect = "SELECT u.id AS user_id, u.fullName, u.email, u.phoneNumber, b.id " +
+                "AS book_id, b.title, b.author, b.pages, b.year FROM users u LEFT JOIN books b ON u.id = b.user_id";
         try (Connection connection = LBDatabaseConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(userSelect);
              ResultSet rs = statement.executeQuery()) {
             while (rs.next()) {
-                User user = new User(
-                        rs.getLong("id"),
-                        rs.getString("fullName"),
-                        rs.getString("email"),
-                        rs.getString("phoneNumber"));
-                for (Book book : bookService.getBooks()) {
-                    if (book.getCurrentUser() != null) {
-                        if (book.getCurrentUser().getId() == user.getId()) {
-                            user.getRentedBooks().add(book);
-                        }
-                    }
+                long userId = rs.getLong(USER_ID);
+
+                User user = usersMap.get(userId);
+                if (user == null) {
+                    user = new User(
+                            userId,
+                            rs.getString(FULL_NAME),
+                            rs.getString(EMAIL),
+                            rs.getString(PHONE_NUMBER)
+                    );
+                    usersMap.put(userId, user);
                 }
-                users.add(user);
+
+                long bookId = rs.getLong(BOOK_ID);
+                if (bookId != 0) {
+                    Book book = new Book(
+                            bookId,
+                            rs.getString(TITLE),
+                            rs.getString(AUTHOR),
+                            rs.getInt(PAGES),
+                            rs.getInt(YEAR),
+                            user
+                    );
+                    user.getRentedBooks().add(book);
+                }
             }
         } catch (SQLException e) {
             throw new RuntimeException("Error while reading users", e);
         }
-        return users;
+        return new ArrayList<>(usersMap.values());
     }
 
     @Override
@@ -76,25 +126,31 @@ public class LBUserMySQLDaoImpl implements LBUserMySQLDao {
     @Override
     public User findUser(long userID) {
         User user = null;
-        String userSelect = "SELECT fullName, email, phoneNumber FROM users WHERE id=?";
+        String userSelect = "SELECT b.id, b.title, b.author, b.pages, b.year, " +
+                "u.id as user_id, u.fullName, u.email, u.phoneNumber " +
+                "FROM books b LEFT JOIN users u ON b.user_id = u.id WHERE u.id=?";
         try (Connection connection = LBDatabaseConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(userSelect)) {
 
             statement.setLong(1, userID);
             try (ResultSet rs = statement.executeQuery()) {
-                if (rs.next()) {
-                    user = new User(
-                            userID,
-                            rs.getString("fullName"),
-                            rs.getString("email"),
-                            rs.getString("phoneNumber")
-                    );
-                    for (Book book : bookService.getBooks()) {
-                        if (book.getCurrentUser() != null) {
-                            if (book.getCurrentUser().getId() == user.getId()) {
-                                user.getRentedBooks().add(book);
-                            }
-                        }
+                while (rs.next()) {
+                    if (user == null) {
+                        user = new User(
+                                userID,
+                                rs.getString(FULL_NAME),
+                                rs.getString(EMAIL),
+                                rs.getString(PHONE_NUMBER)
+                        );
+                    }
+                    if (rs.getLong("id") != 0) {
+                        user.getRentedBooks().add(new Book(
+                                rs.getLong(ID),
+                                rs.getString(TITLE),
+                                rs.getString(AUTHOR),
+                                rs.getInt(PAGES),
+                                rs.getInt(YEAR),
+                                user));
                     }
                 }
             }
