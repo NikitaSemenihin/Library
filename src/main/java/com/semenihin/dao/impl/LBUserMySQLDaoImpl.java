@@ -38,41 +38,14 @@ public class LBUserMySQLDaoImpl implements LBUserMySQLDao {
     private LBUserMySQLDaoImpl() {
     }
 
-    //    @Override
-//    public List<User> getUsers() {
-//        List<User> users = new ArrayList<>();
-//        String userSelect = "SELECT id, fullName, email, phoneNumber FROM users";
-//        try (Connection connection = LBDatabaseConnector.getConnection();
-//             PreparedStatement statement = connection.prepareStatement(userSelect);
-//             ResultSet rs = statement.executeQuery()) {
-//            while (rs.next()) {
-//                User user = new User(
-//                        rs.getLong(ID),
-//                        rs.getString(FULL_NAME),
-//                        rs.getString(EMAIL),
-//                        rs.getString(PHONE_NUMBER));
-//                for (Book book : bookService.getBooks()) {
-//                    if (book.getCurrentUser() != null) {
-//                        if (book.getCurrentUser().getId() == user.getId()) {
-//                            user.getRentedBooks().add(book);
-//                        }
-//                    }
-//                }
-//                users.add(user);
-//            }
-//        } catch (SQLException e) {
-//            throw new RuntimeException("Error while reading users", e);
-//        }
-//        return users;
-//    }
     @Override
     public List<User> getUsers() {
         Map<Long, User> usersMap = new HashMap<>();
         String userSelect = "SELECT u.id AS user_id, u.fullName, u.email, u.phoneNumber, b.id " +
                 "AS book_id, b.title, b.author, b.pages, b.year FROM users u LEFT JOIN books b ON u.id = b.user_id";
         try (Connection connection = LBDatabaseConnector.getConnection();
-             PreparedStatement statement = connection.prepareStatement(userSelect);
-             ResultSet rs = statement.executeQuery()) {
+             Statement statement = connection.createStatement();
+             ResultSet rs = statement.executeQuery(userSelect)) {
             while (rs.next()) {
                 long userId = rs.getLong(USER_ID);
 

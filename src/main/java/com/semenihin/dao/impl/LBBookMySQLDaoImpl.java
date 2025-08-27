@@ -91,8 +91,8 @@ public class LBBookMySQLDaoImpl implements LBBookMySQLDao {
                 "u.id as user_id, u.fullName, u.email, u.phoneNumber " +
                 "FROM books b LEFT JOIN users u ON b.user_id = u.id";
         try (Connection connection = LBDatabaseConnector.getConnection();
-             PreparedStatement statement = connection.prepareStatement(selectBooks);
-             ResultSet rs = statement.executeQuery()) {
+             Statement statement = connection.createStatement();
+             ResultSet rs = statement.executeQuery(selectBooks)) {
             while (rs.next()) {
                 User user = null;
                 if (rs.getLong("user_id") != 0) {
