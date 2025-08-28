@@ -135,7 +135,7 @@ public class LBUserMySQLDaoImpl implements LBUserMySQLDao {
 
     @Override
     public void createUser(User user) throws LBFileAccessException {
-        String createUser = "INSERT INTO books (id, fullName, email, phoneNumber) VALUES (?, ?, ?)";
+        String createUser = "INSERT INTO users (id, fullName, email, phoneNumber) VALUES (?, ?, ?, ?)";
         try (Connection connection = LBDatabaseConnector.getConnection();
              PreparedStatement stmt = connection.prepareStatement(createUser)) {
 

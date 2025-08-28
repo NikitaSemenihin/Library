@@ -6,8 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="52acca91-9dc6-4d7d-9493-44ceae8eb237" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/dao/impl/LBBookMySQLDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/dao/impl/LBBookMySQLDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/dao/impl/LBUserMySQLDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/dao/impl/LBUserMySQLDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/semenihin/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/dao/impl/LBBookMySQLDaoImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/semenihin/dao/impl/LBBookMySQLDaoImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/dao/impl/LBUserMySQLDaoImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/semenihin/dao/impl/LBUserMySQLDaoImpl.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
