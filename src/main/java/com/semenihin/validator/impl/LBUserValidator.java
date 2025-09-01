@@ -10,13 +10,12 @@ public class LBUserValidator implements Validator<User> {
 
     public static LBUserValidator getInstance() {
         if (instance == null){
-            return new LBUserValidator();
+            instance = new LBUserValidator();
         }
         return instance;
     }
 
     private LBUserValidator(){
-        LBUserMySQLDao userDao = LBUserMySQLDaoImpl.getInstance();
     }
 
     @Override

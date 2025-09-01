@@ -5,12 +5,41 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="52acca91-9dc6-4d7d-9493-44ceae8eb237" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/constant/LBConstant.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/mapper/LBBookMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/mapper/LBUserMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/mapper/impl/LBBookMapperImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/mapper/impl/LBUserMapperImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/connector/LBDatabaseConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/connector/LBDatabaseConnector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/dao/LBBookMySQLDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/dao/LBBookMySQLDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/dao/LBUserMySQLDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/dao/LBUserMySQLDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/dao/impl/LBBookMySQLDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/dao/impl/LBBookMySQLDaoImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/dao/impl/LBUserMySQLDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/dao/impl/LBUserMySQLDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/exceptions/LBInvalidEntityException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/exceptions/LBInvalidEntityException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/exceptions/LBNotExistException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/exceptions/LBNotExistException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/services/BookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/services/BookService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/services/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/services/impl/LBBookServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/services/impl/LBBookServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/services/impl/LBUserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/services/impl/LBUserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/validator/impl/LBBookValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/validator/impl/LBBookValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/validator/impl/LBUserValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/validator/impl/LBUserValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/semenihin/services/impl/LBBookServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/semenihin/services/impl/LBBookServiceImplTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/semenihin/services/impl/LBUserServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/semenihin/services/impl/LBUserServiceImplTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/semenihin/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/connector/LBDatabaseConnector.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/semenihin/connector/LBDatabaseConnector.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/dao/LBBookMySQLDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/semenihin/dao/LBBookMySQLDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/dao/LBUserMySQLDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/semenihin/dao/LBUserMySQLDao.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/dao/impl/LBBookMySQLDaoImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/semenihin/dao/impl/LBBookMySQLDaoImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/dao/impl/LBUserMySQLDaoImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/semenihin/dao/impl/LBUserMySQLDaoImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/exceptions/LBNotExistException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/semenihin/exceptions/LBNotExistException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/services/BookService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/semenihin/services/BookService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/services/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/semenihin/services/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/services/impl/LBBookServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/semenihin/services/impl/LBBookServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/services/impl/LBUserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/semenihin/services/impl/LBUserServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/validator/impl/LBBookValidator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/semenihin/validator/impl/LBBookValidator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/validator/impl/LBUserValidator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/semenihin/validator/impl/LBUserValidator.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,86 +68,86 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.LBCheckConnection.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.BookTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBBookConverterTest.convertNotNullUserTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBBookConverterTest.convertNullUserTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBBookConverterTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBBookDaoImplTest.createBookExceptionTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBBookDaoImplTest.createBookTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBBookDaoImplTest.deleteBookExceptionTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBBookDaoImplTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBBookDaoImplTest.findBookNullTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBBookDaoImplTest.findBookTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBBookDaoImplTest.findBook_test.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBBookDaoImplTest.getBooksTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBBookDaoImplTest.rentBookExceptionTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBBookDaoImplTest.test.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBBookDaoImplTest.updateBookExceptionTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBBookFileReaderTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBBookServiceImplTest.createBookTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBBookServiceImplTest.createBook_WhenBookAlreadyExist.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBBookServiceImplTest.createBook_WhenBookAreRented.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBBookServiceImplTest.createBook_test.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBBookServiceImplTest.deleteBookExceptionTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBBookServiceImplTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBBookServiceImplTest.existFalseTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBBookServiceImplTest.existTrueTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBBookServiceImplTest.findBookTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBBookServiceImplTest.getBooksTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBBookServiceImplTest.rentBookExceptionTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBBookServiceImplTest.returnBookExceptionTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBBookServiceImplTest.updateBookExceptionTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBUserConverterTest.convertTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBUserConverterTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBUserDaoImplTest.createUserExceptionTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBUserDaoImplTest.createUserTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBUserDaoImplTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBUserDaoImplTest.getUsersTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBUserDaoImplTest.getUsers_test.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBUserDaoImplTest.rentBookTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBUserDaoImplTest.returnBookAllPassTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBUserDaoImplTest.returnBookBookNotExistTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBUserDaoImplTest.returnBookExceptionTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBUserDaoImplTest.returnBookTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBUserDaoImplTest.updateBookInUserExceptionTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBUserDaoImplTest.updateUserExceptionTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBUserDaoImplTest.updateUserTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBUserServiceImplTest.createUserAllPassTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBUserServiceImplTest.createUserExistExceptionTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBUserServiceImplTest.deleteUserExistExceptionTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBUserServiceImplTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBUserServiceImplTest.rentBookAllPassTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBUserServiceImplTest.rentBookBookExistExceptionTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBUserServiceImplTest.rentBookBook_ExistExceptionTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBUserServiceImplTest.rentBookExistExceptionTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBUserServiceImplTest.rentBookUserExistExceptionTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBUserServiceImplTest.rentBookUser_ExistExceptionTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBUserServiceImplTest.rentBook_AlreadyRentedExceptionTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBUserServiceImplTest.rentBook_FileAccessExceptionTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBUserServiceImplTest.returnBookExistExceptionTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBUserServiceImplTest.returnBook_BookExistExceptionTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBUserServiceImplTest.returnBook_FileAccessExceptionTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LBUserServiceImplTest.returnBook_UserExistExceptionTest.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.library [clean,install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.library [clean].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit3&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3&quot;: &quot;junit.framework.TestCase&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/MySQL&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Work/Library-feature-library/Library&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.LBCheckConnection.executor": "Run",
+    "Application.Main.executor": "Run",
+    "JUnit.BookTest.executor": "Run",
+    "JUnit.LBBookConverterTest.convertNotNullUserTest.executor": "Run",
+    "JUnit.LBBookConverterTest.convertNullUserTest.executor": "Run",
+    "JUnit.LBBookConverterTest.executor": "Run",
+    "JUnit.LBBookDaoImplTest.createBookExceptionTest.executor": "Run",
+    "JUnit.LBBookDaoImplTest.createBookTest.executor": "Run",
+    "JUnit.LBBookDaoImplTest.deleteBookExceptionTest.executor": "Run",
+    "JUnit.LBBookDaoImplTest.executor": "Run",
+    "JUnit.LBBookDaoImplTest.findBookNullTest.executor": "Run",
+    "JUnit.LBBookDaoImplTest.findBookTest.executor": "Run",
+    "JUnit.LBBookDaoImplTest.findBook_test.executor": "Run",
+    "JUnit.LBBookDaoImplTest.getBooksTest.executor": "Run",
+    "JUnit.LBBookDaoImplTest.rentBookExceptionTest.executor": "Run",
+    "JUnit.LBBookDaoImplTest.test.executor": "Run",
+    "JUnit.LBBookDaoImplTest.updateBookExceptionTest.executor": "Run",
+    "JUnit.LBBookFileReaderTest.executor": "Run",
+    "JUnit.LBBookServiceImplTest.createBookTest.executor": "Run",
+    "JUnit.LBBookServiceImplTest.createBook_WhenBookAlreadyExist.executor": "Run",
+    "JUnit.LBBookServiceImplTest.createBook_WhenBookAreRented.executor": "Run",
+    "JUnit.LBBookServiceImplTest.createBook_test.executor": "Run",
+    "JUnit.LBBookServiceImplTest.deleteBookExceptionTest.executor": "Run",
+    "JUnit.LBBookServiceImplTest.executor": "Run",
+    "JUnit.LBBookServiceImplTest.existFalseTest.executor": "Run",
+    "JUnit.LBBookServiceImplTest.existTrueTest.executor": "Run",
+    "JUnit.LBBookServiceImplTest.findBookTest.executor": "Run",
+    "JUnit.LBBookServiceImplTest.getBooksTest.executor": "Run",
+    "JUnit.LBBookServiceImplTest.rentBookExceptionTest.executor": "Run",
+    "JUnit.LBBookServiceImplTest.returnBookExceptionTest.executor": "Run",
+    "JUnit.LBBookServiceImplTest.updateBookExceptionTest.executor": "Run",
+    "JUnit.LBUserConverterTest.convertTest.executor": "Run",
+    "JUnit.LBUserConverterTest.executor": "Run",
+    "JUnit.LBUserDaoImplTest.createUserExceptionTest.executor": "Run",
+    "JUnit.LBUserDaoImplTest.createUserTest.executor": "Run",
+    "JUnit.LBUserDaoImplTest.executor": "Run",
+    "JUnit.LBUserDaoImplTest.getUsersTest.executor": "Run",
+    "JUnit.LBUserDaoImplTest.getUsers_test.executor": "Run",
+    "JUnit.LBUserDaoImplTest.rentBookTest.executor": "Run",
+    "JUnit.LBUserDaoImplTest.returnBookAllPassTest.executor": "Run",
+    "JUnit.LBUserDaoImplTest.returnBookBookNotExistTest.executor": "Run",
+    "JUnit.LBUserDaoImplTest.returnBookExceptionTest.executor": "Run",
+    "JUnit.LBUserDaoImplTest.returnBookTest.executor": "Run",
+    "JUnit.LBUserDaoImplTest.updateBookInUserExceptionTest.executor": "Run",
+    "JUnit.LBUserDaoImplTest.updateUserExceptionTest.executor": "Run",
+    "JUnit.LBUserDaoImplTest.updateUserTest.executor": "Run",
+    "JUnit.LBUserServiceImplTest.createUserAllPassTest.executor": "Run",
+    "JUnit.LBUserServiceImplTest.createUserExistExceptionTest.executor": "Run",
+    "JUnit.LBUserServiceImplTest.deleteUserExistExceptionTest.executor": "Run",
+    "JUnit.LBUserServiceImplTest.executor": "Run",
+    "JUnit.LBUserServiceImplTest.rentBookAllPassTest.executor": "Run",
+    "JUnit.LBUserServiceImplTest.rentBookBookExistExceptionTest.executor": "Run",
+    "JUnit.LBUserServiceImplTest.rentBookBook_ExistExceptionTest.executor": "Run",
+    "JUnit.LBUserServiceImplTest.rentBookExistExceptionTest.executor": "Run",
+    "JUnit.LBUserServiceImplTest.rentBookUserExistExceptionTest.executor": "Run",
+    "JUnit.LBUserServiceImplTest.rentBookUser_ExistExceptionTest.executor": "Run",
+    "JUnit.LBUserServiceImplTest.rentBook_AlreadyRentedExceptionTest.executor": "Run",
+    "JUnit.LBUserServiceImplTest.rentBook_FileAccessExceptionTest.executor": "Run",
+    "JUnit.LBUserServiceImplTest.returnBookExistExceptionTest.executor": "Run",
+    "JUnit.LBUserServiceImplTest.returnBook_BookExistExceptionTest.executor": "Run",
+    "JUnit.LBUserServiceImplTest.returnBook_FileAccessExceptionTest.executor": "Run",
+    "JUnit.LBUserServiceImplTest.returnBook_UserExistExceptionTest.executor": "Run",
+    "Maven.library [clean,install].executor": "Run",
+    "Maven.library [clean].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit3",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3": "junit.framework.TestCase",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "feature/MySQL",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Work/Library-feature-library/Library",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.keymap"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="junit.framework.TestCase" />

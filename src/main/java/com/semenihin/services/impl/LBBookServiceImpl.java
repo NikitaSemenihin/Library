@@ -41,7 +41,7 @@ public class LBBookServiceImpl implements BookService {
 
     @Override
     public void createBook(Book book) throws LBFileAccessException {
-        if (!exist(book.getId())) {
+        if (bookDao.findBook(book.getId()) == null) {
             if (book.getCurrentUser() == null) {
                 bookDao.createBook(book);
             } else {
@@ -62,29 +62,21 @@ public class LBBookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> getBooks() {
-        return bookDao.getBooks();
+    public List<Book> findBooks() {
+        return bookDao.findBooks();
     }   
 
     @Override
     public Book findBook(long id) {
-        for (Book book : bookDao.getBooks()) {
-            if (book.getId() == id) {
-                return book;
-            }
-        }
-        return null;
+        return bookDao.findBook(id);
     }
 
     @Override
     public void deleteBook(long id) throws LBFileAccessException {
         boolean isDeleted = false;
 
-        for (Book book : bookDao.getBooks()) {
+        for (Book book : bookDao.findBooks()) {
             if (book.getId() == id) {
-                if (book.getCurrentUser() != null){
-                    userService.returnBook(book.getCurrentUser().getId(), book.getId());
-                }
                 bookDao.delete(findBook(book.getId()));
                 isDeleted = true;
             }
@@ -97,38 +89,30 @@ public class LBBookServiceImpl implements BookService {
 
     @Override
     public void printBooks() {
-        for (Book book : bookDao.getBooks()) {
+        for (Book book : bookDao.findBooks()) {
             bookPrinter.print(book);
         }
     }
 
     @Override
     public void rentBook(long bookId, User user) throws LBFileAccessException {
-        if (exist(bookId)) {
-            bookDao.rentBook(bookId, user);
-        }
-        else {
+        if (bookDao.findBook(bookId) == null) {
             throw new LBNotExistException("Book not exist");
         }
+        if (userService.findUser(user.getId()) == null) {
+            throw new LBNotExistException("User not exist");
+        }
+        bookDao.rentBook(bookId, user);
     }
 
     @Override
     public void returnBook(long bookId) throws LBFileAccessException {
-        if (exist(bookId)) {
-            bookDao.returnBook(bookId);
-        }
-        else {
+        if (bookDao.findBook(bookId) == null) {
             throw new LBNotExistException("Book not exist");
         }
-    }
-
-    @Override
-    public boolean exist(long bookId) {
-        for (Book selectedBook : bookDao.getBooks()) {
-            if (selectedBook.getId() == bookId) {
-                return true;
-            }
+        if (bookDao.findBook(bookId).getCurrentUser() == null) {
+            throw new LBNotExistException("User not exist");
         }
-        return false;
+        bookDao.returnBook(bookId);
     }
 }

@@ -13,9 +13,4 @@ public interface UserService {
 
     void deleteUser(long userId) throws LBFileAccessException;
 
-    void rentBook(long userID, long bookID) throws LBFileAccessException;
-
-    void returnBook(long userID, long bookID) throws LBFileAccessException;
-
-    boolean exist(long userId);
 }

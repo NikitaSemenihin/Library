@@ -11,7 +11,7 @@ public interface BookService {
 
     void updateBook(Book book) throws LBFileAccessException;
 
-    List<Book> getBooks();
+    List<Book> findBooks();
 
     Book findBook(long id);
 
@@ -22,6 +22,4 @@ public interface BookService {
     void rentBook(long bookId, User user) throws LBFileAccessException;
 
     void returnBook(long bookId) throws LBFileAccessException;
-
-    boolean exist(long bookId);
 }

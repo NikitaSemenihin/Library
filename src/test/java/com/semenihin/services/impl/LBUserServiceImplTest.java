@@ -65,9 +65,8 @@ public class LBUserServiceImplTest {
         testUser = new User(TEST_USER_ID, TEST_USER_FULL_NAME, TEST_USER_EMAIL, TEST_USER_PHONE_NUMBER);
         testUsers.add(testUser);
 
-        when(userDao.getUsers()).thenReturn(testUsers);
+        when(userDao.findUsers()).thenReturn(testUsers);
         when(userValidator.validate(testUser)).thenReturn(true);
-        when(bookService.exist(testBook.getId())).thenReturn(true);
         when(bookService.findBook(testBook.getId())).thenReturn(testBook);
         when(userDao.findUser(testUser.getId())).thenReturn(testUser);
     }
@@ -112,70 +111,5 @@ public class LBUserServiceImplTest {
     public void deleteUserExistExceptionTest() throws LBFileAccessException {
         testUsers.remove(testUser);
         userService.deleteUser(testUser.getId());
-    }
-
-    @Test
-    public void rentBookAllPassTest() throws Exception {
-        userService.rentBook(testUser.getId(), testBook.getId());
-        verify(bookService).rentBook(testBook.getId(), testUser);
-    }
-
-    @Test(expected = LBNotExistException.class)
-    public void rentBookUser_ExistExceptionTest() throws LBFileAccessException {
-        testUsers.remove(testUser);
-        userService.rentBook(testUser.getId(), testBook.getId());
-    }
-
-    @Test(expected = LBNotExistException.class)
-    public void rentBookBook_ExistExceptionTest() throws LBFileAccessException {
-        when(bookService.exist(testBook.getId())).thenReturn(false);
-        userService.rentBook(testUser.getId(), testBook.getId());
-    }
-
-    @Test(expected = LBInvalidEntityException.class)
-    public void rentBook_AlreadyRentedExceptionTest() throws LBFileAccessException {
-        testBook.setCurrentUser(testUser);
-        userService.rentBook(testUser.getId(), testBook.getId());
-    }
-
-    @Test(expected = LBFileAccessException.class)
-    public void rentBook_FileAccessExceptionTest() throws LBFileAccessException {
-        doThrow(new LBFileAccessException()).when(bookService).rentBook(testBook.getId(), testUser);
-        userService.rentBook(testUser.getId(), testBook.getId());
-    }
-
-    @Test
-    public void returnBookTest() throws Exception {
-        userService.returnBook(testUser.getId(), testBook.getId());
-        verify(bookService).returnBook(testBook.getId());
-    }
-
-    @Test(expected = LBNotExistException.class)
-    public void returnBook_UserExistExceptionTest() throws LBFileAccessException {
-        testUsers.remove(testUser);
-        userService.returnBook(testUser.getId(), testBook.getId());
-    }
-
-    @Test(expected = LBNotExistException.class)
-    public void returnBook_BookExistExceptionTest() throws LBFileAccessException {
-        when(bookService.exist(testBook.getId())).thenReturn(false);
-        userService.returnBook(testUser.getId(), testBook.getId());
-    }
-
-    @Test(expected = LBFileAccessException.class)
-    public void returnBook_FileAccessExceptionTest() throws LBFileAccessException {
-        doThrow(new LBFileAccessException()).when(bookService).returnBook(testBook.getId());
-        userService.returnBook(testUser.getId(), testBook.getId());
-    }
-
-    @Test
-    public void existTest() {
-        assertTrue(userService.exist(testUser.getId()));
-        assertFalse(userService.exist(-1L));
-    }
-
-    @Test
-    public void updateBookInUserTest() throws Exception {
-        userService.updateBookInUser(testUser.getId(), testBook.getId());
     }
 }

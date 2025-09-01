@@ -11,13 +11,12 @@ public class LBBookValidator implements Validator<Book> {
 
     public static LBBookValidator getInstance() {
         if (instance == null) {
-            return new LBBookValidator();
+            instance = new LBBookValidator();
         }
         return instance;
     }
 
     private LBBookValidator(){
-        LBBookMySQLDao bookDao = LBBookMySQLDaoImpl.getInstance();
     }
 
     @Override
@@ -47,7 +46,10 @@ public class LBBookValidator implements Validator<Book> {
     }
 
     private boolean validateBookUser(Book book) {
-        if (book.getCurrentUser() == null) return true;
-        else return (book.getCurrentUser().getClass() == User.class);
+        if (book.getCurrentUser() == null) {
+            return true;
+        } else {
+            return (book.getCurrentUser().getClass() == User.class);
+        }
     }
 }

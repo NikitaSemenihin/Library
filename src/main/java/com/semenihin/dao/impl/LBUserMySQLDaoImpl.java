@@ -6,27 +6,50 @@ import com.semenihin.dao.LBUserMySQLDao;
 import com.semenihin.entity.Book;
 import com.semenihin.entity.User;
 import com.semenihin.exceptions.LBFileAccessException;
-import com.semenihin.services.BookService;
-import com.semenihin.services.impl.LBBookServiceImpl;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.semenihin.constant.LBConstant.AUTHOR;
+import static com.semenihin.constant.LBConstant.BOOK_ID_IN_SQL;
+import static com.semenihin.constant.LBConstant.EMAIL;
+import static com.semenihin.constant.LBConstant.FULL_NAME;
+import static com.semenihin.constant.LBConstant.PAGES;
+import static com.semenihin.constant.LBConstant.PHONE_NUMBER;
+import static com.semenihin.constant.LBConstant.TITLE;
+import static com.semenihin.constant.LBConstant.USER_ID;
+import static com.semenihin.constant.LBConstant.USER_ID_IN_BOOK;
+import static com.semenihin.constant.LBConstant.YEAR;
+
 public class LBUserMySQLDaoImpl implements LBUserMySQLDao {
+    private static final String SQL_CREATE_USER = """
+            INSERT INTO users (id, fullName, email, phoneNumber) VALUES (?, ?, ?, ?)
+            """;
+    private static final String SQL_UPDATE_USER = """
+            UPDATE users SET fullName=?, email=?, phoneNumber=? WHERE id=?
+            """;
+    private static final String SQL_DELETE_USER = """
+            DELETE FROM users WHERE id=?
+            """;
+    private static final String SQL_FIND_USER = """
+            SELECT b.id, b.title, b.author, b.pages, b.year,
+            u.id as user_id, u.fullName, u.email, u.phoneNumber
+            FROM books b LEFT JOIN users u ON b.user_id = u.id WHERE u.id=?
+            """;
+    private static final String SQL_FIND_USERS = """
+            SELECT u.id AS user_id, u.fullName, u.email, u.phoneNumber, b.id
+            AS book_id, b.title, b.author, b.pages, b.year
+            FROM users u LEFT JOIN books b ON u.id = b.user_id
+            """;
+
     private static LBUserMySQLDaoImpl instance;
-    private final String ID = "id";
-    private final String USER_ID = "user_id";
-    private final String BOOK_ID = "book_id";
-    private final String TITLE = "title";
-    private final String AUTHOR = "author";
-    private final String PAGES = "pages";
-    private final String YEAR = "year";
-    private final String FULL_NAME = "fullName";
-    private final String EMAIL = "email";
-    private final String PHONE_NUMBER = "phoneNumber";
 
     public static LBUserMySQLDaoImpl getInstance() {
         if (instance == null) {
@@ -39,15 +62,13 @@ public class LBUserMySQLDaoImpl implements LBUserMySQLDao {
     }
 
     @Override
-    public List<User> getUsers() {
+    public List<User> findUsers() {
         Map<Long, User> usersMap = new HashMap<>();
-        String userSelect = "SELECT u.id AS user_id, u.fullName, u.email, u.phoneNumber, b.id " +
-                "AS book_id, b.title, b.author, b.pages, b.year FROM users u LEFT JOIN books b ON u.id = b.user_id";
-        try (Connection connection = LBDatabaseConnector.getConnection();
+       try (Connection connection = LBDatabaseConnector.getConnection();
              Statement statement = connection.createStatement();
-             ResultSet rs = statement.executeQuery(userSelect)) {
+             ResultSet rs = statement.executeQuery(SQL_FIND_USERS)) {
             while (rs.next()) {
-                long userId = rs.getLong(USER_ID);
+                long userId = rs.getLong(USER_ID_IN_BOOK);
 
                 User user = usersMap.get(userId);
                 if (user == null) {
@@ -60,10 +81,10 @@ public class LBUserMySQLDaoImpl implements LBUserMySQLDao {
                     usersMap.put(userId, user);
                 }
 
-                long bookId = rs.getLong(BOOK_ID);
-                if (bookId != 0) {
+                String bookId = rs.getString(BOOK_ID_IN_SQL);
+                if (bookId != null) {
                     Book book = new Book(
-                            bookId,
+                            rs.getLong(BOOK_ID_IN_SQL),
                             rs.getString(TITLE),
                             rs.getString(AUTHOR),
                             rs.getInt(PAGES),
@@ -81,9 +102,8 @@ public class LBUserMySQLDaoImpl implements LBUserMySQLDao {
 
     @Override
     public void updateUser(User user) throws LBFileAccessException {
-        String userUpdate = "UPDATE users SET fullName=?, email=?, phoneNumber=? WHERE id=?";
         try (Connection connection = LBDatabaseConnector.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(userUpdate)) {
+             PreparedStatement stmt = connection.prepareStatement(SQL_UPDATE_USER)) {
 
             stmt.setString(1, user.getFullName());
             stmt.setString(2, user.getEmail());
@@ -99,11 +119,8 @@ public class LBUserMySQLDaoImpl implements LBUserMySQLDao {
     @Override
     public User findUser(long userID) {
         User user = null;
-        String userSelect = "SELECT b.id, b.title, b.author, b.pages, b.year, " +
-                "u.id as user_id, u.fullName, u.email, u.phoneNumber " +
-                "FROM books b LEFT JOIN users u ON b.user_id = u.id WHERE u.id=?";
         try (Connection connection = LBDatabaseConnector.getConnection();
-             PreparedStatement statement = connection.prepareStatement(userSelect)) {
+             PreparedStatement statement = connection.prepareStatement(SQL_FIND_USER)) {
 
             statement.setLong(1, userID);
             try (ResultSet rs = statement.executeQuery()) {
@@ -116,9 +133,9 @@ public class LBUserMySQLDaoImpl implements LBUserMySQLDao {
                                 rs.getString(PHONE_NUMBER)
                         );
                     }
-                    if (rs.getLong("id") != 0) {
+                    if (rs.getString(BOOK_ID_IN_SQL) != null) {
                         user.getRentedBooks().add(new Book(
-                                rs.getLong(ID),
+                                rs.getLong(USER_ID),
                                 rs.getString(TITLE),
                                 rs.getString(AUTHOR),
                                 rs.getInt(PAGES),
@@ -135,16 +152,15 @@ public class LBUserMySQLDaoImpl implements LBUserMySQLDao {
 
     @Override
     public void createUser(User user) throws LBFileAccessException {
-        String createUser = "INSERT INTO users (id, fullName, email, phoneNumber) VALUES (?, ?, ?, ?)";
         try (Connection connection = LBDatabaseConnector.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(createUser)) {
+             PreparedStatement statement = connection.prepareStatement(SQL_CREATE_USER)) {
 
-            stmt.setLong(1, user.getId());
-            stmt.setString(2, user.getFullName());
-            stmt.setString(3, user.getEmail());
-            stmt.setString(4, user.getPhoneNumber());
+            statement.setLong(1, user.getId());
+            statement.setString(2, user.getFullName());
+            statement.setString(3, user.getEmail());
+            statement.setString(4, user.getPhoneNumber());
 
-            stmt.executeUpdate();
+            statement.executeUpdate();
 
         } catch (SQLException e) {
             throw new LBFileAccessException("Error while inserting user", e);
@@ -153,12 +169,11 @@ public class LBUserMySQLDaoImpl implements LBUserMySQLDao {
 
     @Override
     public void deleteUser(long userID) throws LBFileAccessException {
-        String deleteBook = "DELETE FROM users WHERE id=?";
         try (Connection connection = LBDatabaseConnector.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(deleteBook)) {
+             PreparedStatement statement = connection.prepareStatement(SQL_DELETE_USER)) {
 
-            stmt.setLong(1, userID);
-            stmt.executeUpdate();
+            statement.setLong(1, userID);
+            statement.executeUpdate();
 
         } catch (SQLException e) {
             throw new LBFileAccessException("Error while deleting user", e);

@@ -13,7 +13,7 @@ public interface LBBookMySQLDao {
 
     void delete(Book book) throws LBFileAccessException;
 
-    List<Book> getBooks();
+    List<Book> findBooks();
 
     Book findBook(long bookId);
 

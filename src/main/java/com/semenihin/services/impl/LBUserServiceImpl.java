@@ -59,7 +59,7 @@ public class LBUserServiceImpl implements UserService {
         if (!userValidator.validate(user)) {
             throw new LBInvalidEntityException("Incorrect fields");
         }
-        if (exist(user.getId())) {
+        if (userDao.findUser(user.getId()) != null) {
             throw new LBInvalidEntityException("User already exist");
         }
         userDao.createUser(user);
@@ -72,58 +72,16 @@ public class LBUserServiceImpl implements UserService {
 
     @Override
     public void printUsers() {
-        for (User user : userDao.getUsers()) {
+        for (User user : userDao.findUsers()) {
             userPrinter.print(user);
         }
     }
 
     @Override
     public void deleteUser(long userId) throws LBFileAccessException {
-        if (!exist(userId)) {
+        if (userDao.findUser(userId) == null) {
             throw new LBNotExistException("User not exist");
         }
         userDao.deleteUser(userId);
-    }
-
-    @Override
-    public void rentBook(long userID, long bookID) throws LBFileAccessException {
-        try {
-            if (!exist(userID)) {
-                throw new LBNotExistException("User not exist");
-            }
-            if (!bookService.exist(bookID)){
-                throw new LBNotExistException("Book not exist");
-            }
-            if (bookService.findBook(bookID).getCurrentUser() != null) {
-                throw new LBInvalidEntityException("Book already rented");
-            }
-            bookService.rentBook(bookID, findUser(userID));
-        } catch (LBFileAccessException e) {
-            throw new LBFileAccessException(e);
-        }
-    }
-
-    @Override
-    public void returnBook(long userID, long bookID) throws LBFileAccessException {
-        try {
-            if (!exist(userID)) {
-                throw new LBNotExistException("User not exist");
-            }
-            if (!bookService.exist(bookID)) {
-                throw new LBNotExistException("Book not exist");
-            }
-            bookService.returnBook(bookID);
-        } catch (LBFileAccessException e) {
-            throw new LBFileAccessException(e);
-        }
-    }
-
-    public boolean exist(long userId) {
-        for (User selectedUser : userDao.getUsers()) {
-            if (selectedUser.getId() == userId) {
-                return true;
-            }
-        }
-        return false;
     }
 }

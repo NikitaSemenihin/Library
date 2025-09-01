@@ -3,7 +3,6 @@ package com.semenihin.services.impl;
 import com.semenihin.dao.LBBookMySQLDao;
 import com.semenihin.entity.Book;
 import com.semenihin.entity.User;
-import com.semenihin.exceptions.LBFileAccessException;
 import com.semenihin.exceptions.LBInvalidEntityException;
 import com.semenihin.exceptions.LBNotExistException;
 import com.semenihin.printer.Printer;
@@ -63,13 +62,13 @@ public class LBBookServiceImplTest {
         testUser = new User(TEST_USER_ID, TEST_USER_FULL_NAME, TEST_USER_EMAIL, TEST_USER_PHONE_NUMBER);
         testBooks.add(testBook);
 
-        when(bookDao.getBooks()).thenReturn(testBooks);
+        when(bookDao.findBooks()).thenReturn(testBooks);
         when(bookValidator.validate(testBook)).thenReturn(true);
     }
 
     @Test
     public void createBookTest() throws Exception {
-        when(bookDao.getBooks()).thenReturn(List.of());
+        when(bookDao.findBooks()).thenReturn(List.of());
 
         bookService.createBook(testBook);
         verify(bookDao).createBook(testBook);
@@ -77,7 +76,7 @@ public class LBBookServiceImplTest {
 
     @Test(expected = LBInvalidEntityException.class)
     public void createBookTest_WhenBookAreRented() throws Exception {
-        when(bookDao.getBooks()).thenReturn(List.of());
+        when(bookDao.findBooks()).thenReturn(List.of());
         testBook.setCurrentUser(testUser);
 
         bookService.createBook(testBook);
@@ -93,7 +92,6 @@ public class LBBookServiceImplTest {
         testBook.setCurrentUser(testUser);
         bookService.updateBook(testBook);
         verify(bookDao).updateBook(testBook);
-        userService.updateBookInUser(testUser.getId(), testBook.getId());
     }
 
     @Test(expected = LBInvalidEntityException.class)
@@ -103,9 +101,9 @@ public class LBBookServiceImplTest {
     }
 
     @Test
-    public void getBooksTest() {
-        bookService.getBooks();
-        verify(bookDao).getBooks();
+    public void findBooksTest() {
+        bookService.findBooks();
+        verify(bookDao).findBooks();
     }
 
     @Test
@@ -118,7 +116,6 @@ public class LBBookServiceImplTest {
     public void deleteBookTest() throws Exception {
         testBook.setCurrentUser(testUser);
         bookService.deleteBook(testBook.getId());
-        verify(userService).returnBook(testUser.getId(), testBook.getId());
         verify(bookDao).delete(testBook);
     }
 
@@ -153,15 +150,5 @@ public class LBBookServiceImplTest {
     @Test(expected = LBNotExistException.class)
     public void returnBookExceptionTest() throws Exception {
         bookService.returnBook(929292);
-    }
-
-    @Test
-    public void existTrueTest() {
-        assertTrue(bookService.exist(testBook.getId()));
-    }
-
-    @Test
-    public void existFalseTest() {
-        assertFalse(bookService.exist(929292));
     }
 }

@@ -1,6 +1,5 @@
 package com.semenihin.dao;
 
-import com.semenihin.entity.Book;
 import com.semenihin.entity.User;
 import com.semenihin.exceptions.LBFileAccessException;
 
@@ -8,7 +7,7 @@ import java.util.List;
 
 public interface LBUserMySQLDao {
 
-    List<User> getUsers();
+    List<User> findUsers();
 
     void updateUser(User user) throws LBFileAccessException;
 
