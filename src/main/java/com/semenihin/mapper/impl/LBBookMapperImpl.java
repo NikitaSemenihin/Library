@@ -17,9 +17,9 @@ public class LBBookMapperImpl implements LBBookMapper {
         List<Book> books = new ArrayList<>();
         while (rs.next()) {
             User user = null;
-            if (rs.getString(USER_ID_IN_BOOK) != null) {
+            if (rs.getString(USER_ID) != null) {
                 user = new User(
-                        rs.getLong(USER_ID_IN_BOOK),
+                        rs.getLong(USER_ID),
                         rs.getString(FULL_NAME),
                         rs.getString(EMAIL),
                         rs.getString(PHONE_NUMBER)
@@ -43,9 +43,9 @@ public class LBBookMapperImpl implements LBBookMapper {
     public Book mapBook(ResultSet rs) throws SQLException {
         if (rs.next()) {
             User user = null;
-            if (rs.getString(USER_ID_IN_BOOK) != null) {
+            if (rs.getString(USER_ID) != null) {
                 user = new User(
-                        rs.getLong(USER_ID_IN_BOOK),
+                        rs.getLong(USER_ID),
                         rs.getString(FULL_NAME),
                         rs.getString(EMAIL),
                         rs.getString(PHONE_NUMBER)

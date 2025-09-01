@@ -5,7 +5,11 @@ import com.semenihin.connector.LBDatabaseConnector;
 import com.semenihin.dao.LBUserMySQLDao;
 import com.semenihin.entity.Book;
 import com.semenihin.entity.User;
+import com.semenihin.exceptions.LBDaoCrashException;
 import com.semenihin.exceptions.LBFileAccessException;
+import com.semenihin.exceptions.LBNotExistException;
+import com.semenihin.mapper.LBUserMapper;
+import com.semenihin.mapper.impl.LBUserMapperImpl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,16 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.semenihin.constant.LBConstant.AUTHOR;
-import static com.semenihin.constant.LBConstant.BOOK_ID_IN_SQL;
-import static com.semenihin.constant.LBConstant.EMAIL;
-import static com.semenihin.constant.LBConstant.FULL_NAME;
-import static com.semenihin.constant.LBConstant.PAGES;
-import static com.semenihin.constant.LBConstant.PHONE_NUMBER;
-import static com.semenihin.constant.LBConstant.TITLE;
-import static com.semenihin.constant.LBConstant.USER_ID;
-import static com.semenihin.constant.LBConstant.USER_ID_IN_BOOK;
-import static com.semenihin.constant.LBConstant.YEAR;
+import static com.semenihin.constant.LBConstant.*;
 
 public class LBUserMySQLDaoImpl implements LBUserMySQLDao {
     private static final String SQL_CREATE_USER = """
@@ -39,9 +34,9 @@ public class LBUserMySQLDaoImpl implements LBUserMySQLDao {
             DELETE FROM users WHERE id=?
             """;
     private static final String SQL_FIND_USER = """
-            SELECT b.id, b.title, b.author, b.pages, b.year,
+            SELECT b.id as book_id, b.title, b.author, b.pages, b.year,
             u.id as user_id, u.fullName, u.email, u.phoneNumber
-            FROM books b LEFT JOIN users u ON b.user_id = u.id WHERE u.id=?
+            FROM books b RIGHT JOIN users u ON b.user_id = u.id WHERE u.id=?
             """;
     private static final String SQL_FIND_USERS = """
             SELECT u.id AS user_id, u.fullName, u.email, u.phoneNumber, b.id
@@ -51,6 +46,8 @@ public class LBUserMySQLDaoImpl implements LBUserMySQLDao {
 
     private static LBUserMySQLDaoImpl instance;
 
+    private final LBUserMapper mapper;
+
     public static LBUserMySQLDaoImpl getInstance() {
         if (instance == null) {
             instance = new LBUserMySQLDaoImpl();
@@ -59,45 +56,18 @@ public class LBUserMySQLDaoImpl implements LBUserMySQLDao {
     }
 
     private LBUserMySQLDaoImpl() {
+        mapper = new LBUserMapperImpl();
     }
 
     @Override
     public List<User> findUsers() {
-        Map<Long, User> usersMap = new HashMap<>();
-       try (Connection connection = LBDatabaseConnector.getConnection();
+        try (Connection connection = LBDatabaseConnector.getConnection();
              Statement statement = connection.createStatement();
              ResultSet rs = statement.executeQuery(SQL_FIND_USERS)) {
-            while (rs.next()) {
-                long userId = rs.getLong(USER_ID_IN_BOOK);
-
-                User user = usersMap.get(userId);
-                if (user == null) {
-                    user = new User(
-                            userId,
-                            rs.getString(FULL_NAME),
-                            rs.getString(EMAIL),
-                            rs.getString(PHONE_NUMBER)
-                    );
-                    usersMap.put(userId, user);
-                }
-
-                String bookId = rs.getString(BOOK_ID_IN_SQL);
-                if (bookId != null) {
-                    Book book = new Book(
-                            rs.getLong(BOOK_ID_IN_SQL),
-                            rs.getString(TITLE),
-                            rs.getString(AUTHOR),
-                            rs.getInt(PAGES),
-                            rs.getInt(YEAR),
-                            user
-                    );
-                    user.getRentedBooks().add(book);
-                }
-            }
+            return mapper.mapUsers(rs);
         } catch (SQLException e) {
-            throw new RuntimeException("Error while reading users", e);
+            throw new LBNotExistException("Error while reading users", e);
         }
-        return new ArrayList<>(usersMap.values());
     }
 
     @Override
@@ -118,36 +88,16 @@ public class LBUserMySQLDaoImpl implements LBUserMySQLDao {
 
     @Override
     public User findUser(long userID) {
-        User user = null;
         try (Connection connection = LBDatabaseConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_FIND_USER)) {
 
             statement.setLong(1, userID);
             try (ResultSet rs = statement.executeQuery()) {
-                while (rs.next()) {
-                    if (user == null) {
-                        user = new User(
-                                userID,
-                                rs.getString(FULL_NAME),
-                                rs.getString(EMAIL),
-                                rs.getString(PHONE_NUMBER)
-                        );
-                    }
-                    if (rs.getString(BOOK_ID_IN_SQL) != null) {
-                        user.getRentedBooks().add(new Book(
-                                rs.getLong(USER_ID),
-                                rs.getString(TITLE),
-                                rs.getString(AUTHOR),
-                                rs.getInt(PAGES),
-                                rs.getInt(YEAR),
-                                user));
-                    }
-                }
+                return mapper.mapUser(rs, userID);
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Error while reading users", e);
+            throw new LBNotExistException("Error while reading users", e);
         }
-        return user;
     }
 
     @Override

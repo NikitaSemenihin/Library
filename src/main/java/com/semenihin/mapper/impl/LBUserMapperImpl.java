@@ -1,10 +1,13 @@
 package com.semenihin.mapper.impl;
 
+import com.semenihin.connector.LBDatabaseConnector;
 import com.semenihin.entity.Book;
 import com.semenihin.entity.User;
-import com.semenihin.exceptions.LBInvalidEntityException;
+import com.semenihin.exceptions.LBFileAccessException;
+import com.semenihin.exceptions.LBNotExistException;
 import com.semenihin.mapper.LBUserMapper;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,11 +23,11 @@ import static com.semenihin.constant.LBConstant.YEAR;
 public class LBUserMapperImpl implements LBUserMapper {
 
     @Override
-    public List<User> mapUsers(PreparedStatement statement) {
-        try (ResultSet rs = statement.executeQuery()) {
+    public List<User> mapUsers(ResultSet rs){
+        try {
             Map<Long, User> usersMap = new HashMap<>();
             while (rs.next()) {
-                long userId = rs.getLong(USER_ID_IN_BOOK);
+                long userId = rs.getLong(USER_ID);
 
                 User user = usersMap.get(userId);
                 if (user == null) {
@@ -37,10 +40,10 @@ public class LBUserMapperImpl implements LBUserMapper {
                     usersMap.put(userId, user);
                 }
 
-                String bookId = rs.getString(BOOK_ID_IN_SQL);
+                String bookId = rs.getString(BOOK_ID);
                 if (bookId != null) {
                     Book book = new Book(
-                            rs.getLong(BOOK_ID_IN_SQL),
+                            rs.getLong(BOOK_ID),
                             rs.getString(TITLE),
                             rs.getString(AUTHOR),
                             rs.getInt(PAGES),
@@ -52,33 +55,36 @@ public class LBUserMapperImpl implements LBUserMapper {
             }
             return new ArrayList<>(usersMap.values());
         } catch (SQLException e) {
-            throw new LBInvalidEntityException("Error while reading users", e);
+            throw new LBNotExistException("Error while reading users", e);
         }
-
     }
 
     @Override
-    public User mapUser(PreparedStatement statement) {
+    public User mapUser(ResultSet rs, long userId) {
         User user = null;
-        while (rs.next()) {
-            if (user == null) {
-                user = new User(
-                        rs.getLong(USER_ID),
-                        rs.getString(FULL_NAME),
-                        rs.getString(EMAIL),
-                        rs.getString(PHONE_NUMBER)
-                );
+        try {
+            while (rs.next()) {
+                if (user == null) {
+                    user = new User(
+                            userId,
+                            rs.getString(FULL_NAME),
+                            rs.getString(EMAIL),
+                            rs.getString(PHONE_NUMBER)
+                    );
+                }
+                if (rs.getString(BOOK_ID) != null) {
+                    user.getRentedBooks().add(new Book(
+                            rs.getLong(USER_ID),
+                            rs.getString(TITLE),
+                            rs.getString(AUTHOR),
+                            rs.getInt(PAGES),
+                            rs.getInt(YEAR),
+                            user));
+                }
             }
-            if (rs.getString(BOOK_ID_IN_SQL) != null) {
-                user.getRentedBooks().add(new Book(
-                        rs.getLong(USER_ID),
-                        rs.getString(TITLE),
-                        rs.getString(AUTHOR),
-                        rs.getInt(PAGES),
-                        rs.getInt(YEAR),
-                        user));
-            }
+            return user;
+        } catch (SQLException e) {
+            throw new LBNotExistException("Error while inserting user", e);
         }
-        return user;
     }
 }

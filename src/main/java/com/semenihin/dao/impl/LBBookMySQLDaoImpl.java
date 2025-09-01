@@ -15,15 +15,7 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.semenihin.constant.LBConstant.AUTHOR;
-import static com.semenihin.constant.LBConstant.BOOK_ID;
-import static com.semenihin.constant.LBConstant.EMAIL;
-import static com.semenihin.constant.LBConstant.FULL_NAME;
-import static com.semenihin.constant.LBConstant.PAGES;
-import static com.semenihin.constant.LBConstant.PHONE_NUMBER;
-import static com.semenihin.constant.LBConstant.TITLE;
-import static com.semenihin.constant.LBConstant.USER_ID_IN_BOOK;
-import static com.semenihin.constant.LBConstant.YEAR;
+import static com.semenihin.constant.LBConstant.*;
 
 public class LBBookMySQLDaoImpl implements LBBookMySQLDao {
     private static final String SQL_CREATE_BOOK = """
@@ -36,12 +28,12 @@ public class LBBookMySQLDaoImpl implements LBBookMySQLDao {
             DELETE FROM books WHERE id=?
             """;
     private static final String SQL_FIND_BOOKS = """
-            SELECT b.id, b.title, b.author, b.pages, b.year,
+            SELECT b.id as book_id, b.title, b.author, b.pages, b.year,
             u.id as user_id, u.fullName, u.email, u.phoneNumber
             FROM books b LEFT JOIN users u ON b.user_id = u.id
             """;
     private static final String SQL_FIND_BOOK = """
-            SELECT b.id, b.title, b.author, b.pages, b.year, u.id as user_id, u.fullName,
+            SELECT b.id as book_id, b.title, b.author, b.pages, b.year, u.id as user_id, u.fullName,
             u.email, u.phoneNumber FROM books b LEFT JOIN users u ON b.user_id = u.id WHERE b.id=?
             """;
     private static final String SQL_RENT_BOOK = """
@@ -124,9 +116,9 @@ public class LBBookMySQLDaoImpl implements LBBookMySQLDao {
              ResultSet rs = statement.executeQuery(SQL_FIND_BOOKS)) {
             while (rs.next()) {
                 User user = null;
-                if (rs.getString(USER_ID_IN_BOOK) != null) {
+                if (rs.getString(USER_ID) != null) {
                     user = new User(
-                            rs.getLong(USER_ID_IN_BOOK),
+                            rs.getLong(USER_ID),
                             rs.getString(FULL_NAME),
                             rs.getString(EMAIL),
                             rs.getString(PHONE_NUMBER)
@@ -158,9 +150,9 @@ public class LBBookMySQLDaoImpl implements LBBookMySQLDao {
             try (ResultSet rs = statement.executeQuery()) {
                 if (rs.next()) {
                     User user = null;
-                    if (rs.getString(USER_ID_IN_BOOK) != null) {
+                    if (rs.getString(USER_ID) != null) {
                         user = new User(
-                                rs.getLong(USER_ID_IN_BOOK),
+                                rs.getLong(USER_ID),
                                 rs.getString(FULL_NAME),
                                 rs.getString(EMAIL),
                                 rs.getString(PHONE_NUMBER)
