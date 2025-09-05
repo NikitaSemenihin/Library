@@ -9,16 +9,15 @@ import com.semenihin.exceptions.LBInvalidEntityException;
 import com.semenihin.exceptions.LBNotExistException;
 import com.semenihin.printer.Printer;
 import com.semenihin.printer.impl.LBUserPrinter;
+import com.semenihin.services.BookService;
 import com.semenihin.services.UserService;
 import com.semenihin.validator.impl.LBUserValidator;
 import com.semenihin.validator.Validator;
 
 public class LBUserServiceImpl implements UserService {
     private LBUserMySQLDao userDao;
-    private static LBUserServiceImpl instance;
-    private LBBookServiceImpl bookService;
     private Validator<User> userValidator;
-    private Printer<User> userPrinter;
+    private static LBUserServiceImpl instance;
 
 
     public static LBUserServiceImpl getInstance() {
@@ -35,22 +34,16 @@ public class LBUserServiceImpl implements UserService {
         this.userDao = userDao;
     }
 
-    private void setBookService(LBBookServiceImpl bookService) {
-        this.bookService = bookService;
-    }
-
     private void setUserValidator(Validator<User> userValidator) {
         this.userValidator = userValidator;
     }
 
     private void setUserPrinter(Printer<User> userPrinter) {
-        this.userPrinter = userPrinter;
     }
 
     private static void injectDependencies(LBUserServiceImpl userService) {
         userService.setUserValidator(LBUserValidator.getInstance());
         userService.setUserDao(LBUserMySQLDaoImpl.getInstance());
-        userService.setBookService(LBBookServiceImpl.getInstance());
         userService.setUserPrinter(LBUserPrinter.getInstance());
     }
 
@@ -71,17 +64,18 @@ public class LBUserServiceImpl implements UserService {
     }
 
     @Override
-    public void printUsers() {
-        for (User user : userDao.findUsers()) {
-            userPrinter.print(user);
-        }
-    }
-
-    @Override
     public void deleteUser(long userId) throws LBFileAccessException {
         if (userDao.findUser(userId) == null) {
             throw new LBNotExistException("User not exist");
         }
         userDao.deleteUser(userId);
+    }
+
+    @Override
+    public void updateUser(User user) throws LBFileAccessException {
+        if (!userValidator.validate(user)) {
+            throw new LBInvalidEntityException("Incorrect fields");
+        }
+        userDao.updateUser(user);
     }
 }

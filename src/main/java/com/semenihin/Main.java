@@ -13,9 +13,9 @@ public class Main {
         UserService userService = LBUserServiceImpl.getInstance();
         BookService bookService = LBBookServiceImpl.getInstance();
         System.out.println(userService.findUser(3));
-        bookService.printBooks();
-        System.out.println("\n\n---------------------------------------------------------------\n\n");
-        userService.printUsers();
+//        bookService.printBooks();
+//        System.out.println("\n\n---------------------------------------------------------------\n\n");
+//        userService.printUsers();
 
 
 //        System.out.println(userService.findUser(1));

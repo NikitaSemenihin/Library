@@ -96,12 +96,6 @@ public class LBUserServiceImplTest {
     }
 
     @Test
-    public void printUsersTest() {
-        userService.printUsers();
-        verify(userPrinter, times(testUsers.size())).print(any(User.class));
-    }
-
-    @Test
     public void deleteUserTest() throws Exception {
         userService.deleteUser(testUser.getId());
         verify(userDao).deleteUser(testUser.getId());

@@ -9,8 +9,8 @@ public interface UserService {
 
     User findUser(long userid);
 
-    void printUsers();
-
     void deleteUser(long userId) throws LBFileAccessException;
+
+    void updateUser(User user) throws LBFileAccessException;
 
 }

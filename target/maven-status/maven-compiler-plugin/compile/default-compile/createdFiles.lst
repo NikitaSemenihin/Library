@@ -1,12 +1,17 @@
 com\semenihin\exceptions\LBFileAccessException.class
+com\semenihin\mapper\impl\LBBookMapperImpl.class
+com\semenihin\mapper\impl\LBUserMapperImpl.class
 com\semenihin\dao\LBUserMySQLDao.class
 com\semenihin\printer\impl\LBBookPrinter.class
 com\semenihin\printer\impl\LBUserPrinter.class
 com\semenihin\validator\impl\LBUserValidator.class
+com\semenihin\mapper\LBUserMapper.class
+com\semenihin\constant\LBConstant.class
 com\semenihin\entity\Book.class
 com\semenihin\exceptions\LBDaoCrashException.class
 com\semenihin\checkConnection\LBCheckConnection.class
 com\semenihin\exceptions\LBServiceCrashException.class
+com\semenihin\mapper\LBBookMapper.class
 com\semenihin\dao\LBBookMySQLDao.class
 com\semenihin\services\impl\LBUserServiceImpl.class
 com\semenihin\services\BookService.class

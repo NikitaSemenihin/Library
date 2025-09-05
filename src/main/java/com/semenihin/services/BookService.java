@@ -2,24 +2,23 @@ package com.semenihin.services;
 
 import com.semenihin.entity.Book;
 import com.semenihin.entity.User;
+import com.semenihin.exceptions.LBDaoException;
 import com.semenihin.exceptions.LBFileAccessException;
 
 import java.util.List;
 
 public interface BookService {
-    void createBook(Book book) throws LBFileAccessException;
+    void createBook(Book book) throws LBDaoException;
 
-    void updateBook(Book book) throws LBFileAccessException;
+    void updateBook(Book book) throws LBDaoException;
 
     List<Book> findBooks();
 
     Book findBook(long id);
 
-    void deleteBook(long id) throws LBFileAccessException;
+    void deleteBook(long id) throws LBDaoException;
 
-    void printBooks();
+    void rentBook(long bookId, long userId) throws LBDaoException;
 
-    void rentBook(long bookId, User user) throws LBFileAccessException;
-
-    void returnBook(long bookId) throws LBFileAccessException;
+    void returnBook(long bookId) throws LBDaoException;
 }

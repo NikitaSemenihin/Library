@@ -4,7 +4,9 @@ import com.semenihin.connector.LBDatabaseConnector;
 import com.semenihin.dao.LBBookMySQLDao;
 import com.semenihin.entity.Book;
 import com.semenihin.entity.User;
-import com.semenihin.exceptions.LBFileAccessException;
+import com.semenihin.exceptions.LBDaoException;
+import com.semenihin.mapper.LBMapper;
+import com.semenihin.mapper.impl.LBBookMapper;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,10 +14,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
-import java.util.ArrayList;
 import java.util.List;
-
-import static com.semenihin.constant.LBConstant.*;
+;
 
 public class LBBookMySQLDaoImpl implements LBBookMySQLDao {
     private static final String SQL_CREATE_BOOK = """
@@ -45,6 +45,8 @@ public class LBBookMySQLDaoImpl implements LBBookMySQLDao {
 
     private static LBBookMySQLDaoImpl instance;
 
+    private final LBMapper<Book> mapper;
+
     public static LBBookMySQLDaoImpl getInstance() {
         if (instance == null) {
             instance = new LBBookMySQLDaoImpl();
@@ -53,10 +55,11 @@ public class LBBookMySQLDaoImpl implements LBBookMySQLDao {
     }
 
     private LBBookMySQLDaoImpl() {
+        mapper = new LBBookMapper();
     }
 
     @Override
-    public void createBook(Book book) throws LBFileAccessException {
+    public void createBook(Book book) throws LBDaoException {
         try (Connection connection = LBDatabaseConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_CREATE_BOOK)) {
 
@@ -73,12 +76,12 @@ public class LBBookMySQLDaoImpl implements LBBookMySQLDao {
             statement.executeUpdate();
 
         } catch (SQLException e) {
-            throw new LBFileAccessException("Error while inserting book", e);
+            throw new LBDaoException("Error while inserting book", e);
         }
     }
 
     @Override
-    public void updateBook(Book book) throws LBFileAccessException {
+    public void updateBook(Book book) throws LBDaoException {
         try (Connection connection = LBDatabaseConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_BOOK)) {
 
@@ -90,13 +93,13 @@ public class LBBookMySQLDaoImpl implements LBBookMySQLDao {
             statement.executeUpdate();
 
         } catch (SQLException e) {
-            throw new LBFileAccessException("Error while updating book", e);
+            throw new LBDaoException("Error while updating book", e);
         }
 
     }
 
     @Override
-    public void delete(Book book) throws LBFileAccessException {
+    public void delete(Book book) throws LBDaoException {
         try (Connection connection = LBDatabaseConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_DELETE_BOOK)) {
 
@@ -104,41 +107,19 @@ public class LBBookMySQLDaoImpl implements LBBookMySQLDao {
             statement.executeUpdate();
 
         } catch (SQLException e) {
-            throw new LBFileAccessException("Error while deleting book", e);
+            throw new LBDaoException("Error while deleting book", e);
         }
     }
 
     @Override
     public List<Book> findBooks() {
-        List<Book> books = new ArrayList<>();
         try (Connection connection = LBDatabaseConnector.getConnection();
              Statement statement = connection.createStatement();
-             ResultSet rs = statement.executeQuery(SQL_FIND_BOOKS)) {
-            while (rs.next()) {
-                User user = null;
-                if (rs.getString(USER_ID) != null) {
-                    user = new User(
-                            rs.getLong(USER_ID),
-                            rs.getString(FULL_NAME),
-                            rs.getString(EMAIL),
-                            rs.getString(PHONE_NUMBER)
-                    );
-                }
-
-                Book book = new Book(
-                        rs.getLong(BOOK_ID),
-                        rs.getString(TITLE),
-                        rs.getString(AUTHOR),
-                        rs.getInt(PAGES),
-                        rs.getInt(YEAR),
-                        user
-                );
-                books.add(book);
-            }
+             ResultSet resultSet = statement.executeQuery(SQL_FIND_BOOKS)) {
+            return mapper.mapEntities(resultSet);
         } catch (SQLException e) {
-            throw new RuntimeException("Error while reading books", e);
+            throw new LBDaoException("Error while reading books", e);
         }
-        return books;
     }
 
     @Override
@@ -147,37 +128,17 @@ public class LBBookMySQLDaoImpl implements LBBookMySQLDao {
              PreparedStatement statement = connection.prepareStatement(SQL_FIND_BOOK)) {
 
             statement.setLong(1, bookId);
-            try (ResultSet rs = statement.executeQuery()) {
-                if (rs.next()) {
-                    User user = null;
-                    if (rs.getString(USER_ID) != null) {
-                        user = new User(
-                                rs.getLong(USER_ID),
-                                rs.getString(FULL_NAME),
-                                rs.getString(EMAIL),
-                                rs.getString(PHONE_NUMBER)
-                        );
-                    }
-
-                    return new Book(
-                            rs.getLong(BOOK_ID),
-                            rs.getString(TITLE),
-                            rs.getString(AUTHOR),
-                            rs.getInt(PAGES),
-                            rs.getInt(YEAR),
-                            user
-                    );
-                }
+            try (ResultSet resultSet = statement.executeQuery()) {
+                return mapper.mapEntity(resultSet, bookId);
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException("Error while finding book", e);
+            throw new LBDaoException("Error while finding book", e);
         }
-        return null;
     }
 
     @Override
-    public void rentBook(long bookId, User user) throws LBFileAccessException {
+    public void rentBook(long bookId, User user) throws LBDaoException {
         try (Connection connection = LBDatabaseConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_RENT_BOOK)) {
 
@@ -186,12 +147,12 @@ public class LBBookMySQLDaoImpl implements LBBookMySQLDao {
             statement.executeUpdate();
 
         } catch (SQLException e) {
-            throw new LBFileAccessException("Error while renting book", e);
+            throw new LBDaoException("Error while renting book", e);
         }
     }
 
     @Override
-    public void returnBook(long bookId) throws LBFileAccessException {
+    public void returnBook(long bookId) throws LBDaoException {
         try (Connection connection = LBDatabaseConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_RETURN_BOOK)) {
 
@@ -199,7 +160,7 @@ public class LBBookMySQLDaoImpl implements LBBookMySQLDao {
             statement.executeUpdate();
 
         } catch (SQLException e) {
-            throw new LBFileAccessException("Error while returning book", e);
+            throw new LBDaoException("Error while returning book", e);
         }
     }
 }

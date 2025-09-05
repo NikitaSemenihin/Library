@@ -125,20 +125,14 @@ public class LBBookServiceImplTest {
     }
 
     @Test
-    public void printBooksTest() {
-        bookService.printBooks();
-        verify(bookPrinter, times(testBooks.size())).print(any(Book.class));
-    }
-
-    @Test
     public void rentBookTest() throws Exception {
-        bookService.rentBook(testBook.getId(), testUser);
+        bookService.rentBook(testBook.getId(), testUser.getId());
         verify(bookDao).rentBook(testBook.getId(), testUser);
     }
 
     @Test(expected = LBNotExistException.class)
     public void rentBookExceptionTest() throws Exception {
-        bookService.rentBook(929292, testUser);
+        bookService.rentBook(929292, testUser.getId());
     }
 
     @Test
