@@ -12,7 +12,7 @@ public interface LBBookMySQLDao {
 
     void updateBook(Book book) throws LBDaoException;
 
-    void delete(Book book) throws LBDaoException;
+    void delete(long id) throws LBDaoException;
 
     List<Book> findBooks();
 

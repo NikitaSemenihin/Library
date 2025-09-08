@@ -12,7 +12,8 @@ public class Main {
     public static void main(String[] args) {
         UserService userService = LBUserServiceImpl.getInstance();
         BookService bookService = LBBookServiceImpl.getInstance();
-        System.out.println(userService.findUser(3));
+
+        System.out.println(userService.findUser(1));
 //        bookService.printBooks();
 //        System.out.println("\n\n---------------------------------------------------------------\n\n");
 //        userService.printUsers();

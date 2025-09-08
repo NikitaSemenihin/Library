@@ -16,6 +16,7 @@ import com.semenihin.validator.Validator;
 import com.semenihin.validator.impl.LBBookValidator;
 
 import java.util.List;
+import java.util.Optional;
 
 public class LBBookServiceImpl implements BookService {
     private UserService userService;
@@ -76,46 +77,40 @@ public class LBBookServiceImpl implements BookService {
 
     @Override
     public void deleteBook(long id) throws LBDaoException {
-        boolean isDeleted = findBooks().stream()
-                .filter(book -> book.getId() == id)
-                .findFirst()
-                .map(book -> {
-                    bookDao.delete(findBook(book.getId()));
-                    return true;
-                })
-                .orElse(false);
-
-        if (!isDeleted) {
-            throw new LBNotExistException("Book isn't exist and cannot be deleted");
-        }
+        Optional.ofNullable(findBook(id)).ifPresentOrElse(
+                book -> bookDao.delete(id),
+                () -> {throw new LBNotExistException("Book doesn't exist and cannot be deleted");}
+        );
     }
 
     @Override
     public void rentBook(long bookId, long userId) throws LBDaoException {
-        if (findBook(bookId) == null) {
+        Book book = findBook(bookId);
+        if (book == null) {
             throw new LBNotExistException("Book not exist");
         }
-        if (findBook(bookId).getCurrentUser() != null) {
+
+        if (book.getCurrentUser() != null) {
             throw new LBInvalidEntityException("Book already rented");
         }
-        User user = userService.findUser(userId);
-        if (user == null) {
-            throw new LBNotExistException("User not exist");
-        }
-        bookDao.rentBook(bookId, user);
+
+        Optional.ofNullable(userService.findUser(userId)).ifPresentOrElse(
+                user -> bookDao.rentBook(bookId, user),
+                () -> {throw new LBNotExistException("User not exist");}
+        );
     }
 
     @Override
     public void returnBook(long bookId) throws LBDaoException {
-        if (findBook(bookId) == null) {
+        Book book = findBook(bookId);
+        if (book == null) {
             throw new LBNotExistException("Book not exist");
         }
-        if (findBook(bookId).getCurrentUser() == null) {
+
+        if (book.getCurrentUser() == null) {
             throw new LBInvalidEntityException("Book not rented");
         }
-        if (findBook(bookId).getCurrentUser() == null) {
-            throw new LBNotExistException("User not exist");
-        }
+
         bookDao.returnBook(bookId);
     }
 }

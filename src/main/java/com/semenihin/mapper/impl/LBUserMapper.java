@@ -2,7 +2,7 @@ package com.semenihin.mapper.impl;
 
 import com.semenihin.entity.Book;
 import com.semenihin.entity.User;
-import com.semenihin.exceptions.LBDaoException;
+import com.semenihin.exceptions.LBMapperException;
 import com.semenihin.mapper.LBMapper;
 
 import java.sql.ResultSet;
@@ -25,6 +25,12 @@ import static com.semenihin.constant.LBConstant.YEAR;
 
 public class LBUserMapper implements LBMapper<User> {
 
+    private LBBookMapper bookMapper;
+
+    public LBUserMapper() {
+        this.bookMapper = new LBBookMapper();
+    }
+
     @Override
     public List<User> mapEntities(ResultSet resultSet) {
         try {
@@ -34,7 +40,7 @@ public class LBUserMapper implements LBMapper<User> {
 
                 User user = usersMap.get(userId);
                 if (user == null) {
-                    user = findUserFromResultSet(resultSet, userId);
+                    user = findUserFromResultSetWithoutResultSetIteration(resultSet);
                     usersMap.put(userId, user);
                 }
 
@@ -45,31 +51,39 @@ public class LBUserMapper implements LBMapper<User> {
             }
             return new ArrayList<>(usersMap.values());
         } catch (SQLException e) {
-            throw new LBDaoException("Error while reading users", e);
+            throw new LBMapperException("Error while reading users", e);
         }
     }
 
     @Override
-    public User mapEntity(ResultSet resultSet, long userId) {
+    public User mapEntity(ResultSet resultSet) {
         try {
-            User user = null;
-            while (resultSet.next()) {
-                if (user == null) {
-                    user = findUserFromResultSet(resultSet, userId);
-                }
-                if (resultSet.getString(BOOK_ID) != null) {
-                    user.getRentedBooks().add(findBookFromResultSet(resultSet, user));
-                }
+            if (!resultSet.next()) {
+                return null;
             }
+
+            User user = findUserFromResultSetWithoutResultSetIteration(resultSet);
+
+            do {
+                addBookToUserIfExistWithoutResultSetIteration(resultSet, user);
+            } while (resultSet.next());
+
             return user;
         } catch (SQLException e) {
-            throw new LBDaoException("Error while inserting user", e);
+            throw new LBMapperException("Error while inserting user", e);
         }
     }
 
-    private User findUserFromResultSet(ResultSet resultSet, long userId) throws SQLException {
+    private void addBookToUserIfExistWithoutResultSetIteration(ResultSet resultSet, User user) throws SQLException {
+        if (resultSet.getString(BOOK_ID) != null) {
+            Book book = bookMapper.mapBookWithoutResultSetIteration(resultSet);
+            user.getRentedBooks().add(book);
+        }
+    }
+
+    private User findUserFromResultSetWithoutResultSetIteration(ResultSet resultSet) throws SQLException {
         return new User(
-                userId,
+                resultSet.getLong(USER_ID),
                 resultSet.getString(FULL_NAME),
                 resultSet.getString(EMAIL),
                 resultSet.getString(PHONE_NUMBER)

@@ -5,39 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="52acca91-9dc6-4d7d-9493-44ceae8eb237" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/exceptions/LBDaoException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/mapper/LBMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/mapper/impl/LBBookMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/exceptions/LBMapperException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/dao/LBBookMySQLDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/dao/LBBookMySQLDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/dao/LBUserMySQLDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/dao/LBUserMySQLDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/dao/impl/LBBookMySQLDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/dao/impl/LBBookMySQLDaoImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/dao/impl/LBUserMySQLDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/dao/impl/LBUserMySQLDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/mapper/LBBookMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/mapper/LBUserMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/mapper/impl/LBBookMapperImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/mapper/impl/LBUserMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/mapper/impl/LBUserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/services/BookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/services/BookService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/services/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/mapper/LBMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/mapper/LBMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/mapper/impl/LBBookMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/mapper/impl/LBBookMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/mapper/impl/LBUserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/mapper/impl/LBUserMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/services/impl/LBBookServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/services/impl/LBBookServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/semenihin/services/impl/LBUserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/semenihin/services/impl/LBUserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/db.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/semenihin/services/impl/LBBookServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/semenihin/services/impl/LBBookServiceImplTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/semenihin/services/impl/LBUserServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/semenihin/services/impl/LBUserServiceImplTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/db.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/db.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/library-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/library-1.0-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/2025-08-22T17-05-40_096.dumpstream" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.semenihin.services.impl.LBBookServiceImplTest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.semenihin.services.impl.LBUserServiceImplTest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.semenihin.services.impl.LBBookServiceImplTest.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.semenihin.services.impl.LBUserServiceImplTest.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/semenihin/services/impl/LBBookServiceImplTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/semenihin/services/impl/LBUserServiceImplTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/semenihin/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/dao/LBBookMySQLDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/semenihin/dao/LBBookMySQLDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/dao/LBUserMySQLDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/semenihin/dao/LBUserMySQLDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/dao/impl/LBBookMySQLDaoImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/semenihin/dao/impl/LBBookMySQLDaoImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/dao/impl/LBUserMySQLDaoImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/semenihin/dao/impl/LBUserMySQLDaoImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/mapper/LBBookMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/mapper/LBUserMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/mapper/impl/LBBookMapperImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/mapper/impl/LBUserMapperImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/services/BookService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/semenihin/services/BookService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/services/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/semenihin/services/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/services/impl/LBBookServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/semenihin/services/impl/LBBookServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/semenihin/services/impl/LBUserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/semenihin/services/impl/LBUserServiceImpl.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,6 +151,9 @@
       <recent name="com.semenihin.dao.impl" />
       <recent name="com.semenihin.entity" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.semenihin.exceptions" />
+    </key>
   </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
@@ -167,7 +161,7 @@
       <command value="mvn clean install" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.LBCheckConnection">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="LBCheckConnection" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.semenihin.checkConnection.LBCheckConnection" />
       <module name="library" />
@@ -251,8 +245,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.LBCheckConnection" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.LBCheckConnection" />
         <item itemvalue="JUnit.LBUserServiceImplTest.returnBook_FileAccessExceptionTest" />
         <item itemvalue="JUnit.LBUserServiceImplTest.returnBook_BookExistExceptionTest" />
         <item itemvalue="JUnit.LBUserServiceImplTest.returnBook_UserExistExceptionTest" />

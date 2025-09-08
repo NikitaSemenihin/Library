@@ -99,11 +99,11 @@ public class LBBookMySQLDaoImpl implements LBBookMySQLDao {
     }
 
     @Override
-    public void delete(Book book) throws LBDaoException {
+    public void delete(long id) throws LBDaoException {
         try (Connection connection = LBDatabaseConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_DELETE_BOOK)) {
 
-            statement.setLong(1, book.getId());
+            statement.setLong(1, id);
             statement.executeUpdate();
 
         } catch (SQLException e) {
@@ -129,7 +129,7 @@ public class LBBookMySQLDaoImpl implements LBBookMySQLDao {
 
             statement.setLong(1, bookId);
             try (ResultSet resultSet = statement.executeQuery()) {
-                return mapper.mapEntity(resultSet, bookId);
+                return mapper.mapEntity(resultSet);
             }
 
         } catch (SQLException e) {

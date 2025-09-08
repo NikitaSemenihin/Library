@@ -116,7 +116,7 @@ public class LBBookServiceImplTest {
     public void deleteBookTest() throws Exception {
         testBook.setCurrentUser(testUser);
         bookService.deleteBook(testBook.getId());
-        verify(bookDao).delete(testBook);
+        verify(bookDao).delete(testBook.getId());
     }
 
     @Test(expected = LBNotExistException.class)

@@ -3,6 +3,7 @@ package com.semenihin.mapper.impl;
 import com.semenihin.entity.Book;
 import com.semenihin.entity.User;
 import com.semenihin.exceptions.LBDaoException;
+import com.semenihin.exceptions.LBMapperException;
 import com.semenihin.mapper.LBMapper;
 
 import java.sql.ResultSet;
@@ -31,23 +32,23 @@ public class LBBookMapper implements LBMapper<Book> {
             }
             return books;
         } catch (SQLException e) {
-            throw new LBDaoException(e);
+            throw new LBMapperException(e);
         }
     }
 
     @Override
-    public Book mapEntity(ResultSet resultSet, long book_id) {
+    public Book mapEntity(ResultSet resultSet) {
         try {
             if (!resultSet.next()) {
                 return null;
             }
             return mapBookWithoutResultSetIteration(resultSet);
         } catch (SQLException e) {
-            throw new LBDaoException(e);
+            throw new LBMapperException(e);
         }
     }
 
-    private Book mapBookWithoutResultSetIteration(ResultSet resultSet) throws SQLException {
+    public Book mapBookWithoutResultSetIteration(ResultSet resultSet) throws SQLException {
         return new Book(
                 resultSet.getLong(BOOK_ID),
                 resultSet.getString(TITLE),

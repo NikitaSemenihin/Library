@@ -55,8 +55,8 @@ public class LBUserMySQLDaoImpl implements LBUserMySQLDao {
     public List<User> findUsers() {
         try (Connection connection = LBDatabaseConnector.getConnection();
              Statement statement = connection.createStatement();
-             ResultSet rs = statement.executeQuery(SQL_FIND_USERS)) {
-            return mapper.mapEntities(rs);
+             ResultSet resultSet = statement.executeQuery(SQL_FIND_USERS)) {
+            return mapper.mapEntities(resultSet);
         } catch (SQLException e) {
             throw new LBDaoException("Error while reading users", e);
         }
@@ -65,13 +65,13 @@ public class LBUserMySQLDaoImpl implements LBUserMySQLDao {
     @Override
     public void updateUser(User user) throws LBDaoException {
         try (Connection connection = LBDatabaseConnector.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(SQL_UPDATE_USER)) {
+             PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_USER)) {
 
-            stmt.setString(1, user.getFullName());
-            stmt.setString(2, user.getEmail());
-            stmt.setString(3, user.getPhoneNumber());
-            stmt.setLong(4, user.getId());
-            stmt.executeUpdate();
+            statement.setString(1, user.getFullName());
+            statement.setString(2, user.getEmail());
+            statement.setString(3, user.getPhoneNumber());
+            statement.setLong(4, user.getId());
+            statement.executeUpdate();
 
         } catch (SQLException e) {
             throw new LBDaoException("Error while updating user", e);
@@ -84,8 +84,8 @@ public class LBUserMySQLDaoImpl implements LBUserMySQLDao {
              PreparedStatement statement = connection.prepareStatement(SQL_FIND_USER)) {
 
             statement.setLong(1, userID);
-            try (ResultSet rs = statement.executeQuery()) {
-                return mapper.mapEntity(rs, userID);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                return mapper.mapEntity(resultSet);
             }
         } catch (SQLException e) {
             throw new LBDaoException("Error while reading users", e);
